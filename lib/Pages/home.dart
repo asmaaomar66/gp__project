@@ -1,6 +1,8 @@
 import 'package:gpproject/Classes/User.dart';
 import 'package:gpproject/Pages/questionPage.dart';
 import 'package:gpproject/Pages/userProfile.dart';
+import 'package:gpproject/Pages/lawyerquestions.dart';
+import 'package:gpproject/Pages/answerquestions.dart';
 import 'package:gpproject/models/user.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
