@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 import 'clicky_button.dart';
 import 'drawerprofile.dart';
@@ -72,170 +73,18 @@ class _MainPageState extends State<MainPage> {
     initUser();
     _data = getClients();
   }
-
-  Future<void> _gettapbar() async {
-    return new DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        drawer: drawerprofile(currentUser: widget.user),
-        appBar: AppBar(
-          shape: CustomShapeBorder(),
-          backgroundColor: Colors.cyan,
-          bottom: new TabBar(
-            tabs: [
-              Tab(
-                  child: IconButton(
-                icon: new Icon(
-                  Icons.person,
-                ),
-                onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => FbCprofileState(
-                              currentuser: widget.currentUser,
-                            ))),
-                iconSize: 30,
-              )),
-              Tab(
-                child: IconButton(
-                  // padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
-                  icon: new Icon(Icons.question_answer),
-                  onPressed: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => questionPage())),
-                  iconSize: 30,
-                ),
-              ),
-
-              Tab(
-                child: IconButton(
-                  // padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
-                  icon: new Icon(Icons.notifications_none),
-                  onPressed: () {},
-                  iconSize: 30,
-                ),
-              ),
-            ],
-            indicatorColor: Colors.white,
-          ),
-        ),
-        body: new TabBarView(
-          children: <Widget>[
-            new FbCprofileState(
-              currentuser: widget.currentUser,
-            ),
-            new questionPage(),
-            // new questionPage(),
-            new questionPage(),
-          ],
-        ),
-      ),
-      // ),
-    );
-  }
-
-  Future<void> _gettapbar1() async {
-    return new DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        drawer: drawerprofile(currentUser: widget.user),
-        appBar: AppBar(
-          shape: CustomShapeBorder(),
-          backgroundColor: Colors.cyan,
-          bottom: new TabBar(
-            tabs: [
-              Tab(
-                  child: IconButton(
-                icon: new Icon(
-                  Icons.person,
-                ),
-                onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => FbCprofileState(
-                              currentuser: widget.currentUser,
-                            ))),
-                iconSize: 30,
-              )),
-              Tab(
-                child: IconButton(
-                  // padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
-                  icon: new Icon(Icons.question_answer),
-                  onPressed: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => questionPage())),
-                  iconSize: 30,
-                ),
-              ),
-              Tab(
-                child: IconButton(
-                  // padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
-                  icon: new Icon(Icons.notifications_none),
-                  onPressed: () {},
-                  iconSize: 30,
-                ),
-              ),
-            ],
-            indicatorColor: Colors.white,
-          ),
-        ),
-        body: new TabBarView(
-          children: <Widget>[
-            new FbCprofileState(
-              currentuser: widget.currentUser,
-            ),
-            new questionPage(),
-            //  new questionPage(),
-            new questionPage(),
-          ],
-        ),
-      ),
-      // ),
-    );
-  }
+  Color prime = Colors.red[800] ;
+  Color second = Colors.white ;
+   int _page = 0 ;
 
   @override
   Widget build(BuildContext context) {
-    return new DefaultTabController(
-      length: 3,
-      child: Scaffold(
+    return new  Scaffold(
         drawer: drawerprofile(currentUser: widget.user),
         appBar: AppBar(
-          shape: CustomShapeBorder(),
-          backgroundColor: Colors.cyan,
-          bottom: new TabBar(
-            tabs: [
-              Tab(
-                  child: IconButton(
-                icon: new Icon(
-                  Icons.person,
-                ),
-                onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => FbCprofileState(
-                              currentuser: widget.currentUser,
-                            ))),
-                iconSize: 30,
-              )),
-              Tab(
-                child: IconButton(
-                  icon: new Icon(Icons.question_answer),
-                  onPressed: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => questionPage())),
-                  iconSize: 30,
-                ),
-              ),
-              Tab(
-                child: IconButton(
-                  icon: new Icon(Icons.notifications_none),
-                  onPressed: () {},
-                  iconSize: 30,
-                ),
-              ),
-            ],
-            indicatorColor: Colors.white,
-          ),
-        ),
-        body: StreamBuilder<DocumentSnapshot>(
+          title: new Icon(Icons.home , size: 20.0, color: second ),
+           ),
+       body: StreamBuilder<DocumentSnapshot>(
           stream: Firestore.instance
               .collection('users')
               .document(widget.user.uid)
@@ -250,7 +99,6 @@ class _MainPageState extends State<MainPage> {
             return LinearProgressIndicator();
           },
         ),
-      ),
     );
   }
   FutureBuilder checkRole(DocumentSnapshot snapshot) {
@@ -280,16 +128,61 @@ class _MainPageState extends State<MainPage> {
     return FutureBuilder(
         future: _data,
         builder: (_, snapshot) {
-          _gettapbar();
           return ListView(
             children: <Widget>[
+               new  BottomNavigationBar(
+                 currentIndex: _page,
+                   items: [
+                      BottomNavigationBarItem(
+                       backgroundColor: prime,
+                       icon: new Icon(Icons.person , color: second,),
+                       title: new Text('الصفحة الشخصية' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                     ),
+                      BottomNavigationBarItem(
+                       backgroundColor: prime,
+                       icon: new Icon(Icons.category , color: second,),
+                       title: new Text('التخصصات' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                     ) ,
+                     BottomNavigationBarItem(
+                       backgroundColor: prime,
+                       icon: new Icon(Icons.help , color: second,),
+                       title: new Text('أسال الان؟' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                     ),
+                      BottomNavigationBarItem(
+                       backgroundColor: prime,
+                       icon:  new Icon(Icons.question_answer , color: second,),
+                       title: new Text('الجواب' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                     ),
+                     BottomNavigationBarItem(
+                       backgroundColor: prime,
+                       icon: new Icon(Icons.notifications_none , color: second,),
+                       title: new Text('الاشعارات' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                     ),
+                   ],
+                    onTap: (index){
+             setState(() {
+               _page = index ; 
+              if(_page == 0){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => FbCprofileState(currentuser: widget.currentUser,)));             
+              }else if (_page == 1){
+              Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+              }else if (_page == 2){
+                   Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+              }else if (_page == 3){
+                    Navigator.push(context,  MaterialPageRoute(builder: (context) => questionPage()));
+              }else if (_page == 4){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => questionPage()));
+              }
+             });
+            },
+            ),
               new Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.teal[900]),
                     borderRadius: BorderRadius.all(Radius.elliptical(30, 30)),
                     color: Colors.white70,
                   ),
-                  margin: EdgeInsets.fromLTRB(20, 80, 20, 50),
+                  margin: EdgeInsets.fromLTRB(20, 40, 20, 50),
                   padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                   child: new TextField(
                     style: TextStyle(),
@@ -303,6 +196,7 @@ class _MainPageState extends State<MainPage> {
                     ),
                   )),
             ],
+
           );
           //}
         });
@@ -311,14 +205,47 @@ class _MainPageState extends State<MainPage> {
     return FutureBuilder(
         future: _data,
         builder: (_, snapshot) {
-          _gettapbar1();
+        //  _gettapbar1();
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: Text(" من فضلك انتظر قليلا... "),
             );
           } else {
-            return Column(
+            return ListView(
               children: <Widget>[
+                 new  BottomNavigationBar(
+                   backgroundColor: prime,
+                 currentIndex: _page,
+                   items: [
+                      BottomNavigationBarItem(
+                       backgroundColor: prime,
+                       icon: new Icon(Icons.person , color: second,),
+                       title: new Text('الصفحة الشخصية' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                     ),
+                      BottomNavigationBarItem(
+                       backgroundColor: prime,
+                       icon:  new Icon(Icons.question_answer , color: second,),
+                       title: new Text('الجواب' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                     ),
+                     BottomNavigationBarItem(
+                       backgroundColor: prime,
+                       icon: new Icon(Icons.notifications_none , color: second,),
+                       title: new Text('الاشعارات' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                     ),
+                   ],
+                    onTap: (index){
+             setState(() {
+               _page = index ; 
+              if(_page == 0){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => FbCprofileState(currentuser: widget.currentUser,)));             
+              }else if (_page == 1){
+              Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+              }else if (_page == 2){
+                   Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+              }
+             });
+            },
+            ),
                 Container(
                   decoration: BoxDecoration(
                       image: DecorationImage(
@@ -418,13 +345,46 @@ class _MainPageState extends State<MainPage> {
           } else {
             return Column(
               children: <Widget>[
+                 new  BottomNavigationBar(
+                   backgroundColor: prime,
+                 currentIndex: _page,
+                   items: [
+                      BottomNavigationBarItem(
+                       backgroundColor: prime,
+                       icon: new Icon(Icons.perm_identity , color: second,),
+                       title: new Text('الصفحة الشخصية' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                     ),
+                      BottomNavigationBarItem(
+                       backgroundColor: prime,
+                       icon:  new Icon(Icons.add_circle_outline , color: second,),
+                       title: new Text('اضافة قضية' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                     ),
+                     BottomNavigationBarItem(
+                       backgroundColor: prime,
+                       icon: new Icon(Icons.notifications_none , color: second,),
+                       title: new Text('الاشعارات' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                     ),
+                   ],
+                    onTap: (index){
+             setState(() {
+               _page = index ; 
+              if(_page == 0){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => FbCprofileState(currentuser: widget.currentUser,)));             
+              }else if (_page == 1){
+              Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+              }else if (_page == 2){
+                   Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+              }
+             });
+            },
+            ),
                 new Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.brown),
                       borderRadius: BorderRadius.all(Radius.elliptical(30, 30)),
                       color: Colors.white70,
                     ),
-                    margin: EdgeInsets.fromLTRB(20, 80, 20, 50),
+                    margin: EdgeInsets.fromLTRB(20, 20, 20, 50),
                     padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                     child: new TextField(
                       style: TextStyle(),
@@ -580,29 +540,5 @@ class _MainPageState extends State<MainPage> {
             );
           }
         });
-  }
-}
-class CustomShapeBorder extends ContinuousRectangleBorder {
-  @override
-  Path getOuterPath(Rect rect, {TextDirection textDirection}) {
-    final double innerCircleRadius = 130.0;
-
-    Path path = Path();
-    path.lineTo(0, rect.height);
-    path.quadraticBezierTo(rect.width / 2 - (innerCircleRadius / 2) - 30,
-        rect.height + 15, rect.width / 2 - 75, rect.height + 50);
-    path.cubicTo(
-        rect.width / 2 - 40,
-        rect.height + innerCircleRadius - 40,
-        rect.width / 2 + 40,
-        rect.height + innerCircleRadius - 40,
-        rect.width / 2 + 75,
-        rect.height + 50);
-    path.quadraticBezierTo(rect.width / 2 + (innerCircleRadius / 2) + 30,
-        rect.height + 15, rect.width, rect.height);
-    path.lineTo(rect.width, 0.0);
-    path.close();
-
-    return path;
   }
 }
