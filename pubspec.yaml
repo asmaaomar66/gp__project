@@ -40,6 +40,8 @@ dependencies:
   carousel_slider:
   worm_indicator:
   scrolling_page_indicator:
+  curved_navigation_bar: ^0.3.2
+
 
 
 
