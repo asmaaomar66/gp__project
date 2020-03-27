@@ -27,7 +27,7 @@ class LawyerClass {
     lawyerModel.username = x['username'];
     lawyerModel.phone = x['phone'];
     lawyerModel.email = x['email'];
-    lawyerModel.paddress = x['gender'];
+    lawyerModel.personaladdress = x['gender'];
   }
   Lawyer getCurrentLawyer(){
     this.getLawyerData();
@@ -44,7 +44,7 @@ class LawyerClass {
       'username': lawyer.username,
       'email': lawyer.email,
       'phone': lawyer.phone,
-      'gender': lawyer.paddress,
+      'gender': lawyer.personaladdress,
       'lname': lawyer.officenumber,
       'officeaddress' : lawyer.officeaddress ,
 

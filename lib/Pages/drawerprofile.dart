@@ -1,13 +1,11 @@
 import 'package:gpproject/Auth/login.dart';
-import 'package:gpproject/Classes/User.dart';
-import 'package:gpproject/Pages/userProfile.dart';
-import 'package:gpproject/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'ProfileUsers.dart';
 import 'home.dart';
 
 
@@ -44,7 +42,7 @@ class drawerprofileState extends State<drawerprofile>  {
           } else if (snapshot.hasData) {
             return checkRole(snapshot.data);
           }
-          return LinearProgressIndicator();
+          return CircularProgressIndicator();
         },
       ),
     );
@@ -124,16 +122,8 @@ class drawerprofileState extends State<drawerprofile>  {
               ),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FbCprofileState(currentuser: widget.currentUser,)));
+                    MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.currentUser,)));
               },
-            ),
-            ListTile(
-              leading: Icon(Icons.category),
-              title: Text(
-                'تخصصات المحامين',
-                style: TextStyle(fontSize: 22),
-              ),
-              onTap: () {},
             ),
             ListTile(
               leading: Icon(Icons.access_time),
@@ -240,7 +230,7 @@ class drawerprofileState extends State<drawerprofile>  {
               ),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FbCprofileState(currentuser: widget.currentUser,)));
+                    MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.currentUser,)));
               },
             ),
             ListTile(
@@ -352,7 +342,7 @@ class drawerprofileState extends State<drawerprofile>  {
               ),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FbCprofileState(currentuser: widget.currentUser,)));
+                    MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.currentUser,)));
               },
             ),
             ListTile(

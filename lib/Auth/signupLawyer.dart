@@ -33,9 +33,9 @@ class _SignUpLawyer extends State<SignUpLawyer> {
       _officenumber,
       _officeaddress,
       _personaladdress,
-      _category,
+     // _category,
       _selectedCategory;
-
+      
   // final userrefrence = Firestore.instance.collection('Lawyer');
   TextEditingController _ChildUserNameController = TextEditingController();
   TextEditingController _ChildEmailController = TextEditingController();
@@ -140,7 +140,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
     _ChildPersonaladdressController.dispose();
   }
 
-
+/*
   List<String> _Categories = [
     " الاسرة والاحوال الشخصية ",
     " الاندماج والتملك ",
@@ -161,7 +161,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
 
   _AddCategory() {
     _selectedCategory = _Categories[0];
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -541,7 +541,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                           onSaved: (input) => _officeaddress = input,
                         ),
                       ),
-                      Padding(
+                    /*  Padding(
                         padding: EdgeInsets.only(
                             left: 15, top: 10, right: 90, bottom: 20.0),
                         child: DropdownButton<String>(
@@ -572,7 +572,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                             });
                           },
                         ),
-                      ),
+                      ),*/
 
                       Padding(
                         padding: EdgeInsets.only(
@@ -613,7 +613,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                 email: _ChildEmailController.text,
                 password: _ChildPassWordController.text,
                 phone: _ChildPhonenumberController.text,
-                paddress: _ChildPersonaladdressController.text ,
+                personaladdress: _ChildPersonaladdressController.text ,
                 officeaddress: _ChildOfficeaddressController.text ,
                 officenumber: _ChildOfficenumberController.text ,
                 image: imageurl,
@@ -651,7 +651,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
         String email,
         String password,
         String phone,
-        String paddress ,
+        String personaladdress ,
         String officeaddress ,
         String officenumber ,
         String image,
@@ -680,10 +680,10 @@ class _SignUpLawyer extends State<SignUpLawyer> {
               email: email,
               password: password,
               phone: phone,
-              paddress: paddress,
+              personaladdress: personaladdress,
               officeaddress: officeaddress,
               officenumber: officenumber,
-              category: category,
+            //  category: category,
               image: imageurl,
               role: role,
             ),
