@@ -20,19 +20,23 @@ class UserClass {
   }
   void setUserData(x){
     print('in user class');
-    userModel.fname = x['Firstname'];
-    userModel.lname = x['Lastname'];
+    userModel.fname = x['Fname'];
+    userModel.lname = x['Lname'];
     userModel.username = x['username'];
     userModel.phone = x['phone'];
     userModel.email = x['email'];
     userModel.gender = x['gender'];
+    userModel.image = x['image'];
+
   }
   User getCurrentUser(){
     this.getUserData();
     userModel.phone;
     return userModel;
   }
-
+Future<String>getcurrentUID() async{
+  return (await _firebaseAuth.currentUser()).uid ;
+}
   //update profile
   Future<void> updateProfile(User user) async {
     print(user.email);
