@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gpproject/Pages/AddTime.dart';
 
 import 'ProfileUsers.dart';
 import 'home.dart';
@@ -239,7 +240,10 @@ class drawerprofileState extends State<drawerprofile>  {
                 'ادخال المواعيد المتاحه',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                 Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AddTime(currentUser:widget.currentUser)));
+              },
             ),
             ListTile(
               leading: Icon(Icons.access_time),
