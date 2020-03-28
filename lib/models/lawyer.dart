@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 Lawyer LawyerFromJson(String str) {
@@ -20,10 +19,10 @@ class Lawyer {
   String email;
   String password;
   String phone;
-  String paddress;
+  String personaladdress;
   String officeaddress;
   String officenumber;
-  String category;
+ // String category;
   String role;
 //  File photo;
   String image;
@@ -36,10 +35,10 @@ class Lawyer {
     this.email,
     this.password,
     this.phone,
-    this.paddress,
+    this.personaladdress,
     this.officeaddress,
     this.officenumber,
-    this.category,
+   // this.category,
     this.role,
   //  this.photo,
     this.image
@@ -52,10 +51,10 @@ class Lawyer {
     "email": email,
     "password": password,
     "phone": phone,
-    "personaladdress.": paddress,
+    "personaladdress": personaladdress,
     "officeaddress": officeaddress,
     "officenumber": officenumber,
-    "category": category,
+  //  "category": category,
    // "photo":photo,
     "image": image,
     "role": '2',
@@ -68,10 +67,10 @@ class Lawyer {
     email: json["email"],
     password: json["password"],
     phone: json["phone"],
-    paddress: json["paddress."],
+    personaladdress: json["personaladdress"],
     officeaddress: json["officeaddress"],
     officenumber: json["officenumber"],
-    category: json["category"],
+ //   category: json["category"],
    // photo: json["photo"],
     image: json["image"],
     role: json["2"],

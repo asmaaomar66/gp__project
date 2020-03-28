@@ -2,10 +2,12 @@ import 'package:badges/badges.dart';
 import 'package:gpproject/Classes/User.dart';
 import 'package:gpproject/Classes/notification.dart';
 import 'package:gpproject/Pages/questionPage.dart';
+
 //import 'package:gpproject/Pages/lawyerquestions.dart';
 import 'package:gpproject/Pages/answerquestions.dart';
 import 'package:gpproject/Pages/question_and_answer.dart';
 import 'package:gpproject/Pages/question_list.dart';
+
 import 'package:gpproject/models/user.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,7 +15,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-//import 'ProfileUsers.dart';
+import 'ProfileUsers.dart';
 import 'clicky_button.dart';
 import 'drawerprofile.dart';
 import 'lawyer_list.dart';
@@ -34,8 +36,8 @@ class _MainPageState extends State<MainPage> {
    final UserSnapshot = Firestore.instance;
   FirebaseUser firebaseUser;
   User currentUser = new User();
- NotificationClass noti = new NotificationClass();
 
+ NotificationClass noti = new NotificationClass();
   initUser() async {
     //firebaseUser = await _firebaseAuth.currentUser();
     //userID = firebaseUser.uid;
@@ -102,6 +104,7 @@ void countDocumentLengthAnswer() async {
   Widget build(BuildContext context) {
     countDocumentLength();
     countDocumentLengthAnswer();
+
     return new  Scaffold(
         drawer: drawerprofile(currentUser: widget.user),
         appBar: AppBar(
@@ -173,6 +176,7 @@ void countDocumentLengthAnswer() async {
                              icon: new Icon(Icons.help , color: second,),
                              title: new Text('أسال الان؟' , style: new TextStyle(fontSize: 10.0 , color: second),)
                            ),
+
                            BottomNavigationBarItem(
                         backgroundColor: prime,
                          icon : new Badge(
@@ -191,13 +195,15 @@ void countDocumentLengthAnswer() async {
                    setState(() {
                      _page = index ; 
                     if(_page == 0){
-                         // Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers( currentUser: widget.user,)));             
+
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers( currentUser: widget.user,)));             
                     }else if (_page == 1){
                    Navigator.push(context,MaterialPageRoute(builder: (context) =>  LawyerList(value: widget.user)));
                     }else if (_page == 2){
                           Navigator.push(context,  MaterialPageRoute(builder: (context) => QuestionAndAnswer(value: widget.user.uid, v: widget.user)));
                         Firestore.instance.collection("answers").where("id", isEqualTo: widget.user.uid).getDocuments().then((snapshot)
                         {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});                
+
                     }else if (_page == 3){
                           Navigator.push(context,  MaterialPageRoute(builder: (context) => questionPage()));
                     }
@@ -266,6 +272,7 @@ void countDocumentLengthAnswer() async {
                              icon: new Icon(Icons.person , color: second,),
                              title: new Text('الصفحة الشخصية' , style: new TextStyle(fontSize: 10.0 , color: second),)
                            ),
+
                            BottomNavigationBarItem(
                          icon : new Badge(
                          animationType: BadgeAnimationType.slide,
@@ -273,6 +280,7 @@ void countDocumentLengthAnswer() async {
                          child: new Icon(Icons.question_answer , color: second, ),),
                          title: new Text('الجواب' , style: new TextStyle(fontSize: 10.0 , color: second),)
                      ),
+
                            BottomNavigationBarItem(
                              backgroundColor: prime,
                              icon: new Icon(Icons.notifications_none , color: second,),
@@ -283,11 +291,13 @@ void countDocumentLengthAnswer() async {
                    setState(() {
                      _page = index ; 
                     if(_page == 0){
-                  //   Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
+
+                     Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
                     }else if (_page == 1){
                            Navigator.push(context,MaterialPageRoute(builder: (context) => QuestionList(value : widget.user.uid, v :widget.user)));
                            Firestore.instance.collection("reading").where("id", isEqualTo: widget.user.uid).getDocuments().then((snapshot)
                            {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});
+
                     }else if (_page == 2){
                          Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
                     }
@@ -417,7 +427,9 @@ void countDocumentLengthAnswer() async {
                    setState(() {
                      _page = index ; 
                     if(_page == 0){
-                        //  Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
+
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
+
                     }else if (_page == 1){
                     Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
                     }else if (_page == 2){
@@ -589,4 +601,6 @@ void countDocumentLengthAnswer() async {
                 }
               });
         }
+
     }
+
