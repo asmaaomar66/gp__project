@@ -1,7 +1,13 @@
+import 'package:badges/badges.dart';
 import 'package:gpproject/Classes/User.dart';
+import 'package:gpproject/Classes/notification.dart';
 import 'package:gpproject/Pages/questionPage.dart';
-import 'package:gpproject/Pages/lawyerquestions.dart';
+
+//import 'package:gpproject/Pages/lawyerquestions.dart';
 import 'package:gpproject/Pages/answerquestions.dart';
+import 'package:gpproject/Pages/question_and_answer.dart';
+import 'package:gpproject/Pages/question_list.dart';
+
 import 'package:gpproject/models/user.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,6 +18,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'ProfileUsers.dart';
 import 'clicky_button.dart';
 import 'drawerprofile.dart';
+import 'lawyer_list.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title, this.user, this.currentUser });
@@ -29,7 +36,8 @@ class _MainPageState extends State<MainPage> {
    final UserSnapshot = Firestore.instance;
   FirebaseUser firebaseUser;
   User currentUser = new User();
- 
+
+ NotificationClass noti = new NotificationClass();
   initUser() async {
     //firebaseUser = await _firebaseAuth.currentUser();
     //userID = firebaseUser.uid;
@@ -71,12 +79,32 @@ class _MainPageState extends State<MainPage> {
     initUser();
     _data = getClients();
   }
+
+  var m ;
+void countDocumentLength() async {
+    QuerySnapshot x = await Firestore.instance.collection("reading")
+    .where("id", isEqualTo: widget.user.uid).getDocuments();
+    List<DocumentSnapshot> _x = x.documents;
+    m =_x.length;
+  }
+
+  var b ;
+void countDocumentLengthAnswer() async {
+    QuerySnapshot x = await Firestore.instance.collection("answers").
+    where("id", isEqualTo: widget.user.uid).getDocuments();
+    List<DocumentSnapshot> _x = x.documents;
+    b =_x.length;
+  }
+
   Color prime = Colors.red[800] ;
   Color second = Colors.white ;
    int _page = 0 ;
    
   @override
   Widget build(BuildContext context) {
+    countDocumentLength();
+    countDocumentLengthAnswer();
+
     return new  Scaffold(
         drawer: drawerprofile(currentUser: widget.user),
         appBar: AppBar(
@@ -148,11 +176,15 @@ class _MainPageState extends State<MainPage> {
                              icon: new Icon(Icons.help , color: second,),
                              title: new Text('أسال الان؟' , style: new TextStyle(fontSize: 10.0 , color: second),)
                            ),
-                            BottomNavigationBarItem(
-                             backgroundColor: prime,
-                             icon:  new Icon(Icons.question_answer , color: second,),
-                             title: new Text('الجواب' , style: new TextStyle(fontSize: 10.0 , color: second),)
-                           ),
+
+                           BottomNavigationBarItem(
+                        backgroundColor: prime,
+                         icon : new Badge(
+                         animationType: BadgeAnimationType.slide,
+                         badgeContent:  Text("$b"),
+                       child: new Icon(Icons.question_answer , color: second,)),
+                       title: new Text('الجواب' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                     ),
                            BottomNavigationBarItem(
                              backgroundColor: prime,
                              icon: new Icon(Icons.notifications_none , color: second,),
@@ -163,11 +195,15 @@ class _MainPageState extends State<MainPage> {
                    setState(() {
                      _page = index ; 
                     if(_page == 0){
+
                           Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers( currentUser: widget.user,)));             
                     }else if (_page == 1){
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+                   Navigator.push(context,MaterialPageRoute(builder: (context) =>  LawyerList(value: widget.user)));
                     }else if (_page == 2){
-                         Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+                          Navigator.push(context,  MaterialPageRoute(builder: (context) => QuestionAndAnswer(value: widget.user.uid, v: widget.user)));
+                        Firestore.instance.collection("answers").where("id", isEqualTo: widget.user.uid).getDocuments().then((snapshot)
+                        {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});                
+
                     }else if (_page == 3){
                           Navigator.push(context,  MaterialPageRoute(builder: (context) => questionPage()));
                     }
@@ -236,11 +272,15 @@ class _MainPageState extends State<MainPage> {
                              icon: new Icon(Icons.person , color: second,),
                              title: new Text('الصفحة الشخصية' , style: new TextStyle(fontSize: 10.0 , color: second),)
                            ),
-                            BottomNavigationBarItem(
-                             backgroundColor: prime,
-                             icon:  new Icon(Icons.question_answer , color: second,),
-                             title: new Text('الجواب' , style: new TextStyle(fontSize: 10.0 , color: second),)
-                           ),
+
+                           BottomNavigationBarItem(
+                         icon : new Badge(
+                         animationType: BadgeAnimationType.slide,
+                         badgeContent:  Text("$m"),
+                         child: new Icon(Icons.question_answer , color: second, ),),
+                         title: new Text('الجواب' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                     ),
+
                            BottomNavigationBarItem(
                              backgroundColor: prime,
                              icon: new Icon(Icons.notifications_none , color: second,),
@@ -251,9 +291,13 @@ class _MainPageState extends State<MainPage> {
                    setState(() {
                      _page = index ; 
                     if(_page == 0){
+
                      Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
                     }else if (_page == 1){
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+                           Navigator.push(context,MaterialPageRoute(builder: (context) => QuestionList(value : widget.user.uid, v :widget.user)));
+                           Firestore.instance.collection("reading").where("id", isEqualTo: widget.user.uid).getDocuments().then((snapshot)
+                           {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});
+
                     }else if (_page == 2){
                          Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
                     }
@@ -383,7 +427,9 @@ class _MainPageState extends State<MainPage> {
                    setState(() {
                      _page = index ; 
                     if(_page == 0){
+
                           Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
+
                     }else if (_page == 1){
                     Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
                     }else if (_page == 2){
@@ -555,4 +601,6 @@ class _MainPageState extends State<MainPage> {
                 }
               });
         }
+
     }
+

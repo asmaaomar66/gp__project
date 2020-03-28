@@ -1,13 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:gpproject/Classes/notification.dart';
+import 'package:gpproject/Classes/User.dart';
+import 'drawerprofile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class questionPage extends StatefulWidget {
+   String id;
+   FirebaseUser user;
+   
+  questionPage({Key key ,this.id, this.user}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
+    
     return new questionPageState();
   }
 
@@ -17,73 +24,55 @@ class questionPage extends StatefulWidget {
 }
 
 class questionPageState extends State<questionPage> {
-  String name='';
-  void onClick(){
-    setState(() {
-      name='ASMAHAN';
-    });
-  }
+  NotificationClass notification = new NotificationClass();
+  UserClass user = new UserClass();
+  TextEditingController _controller = TextEditingController();
+  var vab;
+  var number ;
+  var imp;
+  var state = 'لم تتم الإجابة عن هذا السؤال بعد';
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
+   notification.currentTime();
+  // user.getCurrentUser();
     return new Scaffold(
-
-      appBar: new AppBar(
-
-        backgroundColor: Colors.teal[900],
-        actions: <Widget>[
-          Icon(Icons.list),
-        ],
-        title: new Text(' الأسئله',
-          textDirection: TextDirection.ltr,
-
-
-        )
-
-
-        ,
-
-      ),
-      body: new Container(
-          padding: new EdgeInsets.all(20),
-          margin: new EdgeInsets.all(20),
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-
-              //new Text('أسأل'),
-              //new RaisedButton.icon(onPressed: onClick, icon: new Icon(Icons.question_answer), label:new Text('أسأل')
-              //),
-
-
-
-              new TextField(
-                //autocorrect: true,
-                //autofocus: true,
-
-                keyboardType: TextInputType.text,
-
-                textDirection: TextDirection.rtl,
-                //textAlign: TextAlign.center,
-
-                decoration: new InputDecoration(icon: new Icon(Icons.help,color: Colors.teal[900]),
-                  focusColor: Colors.amber,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-                  hintText: 'أسال سؤالاً',
-                  fillColor: Colors.teal[900],
-
-                ),
-              ),
-              new RaisedButton.icon(onPressed: onClick, icon: new Icon(Icons.question_answer,color: Colors.white,), label:new Text('أسأل',style:TextStyle(color: Colors.white)
-
-                ,),color: Colors.teal[900],
-              ),
-            ],
-          )
-
-      ),
-    );
-
-  }
-}
+                drawer: drawerprofile(currentUser: widget.user,),
+                appBar: AppBar(title: new Text("سل" ),), 
+                body: new Container(
+                      padding: new EdgeInsets.all(10),
+                      margin: new EdgeInsets.all(10),
+               child: new ListView(
+                       children: <Widget>[
+                         new TextField(controller: _controller,
+                                      maxLines:10 ,
+                                      keyboardType: TextInputType.text,
+                                      decoration: new InputDecoration(
+                                        icon: new Icon(Icons.help,color: Colors.redAccent),
+                                      focusColor: Colors.amber,
+                                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+                                      hintText: 'أسال سؤالاً',
+                                      fillColor: Colors.red,),
+                                     ),
+                        new Column( children: <Widget>[
+                            new RaisedButton.icon(onPressed:() async {
+                               final FirebaseUser user = await _auth.currentUser();
+              DocumentReference ref = await Firestore.instance.collection('info').add(
+                {"title": _controller.text, "lawyerid":widget.id});
+                 imp = ref.documentID;
+              Firestore.instance.collection("info").document(imp).updateData(
+                {"Address": imp});
+              Firestore.instance.collection("info").document(imp).updateData({"state": state});
+              Firestore.instance.collection("reading").add({"title": _controller.text , "id": widget.id});
+              Firestore.instance.collection("info").document(imp).updateData({ "userid": user.uid});
+              Firestore.instance.collection("info").document(imp).updateData({"Date": notification.format});
+               _controller.clear();},
+                                            icon: new Icon(Icons.question_answer,
+                                            color: Colors.white,),
+                                            label:new Text('أسأل',style:TextStyle(color: Colors.white),),
+                                                                  color: Colors.red,
+                                                    ),])],)
+    ),);
+}}
 
