@@ -15,26 +15,34 @@ String roleToJson(Role data) {
 class Role {
   String rId;
   String rolename ;
-  String subjectname;
+  String rolenumber ;
+  String subjectname; 
   String bandname;
+  String role;
 
   Role({
     this.rId,
     this.rolename,
+    this.rolenumber,
     this.subjectname,
     this.bandname,
+    this.role,
   });
   Map<String, dynamic> toJson() => {
     "id": rId,
-    "Role-name": rolename,
-    "Subject-name": subjectname,
-    "Band-name": bandname,
+    "Rolename": rolename,
+    "Rolenumber":rolenumber,
+    "Subjectname": subjectname,
+    "Bandname": bandname,
+     "role": 'rule',
   };
   factory Role.fromJson(Map<String, dynamic> json) => new Role(
     rId: json["id"],
-    rolename: json["Role-name"],
-    subjectname: json["Subject-name"],
-    bandname: json["Band-name"],
+    rolename: json["Rolename"],
+    rolenumber: json["Rolenumber"],
+    subjectname: json["Subjectname"],
+    bandname: json["Bandname"],
+    role: json["rule"],
   );
   factory Role.fromDocument(DocumentSnapshot doc) {
     return Role.fromJson(doc.data);

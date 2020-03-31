@@ -33,7 +33,6 @@ class _MainPageState extends State<MainPage> {
   UserClass userClass = new UserClass();
   User user = new User();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-   final UserSnapshot = Firestore.instance;
   FirebaseUser firebaseUser;
   User currentUser = new User();
 
@@ -60,12 +59,6 @@ class _MainPageState extends State<MainPage> {
     return qn.documents;
   }
 
-/*  navigateToDetail(DocumentSnapshot user) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => FbCprofileState(user: currentUser)),
-    );
-  }*/
 
   static Future<void> signOut() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -143,13 +136,11 @@ void countDocumentLengthAnswer() async {
     }
     if (snapshot.data['role'] == '1') {
       return userPage(snapshot) ;
-            //return userPage(snapshot);
           } else if (snapshot.data['role'] == '2') {
             return createListView(snapshot);
-            //return lawyerPage(snapshot);
-          } else {
+          } else if (snapshot.data['role'] == '3'){
             return courtPage(snapshot);
-          }
+          } 
         }    
         FutureBuilder userPage(DocumentSnapshot snapshot) {
           return FutureBuilder(

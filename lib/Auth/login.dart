@@ -1,4 +1,5 @@
 import 'package:gpproject/Auth/ResetPassword.dart';
+import 'package:gpproject/Pages/AdminHome.dart';
 import 'package:gpproject/Pages/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -151,7 +152,7 @@ Future<void> signIn()async{
             email: _email,
          password:_password ) ;
          if (_email == 'admin2020@gmail.com' && _password == '123456admin') {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> questionPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> AdminHome()));
 
          }else{
           Navigator.push(context, MaterialPageRoute(builder: (context)=> MainPage(user:user.user)));

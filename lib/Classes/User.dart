@@ -1,4 +1,9 @@
 import 'dart:async';
+import 'package:gpproject/models/court.dart';
+import 'package:gpproject/models/lawyer.dart';
+import 'package:gpproject/models/roles.dart';
+import 'package:toast/toast.dart';
+
 import '../models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,7 +12,7 @@ class UserClass {
   User userModel = new User();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   FirebaseUser firebaseUser;
-
+  String id ;  
   Future<void> getUserData() async {
     firebaseUser = await _firebaseAuth.currentUser();
     var userID = firebaseUser.uid;
@@ -37,19 +42,7 @@ class UserClass {
 Future<String>getcurrentUID() async{
   return (await _firebaseAuth.currentUser()).uid ;
 }
-  //update profile
-  Future<void> updateProfile(User user) async {
-    print(user.email);
-    firebaseUser = await _firebaseAuth.currentUser();
-    var userID = firebaseUser.uid;
-    Firestore.instance.collection('users').document(userID).updateData({
-      'username': user.username,
-      'email': user.email,
-      'phone': user.phone,
-      'gender': user.gender,
-      'lname': user.lname,
 
-    });
-  }
 
 }
+

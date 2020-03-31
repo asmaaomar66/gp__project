@@ -2,6 +2,7 @@ import 'package:gpproject/Pages/drawerprofile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gpproject/Pages/profileEdit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -40,7 +41,7 @@ class profileUsersState extends State<profileUsers>  {
           } else if (snapshot.hasData) {
             return checkRole(snapshot.data);
           }
-          return CircularProgressIndicator();
+           return LinearProgressIndicator();
         },
       ),
     );
@@ -177,7 +178,7 @@ class profileUsersState extends State<profileUsers>  {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(right: 15.0, top: 7.0),
+                              margin: EdgeInsets.only(right: 0.0, top: 7.0),
                               child: Row(
                                 children: <Widget>[
                                   Icon(
@@ -223,13 +224,16 @@ class profileUsersState extends State<profileUsers>  {
                               child: new Center(
                                         child: new FloatingActionButton(
                                           tooltip: 'تعديل',
-                              backgroundColor: prime,
-                               onPressed: () {},
+                                backgroundColor: prime,
+                               onPressed: () {
+                                  Navigator.push(context,MaterialPageRoute(builder: (context) => profileEdit(currentUser: widget.currentUser,)));
+                               },
                             child: Icon(
                               Icons.edit,
                               color: second,
                               size: 50.0,
                             ),
+                            
                             ),
                               ),
                             ),
@@ -453,28 +457,15 @@ class profileUsersState extends State<profileUsers>  {
                              new FloatingActionButton(
                                           tooltip: 'تعديل',
                               backgroundColor: prime,
-                               onPressed: () {},
+                               onPressed: () {
+                                 Navigator.push(context,MaterialPageRoute(builder: (context) => profileEdit(currentUser: widget.currentUser,)));
+                               },
                             child: Icon(
                               Icons.edit,
                               color: second,
                               size: 50.0,
                             ),
                             ),
-                          /*  Padding(
-                              padding: EdgeInsets.only(top: 80.0),
-                              child: new Center(
-                                        child: new FloatingActionButton(
-                                          tooltip: 'تعديل',
-                              backgroundColor: prime,
-                               onPressed: () {},
-                            child: Icon(
-                              Icons.edit,
-                              color: second,
-                              size: 50.0,
-                            ),
-                            ),
-                              ),
-                            ),*/
                                      ],
                                    ),
                                  ),
@@ -614,7 +605,9 @@ class profileUsersState extends State<profileUsers>  {
                                         child: new FloatingActionButton(
                                           tooltip: 'تعديل',
                               backgroundColor: prime,
-                               onPressed: () {},
+                               onPressed: () {
+                                 Navigator.push(context,MaterialPageRoute(builder: (context) => profileEdit(currentUser: widget.currentUser,)));
+                               },
                             child: Icon(
                               Icons.edit,
                               color: second,

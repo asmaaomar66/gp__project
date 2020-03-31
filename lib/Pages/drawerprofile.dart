@@ -60,9 +60,9 @@ class drawerprofileState extends State<drawerprofile>  {
     }
     else if (snapshot.data['role'] == '2'){
       return lawyerPage(snapshot);
-    } else {
+    } else{
       return courtPage(snapshot);
-    }
+    } 
   }
 
 
@@ -172,8 +172,6 @@ class drawerprofileState extends State<drawerprofile>  {
     /*Center(
         child: Text('${snapshot.data['role']} ${snapshot.data['name']}'));*/
   }
-
-
 
   Drawer lawyerPage(DocumentSnapshot snapshot) {
     return Drawer(
@@ -286,8 +284,6 @@ class drawerprofileState extends State<drawerprofile>  {
         ),
       ),
     );
-    /*Center(
-        child: Text('${snapshot.data['role']} ${snapshot.data['name']}'));*/
   }
 
   Drawer courtPage(DocumentSnapshot snapshot) {
@@ -350,9 +346,17 @@ class drawerprofileState extends State<drawerprofile>  {
               },
             ),
             ListTile(
-              leading: Icon(Icons.details),
+              leading: Icon(Icons.archive),
               title: Text(
-                'تفاصيل القضايا',
+                'الأرشيف',
+                style: TextStyle(fontSize: 22),
+              ),
+              onTap: () {},
+            ),
+             ListTile(
+              leading: Icon(Icons.fiber_new),
+              title: Text(
+                'تحديث',
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {},
@@ -365,17 +369,6 @@ class drawerprofileState extends State<drawerprofile>  {
               ),
               onTap: () {},
             ),
-//            ListTile(
-//              leading: Icon(
-//                Icons.help,
-//                size: 25,
-//              ),
-//              title: Text(
-//                'أسال الان',
-//                style: TextStyle(fontSize: 22),
-//              ),
-//              onTap: () {},
-//            ),
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text(
