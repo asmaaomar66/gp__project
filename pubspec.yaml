@@ -42,6 +42,8 @@ dependencies:
   scrolling_page_indicator:
   curved_navigation_bar: ^0.3.2
   toast: ^0.1.5
+  badges: ^1.1.1
+
 
 
 
