@@ -45,7 +45,7 @@ class _Login extends State<Login> {
                   padding:
                   EdgeInsets.only(left: 80, top: 60, right: 80, bottom: 40.0),
                   child: new Image.asset(
-                    'image/avoc.png',
+                    'image/11.png',
                     height: 170.0,
                     width: 170.0,
                   ),

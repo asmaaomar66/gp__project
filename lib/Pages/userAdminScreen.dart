@@ -177,6 +177,9 @@ class _userscreenState extends State<userscreen> {
                                 ],
                               ),
                             ),
+                            SizedBox(
+                              height: 15.0,
+                            ),
                    Container(
                     padding: EdgeInsets.only(left: 10.0),
                     child: Row(
@@ -203,11 +206,15 @@ class _userscreenState extends State<userscreen> {
                           child: new Text( "حذف",
                               style: TextStyle(
                                 fontSize: 15.0,
-                              ),),
+                              ),
+                              ),
                         ),
                       ],
                     ),
                   ),
+                  SizedBox(
+                              height: 10.0,
+                            ),
                            /* Padding(
                               padding: EdgeInsets.only(top: 80.0),
                               child: new Center(

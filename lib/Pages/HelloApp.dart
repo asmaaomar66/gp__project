@@ -27,7 +27,7 @@ class _HelloApp extends State<HelloApp> {
             children: <Widget>[
               Padding(padding: EdgeInsets.only(left: 80,right: 80,bottom: 40,top: 80),
                 child: new Image.asset(
-                  'image/avocato.png',
+                  'image/12.png',
                   height: 170.0,
                   width: 170.0,
                 ),)

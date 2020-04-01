@@ -271,37 +271,7 @@ class profileEditState extends State<profileEdit>  {
                                                       },
                                                     ),
                                                   ),
-                                                /*  Padding(
-                                                    padding: const EdgeInsets.all(10.0),
-                                                    child: TextFormField(
-                                                      initialValue: '${snapshot.data['password']}',
-                                                      style: TextStyle(
-                                                        fontSize: 18.0,
-                                                      ),
-                                                      onSaved: (input) => _user.password = input,
-                                                      decoration: InputDecoration(
-                                                         hintText: "إدخل كلمة المرور", 
-                                                              hintStyle: TextStyle(
-                                                                fontSize: 18,
-                                                              ),
-                                                              contentPadding:
-                                                                  EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-                                                                  border: OutlineInputBorder(
-                                                                  borderRadius: BorderRadius.circular(10.0)),
-                                                        prefixIcon: Icon(
-                                                          Icons.visibility,
-                                                          color: Colors.grey,
-                                                          size: 32.0,
-                                                        ),
-                                                      ),
-                                                      validator: (value) {
-                                                        if (value.isEmpty) {
-                                                          _user.password = '${snapshot.data['password']}';
-                                                        }
-                                                        return null;
-                                                      },
-                                                    ),
-                                                  ),*/
+                                               
                                                  
                                                   Container(
                                                     padding: const EdgeInsets.all(10.0),

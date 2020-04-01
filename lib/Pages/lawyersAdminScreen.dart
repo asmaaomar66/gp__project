@@ -218,6 +218,9 @@ class _lawyerscreenState extends State<lawyerscreen> {
                                 ],
                               ),
                             ),
+                            SizedBox(
+                              height: 15.0,
+                            ),
                  Container(
                     padding: EdgeInsets.only(left: 10.0),
                     child: Row(
@@ -249,6 +252,9 @@ class _lawyerscreenState extends State<lawyerscreen> {
                       ],
                     ),
                   ),
+                        SizedBox(
+                              height: 10.0,
+                            ),
                           /*  Padding(
                               padding: EdgeInsets.only(top: 80.0),
                               child: new Center(

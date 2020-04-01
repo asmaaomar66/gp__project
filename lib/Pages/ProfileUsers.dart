@@ -220,8 +220,9 @@ class profileUsersState extends State<profileUsers>  {
                                 ],
                               ),
                             ),
+                            
                             Padding(
-                              padding: EdgeInsets.only(top: 80.0),
+                              padding: EdgeInsets.only(top: 80.0 , bottom: 10.0),
                               child: new Center(
                                         child: new FloatingActionButton(
                                           tooltip: 'تعديل',
@@ -232,7 +233,7 @@ class profileUsersState extends State<profileUsers>  {
                             child: Icon(
                               Icons.edit,
                               color: second,
-                              size: 50.0,
+                              size: 30.0,
                             ),
                             
                             ),
@@ -455,6 +456,9 @@ class profileUsersState extends State<profileUsers>  {
                                 ],
                               ),
                             ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
                              new FloatingActionButton(
                                           tooltip: 'تعديل',
                               backgroundColor: third,
@@ -464,8 +468,11 @@ class profileUsersState extends State<profileUsers>  {
                             child: Icon(
                               Icons.edit,
                               color: second,
-                              size: 50.0,
+                              size: 30.0,
                             ),
+                            ),
+                            SizedBox(
+                              height: 15.0,
                             ),
                                      ],
                                    ),
@@ -601,7 +608,7 @@ class profileUsersState extends State<profileUsers>  {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 80.0),
+                              padding: EdgeInsets.only(top: 50.0 , bottom: 10),
                               child: new Center(
                                         child: new FloatingActionButton(
                                           tooltip: 'تعديل',
@@ -612,7 +619,7 @@ class profileUsersState extends State<profileUsers>  {
                             child: Icon(
                               Icons.edit,
                               color: second,
-                              size: 50.0,
+                              size: 30.0,
                             ),
                             ),
                               ),

@@ -117,6 +117,9 @@ class _rulescreenState extends State<rulescreen> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                              height: 10.0,
+                            ),
                 ]
                 )
                 )
