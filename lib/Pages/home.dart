@@ -1,13 +1,12 @@
 import 'package:badges/badges.dart';
 import 'package:gpproject/Classes/User.dart';
+import 'package:gpproject/Pages/addCase.dart';
+import 'package:gpproject/Pages/manageCases.dart';
 import 'package:gpproject/Classes/notification.dart';
 import 'package:gpproject/Pages/questionPage.dart';
-
-//import 'package:gpproject/Pages/lawyerquestions.dart';
 import 'package:gpproject/Pages/answerquestions.dart';
 import 'package:gpproject/Pages/question_and_answer.dart';
 import 'package:gpproject/Pages/question_list.dart';
-
 import 'package:gpproject/models/user.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,6 +14,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'addCase.dart';
 import 'ProfileUsers.dart';
 import 'clicky_button.dart';
 import 'drawerprofile.dart';
@@ -33,10 +33,13 @@ class _MainPageState extends State<MainPage> {
   UserClass userClass = new UserClass();
   User user = new User();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+   final UserSnapshot = Firestore.instance;
   FirebaseUser firebaseUser;
   User currentUser = new User();
 
+
  NotificationClass noti = new NotificationClass();
+
   initUser() async {
     //firebaseUser = await _firebaseAuth.currentUser();
     //userID = firebaseUser.uid;
@@ -58,6 +61,7 @@ class _MainPageState extends State<MainPage> {
         .getDocuments();
     return qn.documents;
   }
+
 
 
   static Future<void> signOut() async {
@@ -136,11 +140,13 @@ void countDocumentLengthAnswer() async {
     }
     if (snapshot.data['role'] == '1') {
       return userPage(snapshot) ;
+
           } else if (snapshot.data['role'] == '2') {
             return createListView(snapshot);
           } else if (snapshot.data['role'] == '3'){
             return courtPage(snapshot);
           } 
+
         }    
         FutureBuilder userPage(DocumentSnapshot snapshot) {
           return FutureBuilder(
@@ -186,7 +192,6 @@ void countDocumentLengthAnswer() async {
                    setState(() {
                      _page = index ; 
                     if(_page == 0){
-
                           Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers( currentUser: widget.user,)));             
                     }else if (_page == 1){
                    Navigator.push(context,MaterialPageRoute(builder: (context) =>  LawyerList(value: widget.user)));
@@ -282,7 +287,6 @@ void countDocumentLengthAnswer() async {
                    setState(() {
                      _page = index ; 
                     if(_page == 0){
-
                      Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
                     }else if (_page == 1){
                            Navigator.push(context,MaterialPageRoute(builder: (context) => QuestionList(value : widget.user.uid, v :widget.user)));
@@ -383,6 +387,8 @@ void countDocumentLengthAnswer() async {
                 }
               });
         }
+
+//---------------------------- COURT PAGE   -------------------------------------
         FutureBuilder courtPage(DocumentSnapshot snapshot) {
           return FutureBuilder(
               future: _data,
@@ -405,8 +411,8 @@ void countDocumentLengthAnswer() async {
                            ),
                             BottomNavigationBarItem(
                              backgroundColor: prime,
-                             icon:  new Icon(Icons.add_circle_outline , color: second,),
-                             title: new Text('اضافة قضية' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                             icon:  new Icon(Icons.archive , color: second,),
+                             title: new Text('الارشيف' , style: new TextStyle(fontSize: 10.0 , color: second),)
                            ),
                            BottomNavigationBarItem(
                              backgroundColor: prime,
@@ -419,7 +425,7 @@ void countDocumentLengthAnswer() async {
                      _page = index ; 
                     if(_page == 0){
 
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
 
                     }else if (_page == 1){
                     Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
@@ -429,13 +435,14 @@ void countDocumentLengthAnswer() async {
                    });
                   },
                   ),
+                     //-----------------------------SEARCH ----------------------------
                       new Container(
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.brown),
                             borderRadius: BorderRadius.all(Radius.elliptical(30, 30)),
                             color: Colors.white70,
                           ),
-                          margin: EdgeInsets.fromLTRB(20, 20, 20, 50),
+                          margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
                           padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                           child: new TextField(
                             style: TextStyle(),
@@ -448,145 +455,76 @@ void countDocumentLengthAnswer() async {
                               hintText: "ابحث عن اسم أو رقم تسلسل القاضية ",
                             ),
                           )),
-                      Container(
-                        height: 90,
-                        margin: EdgeInsets.fromLTRB(0, 5, 5, 0),
-                        child: new Stack(
-                          children: <Widget>[
-                            new Container(
-                              height: 124,
-                              margin: const EdgeInsets.only(left: 46),
-                              // child: Text("الاسم", textDirection: TextDirection.rtl,),
-                              decoration: new BoxDecoration(
-                                color: Colors.blue,
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(25.0),
-                                  bottomRight: Radius.circular(25.0),
-                                  bottomLeft: Radius.circular(25.0),
-                                ),
-                              ),
-                            ),
-                            new Container(
-                                height: 120,
-                                width: 120,
-                                margin: EdgeInsets.fromLTRB(20, 10, 180, 0),
-                                // margin:  EdgeInsets.symmetric(  horizontal: 20,vertical: 20 ,),
-                                alignment: FractionalOffset.centerLeft,
-                                child: new CircleAvatar(
-                                  radius: 40,
-                                  backgroundColor: Colors.transparent,
-                                  backgroundImage: NetworkImage(
-                                      "http://photo.elcinema.com.s3.amazonaws.com/uploads/_315x420_af94736653749ad01096cd6e2757e6489a8750dc5334bb6a0bb9cf8e428d4cc0.jpg"),
-                                )),
-                            new Positioned(
-                              right: 10,
-                              bottom: 25,
-                              child: IconButton(
-                                  iconSize: 30,
-                                  icon: Icon(
-                                    Icons.more,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (_) => Stack(children: <Widget>[
-                                              AlertDialog(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                ),
-                                                content: SingleChildScrollView(
-                                                    child:
-                                                        ListBody(children: <Widget>[
-                                                  new Text(
-                                                    'الاسم',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'رقم التسلسل',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'عنوان المكتب',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'عنوانه الخاص',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'رقم الهاتف',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'رقم البطاقة',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'رقم كارنية النقابة',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                ])),
-                                                actions: <Widget>[
-                                                  Transform.scale(
-                                                    alignment: Alignment.bottomCenter,
-                                                    scale: 0.5,
-                                                    child: ClickyButton(
-                                                      child: Text(
-                                                        'تعديل',
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 35),
-                                                      ),
-                                                      color: Colors.green,
-                                                      onPressed: () {},
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Positioned(
-                                                  left: 126,
-                                                  top: 35,
-                                                  child: new CircleAvatar(
-                                                    radius: 50,
-                                                    backgroundImage: NetworkImage(
-                                                        "http://photo.elcinema.com.s3.amazonaws.com/uploads/_315x420_af94736653749ad01096cd6e2757e6489a8750dc5334bb6a0bb9cf8e428d4cc0.jpg"),
-                                                    backgroundColor:
-                                                        Colors.transparent,
-      
-                                                    // backgroundColor: Colors.white,
-                                                  ))
-                                            ]));
-                                  }),
-                            ),
-                            new Positioned(
-                                right: 65,
-                                bottom: 50,
-                                child: Text(
-                                  ":الاسم",
-                                  style:
-                                      TextStyle(fontSize: 20, color: Colors.black54),
-                                )),
-                            new Positioned(
-                                right: 65,
-                                bottom: 10,
-                                child: Text(
-                                  ":رقم التسلسل",
-                                  style:
-                                      TextStyle(fontSize: 20, color: Colors.black54),
-                                )),
-                          ],
+      //------------------------2 big buttons---------------------------------
+      //----------------------FIRST BUTTON
+                    Container(
+                     child: new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new CircleAvatar(
+                    backgroundColor: prime , 
+                    maxRadius: 87.0,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(
+                            Icons.add_circle,
+                            color: second,
+                            size: 35,
+                          ),
+                          onPressed: () {
+                            Navigator.push(context,new MaterialPageRoute(
+                                builder:(context)=>addCase(currentCourt:widget.user,)
+                            ));
+                          },
                         ),
-                      )
+                        new SizedBox(
+                          height: 3.0,
+                        ),
+                        new Text("اضافة قضيه", style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: second),),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.only(bottom:25),
+                    ),
+                    //---------------------------SECOND BUTTON---------------
+                    Container(
+                       child: new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new CircleAvatar(
+                    backgroundColor:  prime,
+                    maxRadius: 87.0,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(
+                            Icons.settings,
+                            color: second,
+                            size: 35,
+                          ),
+                          onPressed: () {
+                             Navigator.push(
+                               context,new MaterialPageRoute(builder:(context)=>manageCases(currentCourt:widget.user )));
+                          },
+                        ),
+                        new SizedBox(
+                          height: 3.0,
+                        ),
+                        new Text("ادارة القضايا الحاليه",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.white),),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+                    )
                     ],
                   );
                 }
