@@ -5,9 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-import 'package:gpproject/Pages/questionPage.dart';
-
 class Login extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -19,12 +16,15 @@ class _Login extends State<Login> {
   String _email;
   String _password;
   final _formkey = GlobalKey<FormState>();
-
+  Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        backgroundColor: Color.fromRGBO(1, 44, 45, 15),
+        backgroundColor:prime,
+        // Color.fromRGBO(1, 44, 45, 15),
         title: new Text(
           "الأفوكاتو",
           textDirection: TextDirection.rtl,
@@ -117,7 +117,8 @@ class _Login extends State<Login> {
                     ),
                     onPressed: signIn,
                     // padding: EdgeInsets.all(8),
-                    color: Color.fromRGBO(1, 44, 45, 15),
+                    color:third,
+                    // Color.fromRGBO(1, 44, 45, 15),
                     child: Text('تسجيل الدخول',
                         style: TextStyle(color: Colors.white, fontSize: 22)),
                   ),

@@ -18,7 +18,9 @@ final FirebaseUser v ;
 
 
   class _QuestionList extends State<QuestionList>{
-    
+    Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   @override
   
 Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ Widget build(BuildContext context) {
                             style: TextStyle(fontSize: 20,color: Colors.teal[900]),
                             textAlign: TextAlign.right,),
                             subtitle: Row( children: <Widget>[
-                                          Container(child: Text(doc.data['state']),),
+                                          Container(child: Text(doc.data['state'], style: new TextStyle(color: third),),),
                                           Container(margin: EdgeInsets.only(right: 25.0),
                                                     child: Text(doc.data['Date'],
                                                     style: TextStyle(backgroundColor: Colors.blueGrey , color: Colors.white),

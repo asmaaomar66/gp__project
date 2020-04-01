@@ -14,8 +14,9 @@ class Rules extends StatefulWidget {
 }
 
 class _Rules extends State<Rules> {
-   Color prime = Colors.red[800] ;
+   Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   @override
   Widget build(BuildContext context) {
     
@@ -43,7 +44,7 @@ class _Rules extends State<Rules> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   new CircleAvatar(
-                    backgroundColor: prime , 
+                    backgroundColor: third , 
                     maxRadius: 87.0,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +77,7 @@ class _Rules extends State<Rules> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   new CircleAvatar(
-                    backgroundColor:  prime,
+                    backgroundColor:  third,
                     maxRadius: 87.0,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

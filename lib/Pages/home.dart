@@ -2,12 +2,9 @@ import 'package:badges/badges.dart';
 import 'package:gpproject/Classes/User.dart';
 import 'package:gpproject/Classes/notification.dart';
 import 'package:gpproject/Pages/questionPage.dart';
-
-//import 'package:gpproject/Pages/lawyerquestions.dart';
-import 'package:gpproject/Pages/answerquestions.dart';
 import 'package:gpproject/Pages/question_and_answer.dart';
 import 'package:gpproject/Pages/question_list.dart';
-
+import 'package:gpproject/Services/searchservice.dart';
 import 'package:gpproject/models/user.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -89,8 +86,43 @@ void countDocumentLengthAnswer() async {
     b =_x.length;
   }
 
-  Color prime = Colors.red[800] ;
+var queryResultSet = [];
+  var tempSearchStore = [];
+
+  initiateSearch(value) {
+    if (value.length == 0) {
+      setState(() {
+        queryResultSet = [];
+        tempSearchStore = [];
+      });
+    }
+
+    var capitalizedValue =
+        value.substring(0, 1).toUpperCase() + value.substring(1);
+
+    if (queryResultSet.length == 0 && value.length == 1) {
+      SearchService().searchByName(value).then((QuerySnapshot docs) {
+        for (int i = 0; i < docs.documents.length; ++i) {
+          queryResultSet.add(docs.documents[i].data);
+        }
+      });
+    } else {
+      tempSearchStore = [];
+      queryResultSet.forEach((element) {
+        if (element['bussinesname'].startsWith(capitalizedValue)) {
+          setState(() {
+            tempSearchStore.add(element);
+          });
+        }
+      });
+    }
+  }
+  
+
+
+ Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
    int _page = 0 ;
    
   @override
@@ -115,7 +147,7 @@ void countDocumentLengthAnswer() async {
             } else if (snapshot.hasData) {
               return checkRole(snapshot.data);
             }
-            return CircularProgressIndicator();
+            return LinearProgressIndicator();
           },
         ),
     );
@@ -151,10 +183,9 @@ void countDocumentLengthAnswer() async {
                     child: Text("Loading ..."),
                   );
                 } else {
-                return new  Column(
+                return new  ListView(
                           children: <Widget>[
-      
-                             new  BottomNavigationBar(
+                    new  BottomNavigationBar(
                        currentIndex: _page,
                          items: [
                             BottomNavigationBarItem(
@@ -196,20 +227,40 @@ void countDocumentLengthAnswer() async {
                         {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});                
 
                     }else if (_page == 3){
-                          Navigator.push(context,  MaterialPageRoute(builder: (context) => questionPage()));
+                        //  Navigator.push(context,  MaterialPageRoute(builder: (context) => questionPage()));
                     }
                    });
                   },
                   ),
-                 new Container(
+                     /* Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: TextField(
+                     onChanged: (val) {
+                         initiateSearch(val);
+                         },
+              decoration: InputDecoration(
+                  prefixIcon: IconButton(
+                    color: Colors.black,
+                    icon: Icon(Icons.arrow_back),
+                    iconSize: 20.0,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  contentPadding: EdgeInsets.only(left: 25.0),
+                  hintText: 'Search by name',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4.0))),
+            ),
+          ),*/
+                    new Container(
                           child: Padding(
                           padding: EdgeInsets.only(
                               top: 30.0, bottom: 0.0, right: 10.0, left: 10.0),
                           child: Row(
                             children: <Widget>[
                               Flexible(
-                                child: GestureDetector(
-                                  onTap: () {},
+                                child: GestureDetector( 
                                   child: Container(
                                      decoration: BoxDecoration(
                           border: Border.all(color: Colors.teal[900]),
@@ -219,6 +270,8 @@ void countDocumentLengthAnswer() async {
                         margin: EdgeInsets.fromLTRB(20, 0, 20, 50),
                         padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                         child: new TextField(
+                          onChanged: (val) {
+                                initiateSearch(val); },
                           style: TextStyle(),
                           textDirection: TextDirection.rtl,
                           autocorrect: true,
@@ -236,362 +289,399 @@ void countDocumentLengthAnswer() async {
                           ),
                         ),
                       ),
-                ]
-              );
-                }
-      
-              });
-        }
+                      SizedBox(height: 10.0),
+                     GridView.count(
+                    padding: EdgeInsets.only(left: 15.0, right: 15.0),
+                    
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 4.0,
+                    mainAxisSpacing: 4.0,
+                    primary: false,
+                    shrinkWrap: true,
+                    children: tempSearchStore.map((element) {
+                      return buildResultCard(element);
+                                          }).toList())
+                                          
+                      
+                      
+                                      ]
+                                    );
+                                      }
+                            
+                                    });
+                              }
         FutureBuilder createListView(DocumentSnapshot snapshot) {
-          return FutureBuilder(
-              future: _data,
-              builder: (_, snapshot) {
-              //  _gettapbar1();
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: Text(" من فضلك انتظر قليلا... "),
-                  );
-                } else {
-                  return ListView(
-                    children: <Widget>[
-                       new  BottomNavigationBar(
-                         backgroundColor: prime,
-                       currentIndex: _page,
-                         items: [
-                            BottomNavigationBarItem(
-                             backgroundColor: prime,
-                             icon: new Icon(Icons.person , color: second,),
-                             title: new Text('الصفحة الشخصية' , style: new TextStyle(fontSize: 10.0 , color: second),)
-                           ),
-
-                           BottomNavigationBarItem(
-                         icon : new Badge(
-                         animationType: BadgeAnimationType.slide,
-                         badgeContent:  Text("$m"),
-                         child: new Icon(Icons.question_answer , color: second, ),),
-                         title: new Text('الجواب' , style: new TextStyle(fontSize: 10.0 , color: second),)
-                     ),
-
-                           BottomNavigationBarItem(
-                             backgroundColor: prime,
-                             icon: new Icon(Icons.notifications_none , color: second,),
-                             title: new Text('الاشعارات' , style: new TextStyle(fontSize: 10.0 , color: second),)
-                           ),
-                         ],
-                          onTap: (index){
-                   setState(() {
-                     _page = index ; 
-                    if(_page == 0){
-
-                     Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
-                    }else if (_page == 1){
-                           Navigator.push(context,MaterialPageRoute(builder: (context) => QuestionList(value : widget.user.uid, v :widget.user)));
-                           Firestore.instance.collection("reading").where("id", isEqualTo: widget.user.uid).getDocuments().then((snapshot)
-                           {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});
-
-                    }else if (_page == 2){
-                         Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
-                    }
-                   });
-                  },
-                  ),
-                      Container(
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage("image/law.jpg"),
-                                fit: BoxFit.cover)),
-                        child: Column(children: <Widget>[
-                          new Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Color.fromARGB(250, 46, 47, 31),
-                                ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.elliptical(30, 30)),
-                                color: Color.fromARGB(100, 225, 225, 225)
-                                    .withOpacity(0.3),
-                              ),
-                              margin: EdgeInsets.fromLTRB(20, 100, 20, 50),
-                              padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                              child: new TextField(
-                                style: TextStyle(),
-                                textDirection: TextDirection.rtl,
-                                autocorrect: true,
-                                decoration: new InputDecoration(
-                                  border: InputBorder.none,
-                                  icon: new IconButton(
-                                      icon: new Icon(Icons.search), onPressed: null),
-                                ),
-                              )),
-                          new Container(
-                              margin: EdgeInsets.fromLTRB(20, 10, 20, 30),
-                              //  padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                              child: CarouselSlider(
-                                height: (MediaQuery.of(context).size.height) / 3,
-                                aspectRatio: 16 / 9,
-                                viewportFraction: 0.8,
-                                initialPage: 0,
-                                enableInfiniteScroll: true,
-                                reverse: false,
-                                //autoPlay: true,
-                                autoPlayInterval: Duration(seconds: 3),
-                                autoPlayAnimationDuration:
-                                    Duration(milliseconds: 800),
-                                autoPlayCurve: Curves.linear,
-                                pauseAutoPlayOnTouch: Duration(seconds: 10),
-                                enlargeCenterPage: true,
-                                scrollDirection: Axis.horizontal,
-                                items: [1, 2, 3, 4, 5].map((i) {
-                                  return Builder(
-                                    builder: (BuildContext context) {
-                                      return Container(
-                                          width: MediaQuery.of(context).size.width,
-                                          margin:
-                                              EdgeInsets.symmetric(horizontal: 3.0),
-                                          decoration: BoxDecoration(
-                                            color: Color.fromARGB(100, 225, 225, 225)
-                                                .withOpacity(0.3),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.elliptical(30, 30)),
-                                          ),
-                                          child: Text(
-                                            ' عنوان $i',
-                                            style: TextStyle(fontSize: 16.0),
-                                          ));
-                                    },
-                                  );
-                                }).toList(),
-                              )),
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: Material(
-                                type: MaterialType.transparency,
-                                child: new FloatingActionButton(
-                                  onPressed: () {},
-                                  child: new Icon(
-                                    Icons.add,
-                                    color: Colors.white,
-                                    size: 30,
-                                  ),
-                                  backgroundColor: Color.fromARGB(250, 46, 47, 31),
-                                )),
-                          )
-                        ]),
-                      ),
-                    ],
-                  );
-                }
-              });
-        }
-        FutureBuilder courtPage(DocumentSnapshot snapshot) {
-          return FutureBuilder(
-              future: _data,
-              builder: (_, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: Text(" من فضلك انتظر قليلا... "),
-                  );
-                } else {
-                  return Column(
-                    children: <Widget>[
-                       new  BottomNavigationBar(
-                         backgroundColor: prime,
-                       currentIndex: _page,
-                         items: [
-                            BottomNavigationBarItem(
-                             backgroundColor: prime,
-                             icon: new Icon(Icons.perm_identity , color: second,),
-                             title: new Text('الصفحة الشخصية' , style: new TextStyle(fontSize: 10.0 , color: second),)
-                           ),
-                            BottomNavigationBarItem(
-                             backgroundColor: prime,
-                             icon:  new Icon(Icons.add_circle_outline , color: second,),
-                             title: new Text('اضافة قضية' , style: new TextStyle(fontSize: 10.0 , color: second),)
-                           ),
-                           BottomNavigationBarItem(
-                             backgroundColor: prime,
-                             icon: new Icon(Icons.notifications_none , color: second,),
-                             title: new Text('الاشعارات' , style: new TextStyle(fontSize: 10.0 , color: second),)
-                           ),
-                         ],
-                          onTap: (index){
-                   setState(() {
-                     _page = index ; 
-                    if(_page == 0){
-
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
-
-                    }else if (_page == 1){
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
-                    }else if (_page == 2){
-                         Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
-                    }
-                   });
-                  },
-                  ),
-                      new Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.brown),
-                            borderRadius: BorderRadius.all(Radius.elliptical(30, 30)),
-                            color: Colors.white70,
-                          ),
-                          margin: EdgeInsets.fromLTRB(20, 20, 20, 50),
-                          padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                          child: new TextField(
-                            style: TextStyle(),
-                            textDirection: TextDirection.rtl,
-                            autocorrect: true,
-                            decoration: new InputDecoration(
-                              border: InputBorder.none,
-                              icon: new IconButton(
-                                  icon: new Icon(Icons.search), onPressed: null),
-                              hintText: "ابحث عن اسم أو رقم تسلسل القاضية ",
-                            ),
-                          )),
-                      Container(
-                        height: 90,
-                        margin: EdgeInsets.fromLTRB(0, 5, 5, 0),
-                        child: new Stack(
-                          children: <Widget>[
-                            new Container(
-                              height: 124,
-                              margin: const EdgeInsets.only(left: 46),
-                              // child: Text("الاسم", textDirection: TextDirection.rtl,),
-                              decoration: new BoxDecoration(
-                                color: Colors.blue,
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(25.0),
-                                  bottomRight: Radius.circular(25.0),
-                                  bottomLeft: Radius.circular(25.0),
-                                ),
-                              ),
-                            ),
-                            new Container(
-                                height: 120,
-                                width: 120,
-                                margin: EdgeInsets.fromLTRB(20, 10, 180, 0),
-                                // margin:  EdgeInsets.symmetric(  horizontal: 20,vertical: 20 ,),
-                                alignment: FractionalOffset.centerLeft,
-                                child: new CircleAvatar(
-                                  radius: 40,
-                                  backgroundColor: Colors.transparent,
-                                  backgroundImage: NetworkImage(
-                                      "http://photo.elcinema.com.s3.amazonaws.com/uploads/_315x420_af94736653749ad01096cd6e2757e6489a8750dc5334bb6a0bb9cf8e428d4cc0.jpg"),
-                                )),
-                            new Positioned(
-                              right: 10,
-                              bottom: 25,
-                              child: IconButton(
-                                  iconSize: 30,
-                                  icon: Icon(
-                                    Icons.more,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (_) => Stack(children: <Widget>[
-                                              AlertDialog(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                ),
-                                                content: SingleChildScrollView(
-                                                    child:
-                                                        ListBody(children: <Widget>[
-                                                  new Text(
-                                                    'الاسم',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'رقم التسلسل',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'عنوان المكتب',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'عنوانه الخاص',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'رقم الهاتف',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'رقم البطاقة',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'رقم كارنية النقابة',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                ])),
-                                                actions: <Widget>[
-                                                  Transform.scale(
-                                                    alignment: Alignment.bottomCenter,
-                                                    scale: 0.5,
-                                                    child: ClickyButton(
-                                                      child: Text(
-                                                        'تعديل',
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 35),
+                                return FutureBuilder(
+                                    future: _data,
+                                    builder: (_, snapshot) {
+                                    //  _gettapbar1();
+                                      if (snapshot.connectionState == ConnectionState.waiting) {
+                                        return Center(
+                                          child: Text(" من فضلك انتظر قليلا... "),
+                                        );
+                                      } else {
+                                        return ListView(
+                                          children: <Widget>[
+                                             new  BottomNavigationBar(
+                                               backgroundColor: prime,
+                                             currentIndex: _page,
+                                               items: [
+                                                  BottomNavigationBarItem(
+                                                   backgroundColor: prime,
+                                                   icon: new Icon(Icons.person , color: second,),
+                                                   title: new Text('الصفحة الشخصية' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                                                 ),
+                      
+                                                 BottomNavigationBarItem(
+                                               icon : new Badge(
+                                               animationType: BadgeAnimationType.slide,
+                                               badgeContent:  Text("$m"),
+                                               child: new Icon(Icons.question_answer , color: second, ),),
+                                               title: new Text('الجواب' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                                           ),
+                      
+                                                 BottomNavigationBarItem(
+                                                   backgroundColor: prime,
+                                                   icon: new Icon(Icons.notifications_none , color: second,),
+                                                   title: new Text('الاشعارات' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                                                 ),
+                                               ],
+                                                onTap: (index){
+                                         setState(() {
+                                           _page = index ; 
+                                          if(_page == 0){
+                      
+                                           Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
+                                          }else if (_page == 1){
+                                                 Navigator.push(context,MaterialPageRoute(builder: (context) => QuestionList(value : widget.user.uid, v :widget.user)));
+                                                 Firestore.instance.collection("reading").where("id", isEqualTo: widget.user.uid).getDocuments().then((snapshot)
+                                                 {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});
+                      
+                                          }else if (_page == 2){
+                                              // Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+                                          }
+                                         });
+                                        },
+                                        ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      image: AssetImage("image/law.jpg"),
+                                                      fit: BoxFit.cover)),
+                                              child: Column(children: <Widget>[
+                                                new Container(
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                        color: Color.fromARGB(250, 46, 47, 31),
                                                       ),
-                                                      color: Colors.green,
-                                                      onPressed: () {},
+                                                      borderRadius:
+                                                          BorderRadius.all(Radius.elliptical(30, 30)),
+                                                      color: Color.fromARGB(100, 225, 225, 225)
+                                                          .withOpacity(0.3),
+                                                    ),
+                                                    margin: EdgeInsets.fromLTRB(20, 100, 20, 50),
+                                                    padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                                    child: new TextField(
+                                                      style: TextStyle(),
+                                                      textDirection: TextDirection.rtl,
+                                                      autocorrect: true,
+                                                      decoration: new InputDecoration(
+                                                        border: InputBorder.none,
+                                                        icon: new IconButton(
+                                                            icon: new Icon(Icons.search), onPressed: null),
+                                                      ),
+                                                    )),
+                                                new Container(
+                                                    margin: EdgeInsets.fromLTRB(20, 10, 20, 30),
+                                                    //  padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                                    child: CarouselSlider(
+                                                      height: (MediaQuery.of(context).size.height) / 3,
+                                                      aspectRatio: 16 / 9,
+                                                      viewportFraction: 0.8,
+                                                      initialPage: 0,
+                                                      enableInfiniteScroll: true,
+                                                      reverse: false,
+                                                      //autoPlay: true,
+                                                      autoPlayInterval: Duration(seconds: 3),
+                                                      autoPlayAnimationDuration:
+                                                          Duration(milliseconds: 800),
+                                                      autoPlayCurve: Curves.linear,
+                                                      pauseAutoPlayOnTouch: Duration(seconds: 10),
+                                                      enlargeCenterPage: true,
+                                                      scrollDirection: Axis.horizontal,
+                                                      items: [1, 2, 3, 4, 5].map((i) {
+                                                        return Builder(
+                                                          builder: (BuildContext context) {
+                                                            return Container(
+                                                                width: MediaQuery.of(context).size.width,
+                                                                margin:
+                                                                    EdgeInsets.symmetric(horizontal: 3.0),
+                                                                decoration: BoxDecoration(
+                                                                  color: Color.fromARGB(100, 225, 225, 225)
+                                                                      .withOpacity(0.3),
+                                                                  borderRadius: BorderRadius.all(
+                                                                      Radius.elliptical(30, 30)),
+                                                                ),
+                                                                child: Text(
+                                                                  ' عنوان $i',
+                                                                  style: TextStyle(fontSize: 16.0),
+                                                                ));
+                                                          },
+                                                        );
+                                                      }).toList(),
+                                                    )),
+                                                Align(
+                                                  alignment: Alignment.bottomRight,
+                                                  child: Material(
+                                                      type: MaterialType.transparency,
+                                                      child: new FloatingActionButton(
+                                                        onPressed: () {},
+                                                        child: new Icon(
+                                                          Icons.add,
+                                                          color: Colors.white,
+                                                          size: 30,
+                                                        ),
+                                                        backgroundColor: Color.fromARGB(250, 46, 47, 31),
+                                                      )),
+                                                )
+                                              ]),
+                                            ),
+                                          ],
+                                        );
+                                      }
+                                    });
+                              }
+        FutureBuilder courtPage(DocumentSnapshot snapshot) {
+                                return FutureBuilder(
+                                    future: _data,
+                                    builder: (_, snapshot) {
+                                      if (snapshot.connectionState == ConnectionState.waiting) {
+                                        return Center(
+                                          child: Text(" من فضلك انتظر قليلا... "),
+                                        );
+                                      } else {
+                                        return Column(
+                                          children: <Widget>[
+                                             new  BottomNavigationBar(
+                                               backgroundColor: prime,
+                                             currentIndex: _page,
+                                               items: [
+                                                  BottomNavigationBarItem(
+                                                   backgroundColor: prime,
+                                                   icon: new Icon(Icons.perm_identity , color: second,),
+                                                   title: new Text('الصفحة الشخصية' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                                                 ),
+                                                  BottomNavigationBarItem(
+                                                   backgroundColor: prime,
+                                                   icon:  new Icon(Icons.add_circle_outline , color: second,),
+                                                   title: new Text('اضافة قضية' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                                                 ),
+                                                 BottomNavigationBarItem(
+                                                   backgroundColor: prime,
+                                                   icon: new Icon(Icons.notifications_none , color: second,),
+                                                   title: new Text('الاشعارات' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                                                 ),
+                                               ],
+                                                onTap: (index){
+                                         setState(() {
+                                           _page = index ; 
+                                          if(_page == 0){
+                      
+                                                Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
+                      
+                                          }else if (_page == 1){
+                                         // Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+                                          }else if (_page == 2){
+                                             //  Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+                                          }
+                                         });
+                                        },
+                                        ),
+                                            new Container(
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(color: Colors.brown),
+                                                  borderRadius: BorderRadius.all(Radius.elliptical(30, 30)),
+                                                  color: Colors.white70,
+                                                ),
+                                                margin: EdgeInsets.fromLTRB(20, 20, 20, 50),
+                                                padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                                child: new TextField(
+                                                  style: TextStyle(),
+                                                  textDirection: TextDirection.rtl,
+                                                  autocorrect: true,
+                                                  decoration: new InputDecoration(
+                                                    border: InputBorder.none,
+                                                    icon: new IconButton(
+                                                        icon: new Icon(Icons.search), onPressed: null),
+                                                    hintText: "ابحث عن اسم أو رقم تسلسل القاضية ",
+                                                  ),
+                                                )),
+                                            Container(
+                                              height: 90,
+                                              margin: EdgeInsets.fromLTRB(0, 5, 5, 0),
+                                              child: new Stack(
+                                                children: <Widget>[
+                                                  new Container(
+                                                    height: 124,
+                                                    margin: const EdgeInsets.only(left: 46),
+                                                    // child: Text("الاسم", textDirection: TextDirection.rtl,),
+                                                    decoration: new BoxDecoration(
+                                                      color: Colors.blue,
+                                                      shape: BoxShape.rectangle,
+                                                      borderRadius: BorderRadius.only(
+                                                        topLeft: Radius.circular(25.0),
+                                                        bottomRight: Radius.circular(25.0),
+                                                        bottomLeft: Radius.circular(25.0),
+                                                      ),
                                                     ),
                                                   ),
+                                                  new Container(
+                                                      height: 120,
+                                                      width: 120,
+                                                      margin: EdgeInsets.fromLTRB(20, 10, 180, 0),
+                                                      // margin:  EdgeInsets.symmetric(  horizontal: 20,vertical: 20 ,),
+                                                      alignment: FractionalOffset.centerLeft,
+                                                      child: new CircleAvatar(
+                                                        radius: 40,
+                                                        backgroundColor: Colors.transparent,
+                                                        backgroundImage: NetworkImage(
+                                                            "http://photo.elcinema.com.s3.amazonaws.com/uploads/_315x420_af94736653749ad01096cd6e2757e6489a8750dc5334bb6a0bb9cf8e428d4cc0.jpg"),
+                                                      )),
+                                                  new Positioned(
+                                                    right: 10,
+                                                    bottom: 25,
+                                                    child: IconButton(
+                                                        iconSize: 30,
+                                                        icon: Icon(
+                                                          Icons.more,
+                                                          color: Colors.white,
+                                                        ),
+                                                        onPressed: () {
+                                                          showDialog(
+                                                              context: context,
+                                                              builder: (_) => Stack(children: <Widget>[
+                                                                    AlertDialog(
+                                                                      shape: RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(20),
+                                                                      ),
+                                                                      content: SingleChildScrollView(
+                                                                          child:
+                                                                              ListBody(children: <Widget>[
+                                                                        new Text(
+                                                                          'الاسم',
+                                                                          textAlign: TextAlign.right,
+                                                                          textDirection: TextDirection.rtl,
+                                                                        ),
+                                                                        new Text(
+                                                                          'رقم التسلسل',
+                                                                          textAlign: TextAlign.right,
+                                                                          textDirection: TextDirection.rtl,
+                                                                        ),
+                                                                        new Text(
+                                                                          'عنوان المكتب',
+                                                                          textAlign: TextAlign.right,
+                                                                          textDirection: TextDirection.rtl,
+                                                                        ),
+                                                                        new Text(
+                                                                          'عنوانه الخاص',
+                                                                          textAlign: TextAlign.right,
+                                                                          textDirection: TextDirection.rtl,
+                                                                        ),
+                                                                        new Text(
+                                                                          'رقم الهاتف',
+                                                                          textAlign: TextAlign.right,
+                                                                          textDirection: TextDirection.rtl,
+                                                                        ),
+                                                                        new Text(
+                                                                          'رقم البطاقة',
+                                                                          textAlign: TextAlign.right,
+                                                                          textDirection: TextDirection.rtl,
+                                                                        ),
+                                                                        new Text(
+                                                                          'رقم كارنية النقابة',
+                                                                          textAlign: TextAlign.right,
+                                                                          textDirection: TextDirection.rtl,
+                                                                        ),
+                                                                      ])),
+                                                                      actions: <Widget>[
+                                                                        Transform.scale(
+                                                                          alignment: Alignment.bottomCenter,
+                                                                          scale: 0.5,
+                                                                          child: ClickyButton(
+                                                                            child: Text(
+                                                                              'تعديل',
+                                                                              style: TextStyle(
+                                                                                  color: Colors.white,
+                                                                                  fontSize: 35),
+                                                                            ),
+                                                                            color: Colors.green,
+                                                                            onPressed: () {},
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    Positioned(
+                                                                        left: 126,
+                                                                        top: 35,
+                                                                        child: new CircleAvatar(
+                                                                          radius: 50,
+                                                                          backgroundImage: NetworkImage(
+                                                                              "http://photo.elcinema.com.s3.amazonaws.com/uploads/_315x420_af94736653749ad01096cd6e2757e6489a8750dc5334bb6a0bb9cf8e428d4cc0.jpg"),
+                                                                          backgroundColor:
+                                                                              Colors.transparent,
+                            
+                                                                          // backgroundColor: Colors.white,
+                                                                        ))
+                                                                  ]));
+                                                        }),
+                                                  ),
+                                                  new Positioned(
+                                                      right: 65,
+                                                      bottom: 50,
+                                                      child: Text(
+                                                        ":الاسم",
+                                                        style:
+                                                            TextStyle(fontSize: 20, color: Colors.black54),
+                                                      )),
+                                                  new Positioned(
+                                                      right: 65,
+                                                      bottom: 10,
+                                                      child: Text(
+                                                        ":رقم التسلسل",
+                                                        style:
+                                                            TextStyle(fontSize: 20, color: Colors.black54),
+                                                      )),
                                                 ],
                                               ),
-                                              Positioned(
-                                                  left: 126,
-                                                  top: 35,
-                                                  child: new CircleAvatar(
-                                                    radius: 50,
-                                                    backgroundImage: NetworkImage(
-                                                        "http://photo.elcinema.com.s3.amazonaws.com/uploads/_315x420_af94736653749ad01096cd6e2757e6489a8750dc5334bb6a0bb9cf8e428d4cc0.jpg"),
-                                                    backgroundColor:
-                                                        Colors.transparent,
+                                            )
+                                          ],
+                                        );
+                                      }
+                                    });
+                              }
+                      
+  Widget buildResultCard(data) {
+  return Card(
+    color: prime,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+    elevation: 6.0,
+    child: Container(
+      child: Center(
+        child: Text(data['bussinesname'],
+    
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 15.0,
+        ),
       
-                                                    // backgroundColor: Colors.white,
-                                                  ))
-                                            ]));
-                                  }),
-                            ),
-                            new Positioned(
-                                right: 65,
-                                bottom: 50,
-                                child: Text(
-                                  ":الاسم",
-                                  style:
-                                      TextStyle(fontSize: 20, color: Colors.black54),
-                                )),
-                            new Positioned(
-                                right: 65,
-                                bottom: 10,
-                                child: Text(
-                                  ":رقم التسلسل",
-                                  style:
-                                      TextStyle(fontSize: 20, color: Colors.black54),
-                                )),
-                          ],
-                        ),
-                      )
-                    ],
-                  );
-                }
-              });
-        }
+        ),
+      
+      )
+    )
+  );
+}
 
     }
 

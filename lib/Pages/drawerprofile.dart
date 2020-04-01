@@ -8,6 +8,7 @@ import 'package:gpproject/Pages/AddTime.dart';
 
 import 'ProfileUsers.dart';
 import 'home.dart';
+import 'lawyer_list.dart';
 
 
 class drawerprofile extends StatefulWidget {
@@ -25,7 +26,9 @@ class drawerprofileState extends State<drawerprofile>  {
     await prefs.clear();
     FirebaseAuth.instance.signOut();
   }
-
+Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +87,7 @@ class drawerprofileState extends State<drawerprofile>  {
                       width: 100,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: Colors.blue[900],
+                        color: third,
                         shape: BoxShape.circle,
                         image: DecorationImage(
                             image: NetworkImage('${snapshot.data['image']}'),
@@ -103,8 +106,9 @@ class drawerprofileState extends State<drawerprofile>  {
                 style: TextStyle(fontSize: 22),
               ),
               leading: Icon(
-                Icons.person,
+                Icons.home,
                 size: 25,
+                color: third,
               ),
 
               onTap: () {
@@ -116,6 +120,7 @@ class drawerprofileState extends State<drawerprofile>  {
               leading: Icon(
                 Icons.person,
                 size: 25,
+                color: third,
               ),
               title: Text(
                 'الصفحة الشخصية',
@@ -127,7 +132,7 @@ class drawerprofileState extends State<drawerprofile>  {
               },
             ),
             ListTile(
-              leading: Icon(Icons.access_time),
+              leading: Icon(Icons.access_time, color: third,),
               title: Text(
                 'مواعيد الحجوزات',
                 style: TextStyle(fontSize: 22),
@@ -135,7 +140,7 @@ class drawerprofileState extends State<drawerprofile>  {
               onTap: () {},
             ),
             ListTile(
-              leading: Icon(Icons.settings),
+              leading: Icon(Icons.settings , color: third,),
               title: Text(
                 'الإعدادات',
                 style: TextStyle(fontSize: 22),
@@ -146,15 +151,18 @@ class drawerprofileState extends State<drawerprofile>  {
               leading: Icon(
                 Icons.help,
                 size: 25,
+                color: third,
               ),
               title: Text(
                 'أسال الان',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                 Navigator.push(context,MaterialPageRoute(builder: (context) =>  LawyerList(value: widget.currentUser)));
+              },
             ),
             ListTile(
-              leading: Icon(Icons.exit_to_app),
+              leading: Icon(Icons.exit_to_app , color: third,),
               title: Text(
                 'تسجيل الخروج',
                 style: TextStyle(fontSize: 22),
@@ -190,7 +198,7 @@ class drawerprofileState extends State<drawerprofile>  {
                       width: 100,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: Colors.blue[900],
+                        color: third,
                         shape: BoxShape.circle,
                         image: DecorationImage(
                             image: NetworkImage('${snapshot.data['image']}'),
@@ -206,11 +214,12 @@ class drawerprofileState extends State<drawerprofile>  {
             ListTile(
               title: Text(
                 'الصفحة الرئيسية',
-                style: TextStyle(fontSize: 22),
+                style: TextStyle(fontSize: 22 ),
               ),
               leading: Icon(
-                Icons.person,
+                Icons.home,
                 size: 25,
+                color: third,
               ),
 
               onTap: () {
@@ -222,6 +231,7 @@ class drawerprofileState extends State<drawerprofile>  {
               leading: Icon(
                 Icons.person,
                 size: 25,
+                color: third,
               ),
               title: Text(
                 'الصفحة الشخصية',
@@ -233,7 +243,7 @@ class drawerprofileState extends State<drawerprofile>  {
               },
             ),
             ListTile(
-              leading: Icon(Icons.hourglass_empty),
+              leading: Icon(Icons.hourglass_empty , color: third,),
               title: Text(
                 'ادخال المواعيد المتاحه',
                 style: TextStyle(fontSize: 22),
@@ -244,7 +254,7 @@ class drawerprofileState extends State<drawerprofile>  {
               },
             ),
             ListTile(
-              leading: Icon(Icons.access_time),
+              leading: Icon(Icons.access_time , color: third,),
               title: Text(
                 'مواعيد الحجوزات',
                 style: TextStyle(fontSize: 22),
@@ -252,7 +262,7 @@ class drawerprofileState extends State<drawerprofile>  {
               onTap: () {},
             ),
             ListTile(
-              leading: Icon(Icons.insert_drive_file),
+              leading: Icon(Icons.insert_drive_file , color: third,),
               title: Text(
                 'رفع الملفات',
                 style: TextStyle(fontSize: 22),
@@ -260,7 +270,7 @@ class drawerprofileState extends State<drawerprofile>  {
               onTap: () {},
             ),
             ListTile(
-              leading: Icon(Icons.settings),
+              leading: Icon(Icons.settings , color: third,),
               title: Text(
                 'الإعدادات',
                 style: TextStyle(fontSize: 22),
@@ -269,7 +279,7 @@ class drawerprofileState extends State<drawerprofile>  {
             ),
 
             ListTile(
-              leading: Icon(Icons.exit_to_app),
+              leading: Icon(Icons.exit_to_app , color: third,),
               title: Text(
                 'تسجيل الخروج',
                 style: TextStyle(fontSize: 22),
@@ -303,7 +313,7 @@ class drawerprofileState extends State<drawerprofile>  {
                       width: 100,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: Colors.blue[900],
+                        color: third,
                         shape: BoxShape.circle,
                         image: DecorationImage(
                             image: NetworkImage('${snapshot.data['image']}'),
@@ -322,8 +332,9 @@ class drawerprofileState extends State<drawerprofile>  {
                 style: TextStyle(fontSize: 22),
               ),
               leading: Icon(
-                Icons.person,
+                Icons.home,
                 size: 25,
+                color: third,
               ),
 
               onTap: () {
@@ -335,6 +346,7 @@ class drawerprofileState extends State<drawerprofile>  {
               leading: Icon(
                 Icons.person,
                 size: 25,
+                color: third,
               ),
               title: Text(
                 'الصفحة الشخصية',
@@ -346,7 +358,7 @@ class drawerprofileState extends State<drawerprofile>  {
               },
             ),
             ListTile(
-              leading: Icon(Icons.archive),
+              leading: Icon(Icons.archive , color: third,),
               title: Text(
                 'الأرشيف',
                 style: TextStyle(fontSize: 22),
@@ -354,7 +366,7 @@ class drawerprofileState extends State<drawerprofile>  {
               onTap: () {},
             ),
              ListTile(
-              leading: Icon(Icons.fiber_new),
+              leading: Icon(Icons.fiber_new , color: third,),
               title: Text(
                 'تحديث',
                 style: TextStyle(fontSize: 22),
@@ -362,7 +374,7 @@ class drawerprofileState extends State<drawerprofile>  {
               onTap: () {},
             ),
             ListTile(
-              leading: Icon(Icons.settings),
+              leading: Icon(Icons.settings , color: third,),
               title: Text(
                 'الإعدادات',
                 style: TextStyle(fontSize: 22),
@@ -370,7 +382,7 @@ class drawerprofileState extends State<drawerprofile>  {
               onTap: () {},
             ),
             ListTile(
-              leading: Icon(Icons.exit_to_app),
+              leading: Icon(Icons.exit_to_app , color: third,),
               title: Text(
                 'تسجيل الخروج',
                 style: TextStyle(fontSize: 22),

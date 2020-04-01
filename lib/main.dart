@@ -6,7 +6,7 @@ import 'package:gpproject/Pages/HelloApp.dart' ;
 void main() => runApp(new MaterialApp(home: new MyApp(),));
 
 class MyApp extends StatelessWidget {
-  Color prime = Colors.red[800] ;
+  Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
           ),
         );
       },
-     theme: ThemeData(
+     theme: 
+     ThemeData(
        primaryColor: prime,
      ),
 
