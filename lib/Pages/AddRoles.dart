@@ -60,6 +60,7 @@ class _AddRolesState extends State<AddRoles> {
                           decoration: InputDecoration(  
                             hintText: "البند", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 18,
                             ),         
                             contentPadding:
@@ -114,6 +115,7 @@ class _AddRolesState extends State<AddRoles> {
                           decoration: InputDecoration( 
                             hintText: "إدخل اسم القانون", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 18,
                             ),
                             contentPadding:
@@ -146,6 +148,7 @@ class _AddRolesState extends State<AddRoles> {
                           decoration: InputDecoration( 
                             hintText: "إدخل رقم المادة", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 18,
                             ),
                             contentPadding:
@@ -179,6 +182,7 @@ class _AddRolesState extends State<AddRoles> {
                           decoration: InputDecoration( 
                             hintText: "إدخل نص المادة", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 18,
                             ),
                             contentPadding:
@@ -212,6 +216,7 @@ class _AddRolesState extends State<AddRoles> {
                           decoration: InputDecoration(  
                             hintText: "البند", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 18,
                             ),         
                             contentPadding:
@@ -263,8 +268,9 @@ class _AddRolesState extends State<AddRoles> {
       print(e);
     }
 }
-Color prime = Colors.red[800] ;
-Color second = Colors.white ;
+Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   static Future<void> signOut() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
@@ -299,6 +305,7 @@ Color second = Colors.white ;
               leading: Icon(
                 Icons.supervised_user_circle,
                 size: 25,
+                color: third,
               ),
               title: Text(
                 'إدارة_المُحامين',
@@ -309,7 +316,7 @@ Color second = Colors.white ;
               },
             ),
             ListTile(
-              leading: Icon(Icons.markunread_mailbox),
+              leading: Icon(Icons.markunread_mailbox ,color: third,),
               title: Text(
                 'إدارة_المحاكم',
                 style: TextStyle(fontSize: 22),
@@ -319,7 +326,7 @@ Color second = Colors.white ;
               },
             ),
             ListTile(
-              leading: Icon(Icons.warning),
+              leading: Icon(Icons.warning ,color: third,),
               title: Text(
                 'إدارة_القوانين',
                 style: TextStyle(fontSize: 22 , ),
@@ -329,7 +336,7 @@ Color second = Colors.white ;
               },
             ),
              ListTile(
-              leading: Icon(Icons.exit_to_app),
+              leading: Icon(Icons.exit_to_app , color: third,),
               title: Text(
                 'تسجيل الخروج',
                 style: TextStyle(fontSize: 22),
@@ -354,7 +361,7 @@ Color second = Colors.white ;
           submitData();
            Navigator.push( context, MaterialPageRoute(builder: (context) => managerules()));
         },
-        backgroundColor: prime,
+        backgroundColor: third,
         child: Text('إضافة'),
       ),
       appBar: AppBar(

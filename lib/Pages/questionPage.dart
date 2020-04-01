@@ -24,6 +24,9 @@ class questionPage extends StatefulWidget {
 }
 
 class questionPageState extends State<questionPage> {
+  Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   NotificationClass notification = new NotificationClass();
   UserClass user = new UserClass();
   TextEditingController _controller = TextEditingController();
@@ -49,11 +52,15 @@ class questionPageState extends State<questionPage> {
                                       maxLines:10 ,
                                       keyboardType: TextInputType.text,
                                       decoration: new InputDecoration(
-                                        icon: new Icon(Icons.help,color: Colors.redAccent),
-                                      focusColor: Colors.amber,
+                                        icon: new Icon(Icons.help,color: third),
+                                      focusColor: third,
                                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
                                       hintText: 'أسال سؤالاً',
-                                      fillColor: Colors.red,),
+                                      hintStyle: TextStyle(
+                                              color: third,
+                                              fontSize: 18,
+                                            ),
+                                      fillColor: third,),
                                      ),
                         new Column( children: <Widget>[
                             new RaisedButton.icon(onPressed:() async {
@@ -70,8 +77,8 @@ class questionPageState extends State<questionPage> {
                _controller.clear();},
                                             icon: new Icon(Icons.question_answer,
                                             color: Colors.white,),
-                                            label:new Text('أسأل',style:TextStyle(color: Colors.white),),
-                                                                  color: Colors.red,
+                                            label:new Text('أسأل',style:TextStyle(color: Colors.white ,fontSize: 18.0),),
+                                                                  color: third,
                                                     ),])],)
     ),);
 }}

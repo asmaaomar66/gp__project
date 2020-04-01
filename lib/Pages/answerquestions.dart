@@ -23,6 +23,9 @@ class AnswerQuestions extends StatefulWidget {
 }
 
 class _HomeState extends State<AnswerQuestions> {
+  Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   UserClass user = new UserClass();
   TextEditingController _f = TextEditingController();
   var state =  "     تمت الإجابة عن هذا السؤال   ";
@@ -44,17 +47,21 @@ class _HomeState extends State<AnswerQuestions> {
                              child: new Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-           new Text('${widget.value}',style: TextStyle(fontSize: 30,color: Colors.teal[900]),textAlign: TextAlign.right,),
+           new Text('${widget.value}',style: TextStyle(fontSize: 30,color: prime),textAlign: TextAlign.right,),
            new TextField(controller: _f,
            maxLines:10 ,
            keyboardType: TextInputType.text,
            textDirection: TextDirection.rtl,
            textAlign: TextAlign.right,
            decoration: new InputDecoration(
-                  focusColor: Colors.amber,
+                  focusColor: third,
                   border: OutlineInputBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(10),bottom:Radius.circular(10) )),
                   hintText: 'الإجابهً',
-                  fillColor: Colors.teal[900],
+                  hintStyle: TextStyle(
+                     color: third,
+                     fontSize: 18.0,
+                  ),
+                  fillColor: third,
 
                                           ),
                         ),
@@ -76,9 +83,9 @@ class _HomeState extends State<AnswerQuestions> {
                                                                   }, 
               icon:new Icon(Icons.arrow_forward_ios,color: Colors.white,),
               label:new Text('أجب',style:TextStyle(color: Colors.white),),
-              color: Colors.teal[900],),
-                           IconButton(icon:Icon(FontAwesomeIcons.twitter),iconSize:30, color: Colors.teal[900],onPressed: (){},),
-                           IconButton(icon:Icon(FontAwesomeIcons.facebook),iconSize:30,color: Colors.teal[900],onPressed: (){},),
+              color: third,),
+                           IconButton(icon:Icon(FontAwesomeIcons.twitter),iconSize:30, color: third,onPressed: (){},),
+                           IconButton(icon:Icon(FontAwesomeIcons.facebook),iconSize:30,color: third,onPressed: (){},),
                                     ],
                      ),]))]));
 }}

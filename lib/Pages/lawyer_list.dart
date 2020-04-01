@@ -16,7 +16,9 @@ final FirebaseUser value ;
 
   class _LawyerList extends State<LawyerList>{
       final a = Firestore.instance;
-    
+  Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   @override
   Widget build(BuildContext context) {
     return
@@ -59,20 +61,20 @@ final FirebaseUser value ;
                             margin: EdgeInsets.only(
                             left: 3, right: 3.0, top: 3.0, bottom: 10.0),
                             child: ListTile(title: Text(doc.data['fname']+" "+doc.data['lname'],
-                            style: TextStyle(fontSize: 20,color: Colors.teal[900]),
+                            style: TextStyle(fontSize: 20,color: prime),
                             textAlign: TextAlign.right,),
                             subtitle: Row(children: <Widget>[ 
                               Container(child: Icon(
                                                 FontAwesomeIcons.solidStar,
-                                                color: Colors.amber,
+                                                color:third,
                                                 size: 15.0,),),
                              Container(child: Icon(
                                                 FontAwesomeIcons.solidStar,
-                                                color: Colors.amber,
+                                                color: third,
                                                 size: 15.0,),),
                              Container(child: Icon(
                                                 FontAwesomeIcons.solidStar,
-                                                color: Colors.amber,
+                                                color: third,
                                                 size: 15.0,),),]),
                   onTap: (){
                                Navigator.of(context).push((MaterialPageRoute(

@@ -21,8 +21,9 @@ class profileUsersState extends State<profileUsers>  {
     await prefs.clear();
     FirebaseAuth.instance.signOut();
   }
-  Color prime = Colors.red[800] ;
+  Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +99,7 @@ class profileUsersState extends State<profileUsers>  {
                                   width: 100.0,
                                   height: 100.0,
                                   decoration: BoxDecoration(
-                                    color: prime,
+                                    color: third,
                                     //image here
                                     image: DecorationImage(
                                               image: NetworkImage( '${snapshot.data['image']}' ),
@@ -141,7 +142,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.perm_identity,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -162,7 +163,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.phone,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -178,12 +179,12 @@ class profileUsersState extends State<profileUsers>  {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(right: 0.0, top: 7.0),
+                              margin: EdgeInsets.only(right: 15.0, top: 7.0),
                               child: Row(
                                 children: <Widget>[
                                   Icon(
                                     Icons.mail,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -204,7 +205,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.visibility,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -224,7 +225,7 @@ class profileUsersState extends State<profileUsers>  {
                               child: new Center(
                                         child: new FloatingActionButton(
                                           tooltip: 'تعديل',
-                                backgroundColor: prime,
+                                backgroundColor: third,
                                onPressed: () {
                                   Navigator.push(context,MaterialPageRoute(builder: (context) => profileEdit(currentUser: widget.currentUser,)));
                                },
@@ -270,7 +271,7 @@ class profileUsersState extends State<profileUsers>  {
                                   width: 100.0,
                                   height: 100.0,
                                   decoration: BoxDecoration(
-                                    color: prime,
+                                    color: third,
                                     //image here
                                     image: DecorationImage(
                                               image: NetworkImage( '${snapshot.data['image']}' ),
@@ -313,7 +314,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.perm_identity,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -334,7 +335,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.phone_android,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -355,7 +356,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.phone,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -376,7 +377,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.mail,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -397,7 +398,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.visibility,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -418,7 +419,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.location_on,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -439,7 +440,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.location_city,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -456,7 +457,7 @@ class profileUsersState extends State<profileUsers>  {
                             ),
                              new FloatingActionButton(
                                           tooltip: 'تعديل',
-                              backgroundColor: prime,
+                              backgroundColor: third,
                                onPressed: () {
                                  Navigator.push(context,MaterialPageRoute(builder: (context) => profileEdit(currentUser: widget.currentUser,)));
                                },
@@ -499,7 +500,7 @@ class profileUsersState extends State<profileUsers>  {
                                   width: 100.0,
                                   height: 100.0,
                                   decoration: BoxDecoration(
-                                    color: prime,
+                                    color: third,
                                     //image here
                                     image: DecorationImage(
                                               image: NetworkImage( '${snapshot.data['image']}' ),
@@ -542,7 +543,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.perm_identity,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -563,7 +564,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.mail,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -584,7 +585,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.visibility,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -604,7 +605,7 @@ class profileUsersState extends State<profileUsers>  {
                               child: new Center(
                                         child: new FloatingActionButton(
                                           tooltip: 'تعديل',
-                              backgroundColor: prime,
+                              backgroundColor: third,
                                onPressed: () {
                                  Navigator.push(context,MaterialPageRoute(builder: (context) => profileEdit(currentUser: widget.currentUser,)));
                                },

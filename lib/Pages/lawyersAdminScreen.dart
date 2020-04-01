@@ -20,8 +20,9 @@ class lawyerscreen extends StatefulWidget{
 }
 
 class _lawyerscreenState extends State<lawyerscreen> {
-  Color prime = Colors.red[800] ;
+ Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   UserClass userClass = new UserClass();
 
   @override
@@ -54,7 +55,7 @@ class _lawyerscreenState extends State<lawyerscreen> {
                                   width: 100.0,
                                   height: 100.0,
                                   decoration: BoxDecoration(
-                                    color: prime,
+                                    color: third,
                                     //image here
                                     image: DecorationImage(
                                               image: NetworkImage( '${widget.currentlawyer.data['image']}'),
@@ -97,7 +98,7 @@ class _lawyerscreenState extends State<lawyerscreen> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.perm_identity,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -118,7 +119,7 @@ class _lawyerscreenState extends State<lawyerscreen> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.phone_android,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -139,7 +140,7 @@ class _lawyerscreenState extends State<lawyerscreen> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.mail,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -160,7 +161,7 @@ class _lawyerscreenState extends State<lawyerscreen> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.location_on,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -181,7 +182,7 @@ class _lawyerscreenState extends State<lawyerscreen> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.location_city,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -202,7 +203,7 @@ class _lawyerscreenState extends State<lawyerscreen> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.phone,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -239,7 +240,7 @@ class _lawyerscreenState extends State<lawyerscreen> {
                           Toast.show("Err" + err.toString(), context);
                         });
                           },
-                          backgroundColor: prime,
+                          backgroundColor: third,
                           child: new Text( "حذف",
                               style: TextStyle(
                                 fontSize: 15.0,

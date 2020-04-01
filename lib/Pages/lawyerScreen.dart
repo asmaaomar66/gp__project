@@ -18,13 +18,16 @@ class lawyerScreen extends StatefulWidget{
   }
 }
 class _stateLawyerScreen extends State<lawyerScreen>{
+  Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
 
  //======================كل الي جاي عباره عن ويدجيتز بيتندهه عليها  جوا الاسكافولد=================
  Widget _buildCoverImage(Size screenSize){
     return Container(
       height: screenSize.height / 2.6,
       decoration: BoxDecoration(
-       color: Colors.grey[500]
+       color: prime,
       ),
     );
   }//for build cover image 
@@ -35,6 +38,7 @@ class _stateLawyerScreen extends State<lawyerScreen>{
         width: 140,
         height: 140,
         decoration: BoxDecoration(
+          color: third,
           image: DecorationImage(
             image: NetworkImage('${widget.currentLawyer.data['image']}'),
                             fit: BoxFit.fill),
@@ -173,7 +177,7 @@ class _stateLawyerScreen extends State<lawyerScreen>{
                 height: 40,
                 decoration: BoxDecoration(
                   border: Border.all(),
-                  color: Color(0XFF404A5C)
+                  color: third
                 ),
                 child: Center(
                   child:  Text(
@@ -311,7 +315,7 @@ children: snapshot.data.documents.map((hoc) {
         //crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           IconButton(icon: new Icon(FontAwesomeIcons.solidHeart,color: Colors.red,), alignment: Alignment.topRight,color: Colors.red,onPressed: (){},),
-          IconButton(icon: new Icon(FontAwesomeIcons.share), alignment: Alignment.topRight,color: Colors.blueAccent,onPressed: (){},),
+          IconButton(icon: new Icon(FontAwesomeIcons.share), alignment: Alignment.topRight,color: third,onPressed: (){},),
         ],
       ),
         ],

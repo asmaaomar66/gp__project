@@ -21,8 +21,9 @@ class managerules extends StatefulWidget {
 
 
 class _managerulesState extends State<managerules> {
-  Color prime = Colors.red[800] ;
+ Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   final snapshotusers = Firestore.instance;
   
    static Future<void> signOut() async {
@@ -55,7 +56,7 @@ class _managerulesState extends State<managerules> {
               ),
             ),
              ListTile(
-              leading: Icon(Icons.supervised_user_circle),
+              leading: Icon(Icons.supervised_user_circle,color: third,),
               title: Text(
                 'إدارة_المستخدمين',
                 style: TextStyle(fontSize: 22 , ),
@@ -68,6 +69,7 @@ class _managerulesState extends State<managerules> {
               leading: Icon(
                 Icons.supervised_user_circle,
                 size: 25,
+                color: third,
               ),
               title: Text(
                 'إدارة_المُحامين',
@@ -78,7 +80,7 @@ class _managerulesState extends State<managerules> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.markunread_mailbox),
+              leading: Icon(Icons.markunread_mailbox , color: third,),
               title: Text(
                 'إدارة_المحاكم',
                 style: TextStyle(fontSize: 22),
@@ -88,7 +90,7 @@ class _managerulesState extends State<managerules> {
               },
             ),
              ListTile(
-              leading: Icon(Icons.exit_to_app),
+              leading: Icon(Icons.exit_to_app , color: third,),
               title: Text(
                 'تسجيل الخروج',
                 style: TextStyle(fontSize: 22),
@@ -130,7 +132,7 @@ class _managerulesState extends State<managerules> {
                               borderRadius: BorderRadius.circular(20.0),
                               boxShadow: [
                                 BoxShadow(
-                                    color: Color(0xff69a5a5),
+                                    color: third,
                                     spreadRadius: 0.0,
                                     blurRadius: 13.0,
                                     offset: Offset(6, 7))
