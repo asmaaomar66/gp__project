@@ -1,15 +1,12 @@
 import 'package:badges/badges.dart';
 import 'package:gpproject/Classes/User.dart';
-//import 'package:gpproject/Classes/notification.dart';
 import 'package:gpproject/Pages/addCase.dart';
 import 'package:gpproject/Pages/manageCases.dart';
+import 'package:gpproject/Classes/notification.dart';
 import 'package:gpproject/Pages/questionPage.dart';
-
-//import 'package:gpproject/Pages/lawyerquestions.dart';
-//import 'package:gpproject/Pages/answerquestions.dart';
-//import 'package:gpproject/Pages/question_and_answer.dart';
-//import 'package:gpproject/Pages/question_list.dart';
-
+import 'package:gpproject/Pages/answerquestions.dart';
+import 'package:gpproject/Pages/question_and_answer.dart';
+import 'package:gpproject/Pages/question_list.dart';
 import 'package:gpproject/models/user.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,11 +14,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-//import 'ProfileUsers.dart';
+import 'addCase.dart';
+import 'ProfileUsers.dart';
 import 'clicky_button.dart';
 import 'drawerprofile.dart';
-//import 'lawyer_list.dart';
-import 'addCase.dart';
+import 'lawyer_list.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title, this.user, this.currentUser });
@@ -40,7 +37,9 @@ class _MainPageState extends State<MainPage> {
   FirebaseUser firebaseUser;
   User currentUser = new User();
 
- //NotificationClass noti = new NotificationClass();
+
+ NotificationClass noti = new NotificationClass();
+
   initUser() async {
     //firebaseUser = await _firebaseAuth.currentUser();
     //userID = firebaseUser.uid;
@@ -63,12 +62,7 @@ class _MainPageState extends State<MainPage> {
     return qn.documents;
   }
 
-/*  navigateToDetail(DocumentSnapshot user) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => FbCprofileState(user: currentUser)),
-    );
-  }*/
+
 
   static Future<void> signOut() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -146,13 +140,13 @@ void countDocumentLengthAnswer() async {
     }
     if (snapshot.data['role'] == '1') {
       return userPage(snapshot) ;
-            //return userPage(snapshot);
+
           } else if (snapshot.data['role'] == '2') {
             return createListView(snapshot);
-            //return lawyerPage(snapshot);
-          } else {
+          } else if (snapshot.data['role'] == '3'){
             return courtPage(snapshot);
-          }
+          } 
+
         }    
         FutureBuilder userPage(DocumentSnapshot snapshot) {
           return FutureBuilder(
@@ -198,14 +192,13 @@ void countDocumentLengthAnswer() async {
                    setState(() {
                      _page = index ; 
                     if(_page == 0){
-
-                       //   Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers( currentUser: widget.user,)));             
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers( currentUser: widget.user,)));             
                     }else if (_page == 1){
-                 //  Navigator.push(context,MaterialPageRoute(builder: (context) =>  LawyerList(value: widget.user)));
+                   Navigator.push(context,MaterialPageRoute(builder: (context) =>  LawyerList(value: widget.user)));
                     }else if (_page == 2){
-                        /*  Navigator.push(context,  MaterialPageRoute(builder: (context) => QuestionAndAnswer(value: widget.user.uid, v: widget.user)));
+                          Navigator.push(context,  MaterialPageRoute(builder: (context) => QuestionAndAnswer(value: widget.user.uid, v: widget.user)));
                         Firestore.instance.collection("answers").where("id", isEqualTo: widget.user.uid).getDocuments().then((snapshot)
-                        {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}}); */               
+                        {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});                
 
                     }else if (_page == 3){
                           Navigator.push(context,  MaterialPageRoute(builder: (context) => questionPage()));
@@ -294,12 +287,11 @@ void countDocumentLengthAnswer() async {
                    setState(() {
                      _page = index ; 
                     if(_page == 0){
-
-                   //  Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
+                     Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
                     }else if (_page == 1){
-                          /* Navigator.push(context,MaterialPageRoute(builder: (context) => QuestionList(value : widget.user.uid, v :widget.user)));
+                           Navigator.push(context,MaterialPageRoute(builder: (context) => QuestionList(value : widget.user.uid, v :widget.user)));
                            Firestore.instance.collection("reading").where("id", isEqualTo: widget.user.uid).getDocuments().then((snapshot)
-                           {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});*/
+                           {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});
 
                     }else if (_page == 2){
                          Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
@@ -395,6 +387,7 @@ void countDocumentLengthAnswer() async {
                 }
               });
         }
+
 //---------------------------- COURT PAGE   -------------------------------------
         FutureBuilder courtPage(DocumentSnapshot snapshot) {
           return FutureBuilder(
@@ -432,7 +425,7 @@ void countDocumentLengthAnswer() async {
                      _page = index ; 
                     if(_page == 0){
 
-                        //  Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
 
                     }else if (_page == 1){
                     Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));

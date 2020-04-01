@@ -1,15 +1,13 @@
 import 'package:gpproject/Auth/ResetPassword.dart';
+import 'package:gpproject/Pages/AdminHome.dart';
 import 'package:gpproject/Pages/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'dart:io';
-import 'dart:math';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'package:test1/UserScreens/CategoryHome.dart';
+import 'package:gpproject/Pages/questionPage.dart';
+
 class Login extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -153,7 +151,12 @@ Future<void> signIn()async{
           AuthResult user =  await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: _email,
          password:_password ) ;
-         Navigator.push(context, MaterialPageRoute(builder: (context)=> MainPage(user:user.user)));
+         if (_email == 'admin2020@gmail.com' && _password == '123456admin') {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> AdminHome()));
+
+         }else{
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> MainPage(user:user.user)));
+         }
         }
         catch(e){
           print(e.message);
