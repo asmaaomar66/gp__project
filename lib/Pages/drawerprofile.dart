@@ -9,6 +9,7 @@ import 'package:gpproject/Pages/AddTime2.dart';
 import 'ProfileUsers.dart';
 import 'home.dart';
 import 'lawyer_list.dart';
+import 'view_archived_cases.dart';
 
 
 class drawerprofile extends StatefulWidget {
@@ -363,7 +364,9 @@ Color prime = Color(0xff0e243b);
                 'الأرشيف',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                 Navigator.push(context,MaterialPageRoute(builder: (context) => view_archived_cases(currentCourt: widget.currentUser)));
+              },
             ),
             /* ListTile(
               leading: Icon(Icons.fiber_new , color: third,),
