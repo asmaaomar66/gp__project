@@ -18,13 +18,16 @@ class caseDetails extends StatefulWidget{
 }
 
 class _caseDetails extends State<caseDetails>{
+  Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   //-----------------functions -------------------
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-              backgroundColor: Color(0xff314d4d),
+              backgroundColor: prime,
               title: Text("تفاصيل القضيه"),
               leading: IconButton(
                   icon: Icon(Icons.arrow_back),
@@ -47,7 +50,7 @@ class _caseDetails extends State<caseDetails>{
                             style: TextStyle(
                                 fontSize: 25.0,
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xffcb4154)),
+                                color: third),
                           )),
                         ),
                         Text(
@@ -103,9 +106,9 @@ class _caseDetails extends State<caseDetails>{
                         RaisedButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.0),
-                              side: BorderSide(color: Color(0xffcb4154))),
+                              side: BorderSide(color: third)),
                           onPressed: () {},
-                          color: Color(0xffcb4154),
+                          color: third,
                           textColor: Colors.white,
                           child: Row(
                             children:<Widget>[
@@ -126,14 +129,14 @@ class _caseDetails extends State<caseDetails>{
                         RaisedButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.0),
-                              side: BorderSide(color: Color(0xff69a5a5))),
+                              side: BorderSide(color: third)),
                           onPressed: () {
                            
                                Navigator.of(context).push((MaterialPageRoute(
                                  builder: (context)=>
                                  editCase(currentCase: widget.currentCase,currentCourt: widget.currentCourt,) ) ) );
                           },
-                          color: Color(0xff69a5a5),
+                          color: third,
                           textColor: Colors.white,
                           child:  Row(
                             children:<Widget>[

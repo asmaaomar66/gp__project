@@ -365,14 +365,14 @@ Color prime = Color(0xff0e243b);
               ),
               onTap: () {},
             ),
-             ListTile(
+            /* ListTile(
               leading: Icon(Icons.fiber_new , color: third,),
               title: Text(
                 'تحديث',
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {},
-            ),
+            ),*/
             ListTile(
               leading: Icon(Icons.settings , color: third,),
               title: Text(

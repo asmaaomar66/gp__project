@@ -46,6 +46,7 @@ dependencies:
   folding_cell: "^0.1.2"
   toast: ^0.1.5
   badges: ^1.1.1
+  flutter_launcher_icons: ^0.7.4
 
 
 
@@ -53,6 +54,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "image/12.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -78,6 +83,7 @@ flutter:
     - image/background.jpg
     - image/11.png
     - image/12.png
+    - image/3.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

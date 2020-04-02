@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gpproject/Pages/HelloApp.dart' ;
+import 'Pages/SplashScreen.dart';
 
 
 
@@ -32,9 +32,9 @@ class MyApp extends StatelessWidget {
      ),
 
 
-      home: new HelloApp()
+      home: new splash_screen(),
 
-      ,
+      
 
     );
   }
