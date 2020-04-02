@@ -41,7 +41,9 @@ dependencies:
   worm_indicator:
   scrolling_page_indicator:
   curved_navigation_bar: ^0.3.2
-
+  gradient_text: ^1.0.2
+  flip_card: ^0.4.4
+  folding_cell: "^0.1.2"
 
 
 
@@ -71,6 +73,9 @@ flutter:
     - image/menna.jpg
     - image/law.jpg
     - image/dialog1.png
+    - image/background.jpg
+
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
