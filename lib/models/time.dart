@@ -15,36 +15,41 @@ String timeToJson(Time data) {
 class Time {
   String timeId;
   int lawyerId;
-  String timeNum;
-  DateTime day;
-  DateTime time;
-  String amORpm ;
+  String day;
+  DateTime date;
+  String time;
+  bool state;
+  Map<String ,bool > dayTimes;
+ 
   
   
 
   Time({
     this.timeId,
     this.lawyerId,
-    this.timeNum,
     this.day,
+    this.date,
     this.time,
-    this.amORpm,
+    this.dayTimes,
+    this.state
+    
   });
   Map<String, dynamic> toJson() => {
     "timeid": timeId,
     "lawyerId": lawyerId,
-    "timeNum": timeNum,
+     "date": date,
     "day": day,
     "time": time,
-    "amORpm": amORpm,
+    "state":state
+    
   };
   factory Time.fromJson(Map<String, dynamic> json) => new Time(
     timeId: json["timeId"],
     lawyerId: json["lawyerId"],
-    timeNum: json["timeNum"],
+    date:json["date"],
     day: json["day"],
     time: json["time"],
-    amORpm: json["amORpm"],
+   state:json["state"],
     
   );
   factory Time.fromDocument(DocumentSnapshot doc) {

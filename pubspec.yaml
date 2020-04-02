@@ -41,10 +41,11 @@ dependencies:
   worm_indicator:
   scrolling_page_indicator:
   curved_navigation_bar: ^0.3.2
+  gradient_text: ^1.0.2
+  flip_card: ^0.4.4
+  folding_cell: "^0.1.2"
   toast: ^0.1.5
   badges: ^1.1.1
-
-
 
 
 
@@ -74,6 +75,7 @@ flutter:
     - image/menna.jpg
     - image/law.jpg
     - image/dialog1.png
+    - image/background.jpg
     - image/11.png
     - image/12.png
 
