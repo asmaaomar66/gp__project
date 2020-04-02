@@ -19,7 +19,9 @@ final FirebaseUser currentCourt ;
 
   class _manageCases extends State<manageCases>{
       final a = Firestore.instance;
-
+  Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
    @override
   Widget build(BuildContext context) {
     return
@@ -30,7 +32,7 @@ final FirebaseUser currentCourt ;
                 return Scaffold(
                 drawer: drawerprofile(currentUser: widget.currentCourt,),
                 appBar: AppBar( 
-                  backgroundColor: Color(0xff314d4d),
+                  backgroundColor: prime,
                   title:
                  new Text("ادارة القضايا الحاليه" ),),  
                 body: new ListView(children: <Widget>[
@@ -39,12 +41,12 @@ final FirebaseUser currentCourt ;
                         return
                          
                           new Card(
-                            color: Color(0xff314d4d),
+                            color: Colors.white70,
                             margin: EdgeInsets.only(
                             left: 3, right: 3.0, top: 20.0, bottom: 5.0),
                             child: ListTile(title: Text(
                              'نوع القضيه : ${ doc.data['caseType']}',
-                            style: TextStyle(fontSize: 25,color: Color(0xffcb4154)),
+                            style: TextStyle(fontSize: 25,color: third),
                             textAlign: TextAlign.right,),
                             subtitle: Column(children: <Widget>[ 
                               Row(
@@ -52,14 +54,14 @@ final FirebaseUser currentCourt ;
                                 children: <Widget>[
                                  Icon(
                                    Icons.arrow_right,
-                                   color: Colors.white,
+                                   color: prime,
                                    size: 30,
                                  ),
                                  Container(
                                 child:Text(
                                   'حالة القضيه : ${doc.data['caseState']}',
                                   style: TextStyle(fontSize: 18
-                                  ,color: Colors.white,)
+                                  ,color: prime,)
                                   ,textAlign: TextAlign.left,
                                 ),),
                                 ],
@@ -68,14 +70,14 @@ final FirebaseUser currentCourt ;
                                children: <Widget>[
                                Icon(
                                    Icons.arrow_right,
-                                   color: Colors.white,
+                                   color: prime,
                                    size: 30,
                                  ),
                                Flexible(
                                 child:Text(
                                   'الجريمة المرتكبه  : ${doc.data['crimeName']}',
                                   style: TextStyle(fontSize: 18
-                                  ,color: Colors.white,)
+                                  ,color: prime,)
                                   ,textAlign: TextAlign.left,
                                 ),)
                              ],)

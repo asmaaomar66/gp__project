@@ -524,9 +524,9 @@ var queryResultSet = [];
                       Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
 
                     }else if (_page == 1){
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+                   // Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
                     }else if (_page == 2){
-                         Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+                     //    Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
                     }
                    });
                   },
@@ -558,7 +558,7 @@ var queryResultSet = [];
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   new CircleAvatar(
-                    backgroundColor: prime , 
+                    backgroundColor: third , 
                     maxRadius: 87.0,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -595,7 +595,7 @@ var queryResultSet = [];
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   new CircleAvatar(
-                    backgroundColor:  prime,
+                    backgroundColor:  third,
                     maxRadius: 87.0,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
