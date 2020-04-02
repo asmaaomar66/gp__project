@@ -2,14 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gpproject/Pages/editCase.dart';
-import 'package:gpproject/models/cases.dart';
+import 'editCase.dart';
+import 'package:toast/toast.dart';
+
+import 'manageCases.dart';
 
 class caseDetails extends StatefulWidget{
 
-  caseDetails({this.currentCase , this.currentCourt});
+  caseDetails({this.currentCase , this.currentCourt , this.where_i_am});
   DocumentSnapshot currentCase;
   FirebaseUser currentCourt;
+  var where_i_am ;
   @override
   State<StatefulWidget> createState() {
     return new _caseDetails();
@@ -18,10 +21,117 @@ class caseDetails extends StatefulWidget{
 }
 
 class _caseDetails extends State<caseDetails>{
+
+
+ final FirebaseAuth _auth = FirebaseAuth.instance;
+
+
   Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
   Color third =  Color(0xff0ccaee) ;
+
   //-----------------functions -------------------
+  Widget _buildTwoButtons(){
+    if (widget.where_i_am == 'cases') {
+     return Container(
+        padding: EdgeInsets.only(top: 20,left: 10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+             //------------------------ARCHIVE BUTTON----------------
+             RaisedButton(
+               shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                              side: BorderSide(color: Color(0xffcb4154))),
+                          onPressed: () {
+                            onClickArchive();
+                          },
+                          color: Color(0xffcb4154),
+                          textColor: Colors.white,
+                          child: Row(
+                            children:<Widget>[
+                              Icon(
+                                Icons.archive
+                              ),
+                              Text("ارشيف",
+                              style: TextStyle(
+                                fontSize: 15.0,
+                              )),
+                            ]
+                          )
+                        ),
+                
+                       
+                          SizedBox(
+                          width: 40.0,
+                        ),
+                        //---------------edit button----------------
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                              side: BorderSide(color: Color(0xff69a5a5))),
+                          onPressed: () {
+                           
+                               Navigator.of(context).push((MaterialPageRoute(
+                                 builder: (context)=>
+                                 editCase(currentCase: widget.currentCase,currentCourt: widget.currentCourt,) ) ) );
+                          },
+                          color: Color(0xff69a5a5),
+                          textColor: Colors.white,
+                          child:  Row(
+                            children:<Widget>[
+                              Icon(
+                                Icons.edit
+                              ),
+                              Text("تعديل",
+                              style: TextStyle(
+                                fontSize: 15.0,
+                              )),
+                            ]
+                          )
+                        ),
+                      ],
+                    ),
+                  );
+ }
+  else {
+    return  SizedBox (height: 5,);
+  }      
+  }
+
+  Future onClickArchive() async {
+     final FirebaseUser user = await _auth.currentUser();
+    Firestore _firestore = new Firestore();
+    
+  try{
+    
+      DocumentReference archivedCaseReff = Firestore.instance.collection('archivedCases').document();
+      archivedCaseReff.setData({
+          "caseId": archivedCaseReff.documentID,
+          "courtId": user.uid,
+          "caseType": widget.currentCase.data['caseType'],
+          "caseState": widget.currentCase.data['caseState'],
+          "victimName": widget.currentCase.data['victimName'],
+          "offenderName": widget.currentCase.data['offenderName'],
+          "crimeName": widget.currentCase.data['crimeName'],
+          "caseDate": widget.currentCase.data['caseDate'],
+          "caseNumber": widget.currentCase.data['caseNumber'],
+    });
+
+      CollectionReference casesReff = Firestore.instance.collection('cases');
+      casesReff.document(widget.currentCase.data['caseId']).delete();
+     Toast.show(" تم اضافة القضيه الي الارشيف بنجاح ", context,  duration: 3);
+    Navigator.push(context,new MaterialPageRoute(
+                          builder:(context)=>manageCases(currentCourt: widget.currentCourt,)
+                      ));
+
+  }
+  catch(e){
+    print(e);
+  }
+   
+  
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -98,6 +208,10 @@ class _caseDetails extends State<caseDetails>{
                         ),
                         
                         //--------------------two buttons--------------------------
+
+                      _buildTwoButtons(),
+                                    ],
+
                         Container(
                     padding: EdgeInsets.only(top: 20,left: 10.0),
                     child: Row(
@@ -155,6 +269,7 @@ class _caseDetails extends State<caseDetails>{
                   ),
          
                       ],
+
                     ),
                   ),
                          ])
