@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
        primaryColor: prime,
      ),
 
-
       home: new splash_screen(),
 
       
