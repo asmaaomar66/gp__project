@@ -33,9 +33,9 @@ class _SignUpLawyer extends State<SignUpLawyer> {
       _officenumber,
       _officeaddress,
       _personaladdress,
-      _category,
+     // _category,
       _selectedCategory;
-
+      
   // final userrefrence = Firestore.instance.collection('Lawyer');
   TextEditingController _ChildUserNameController = TextEditingController();
   TextEditingController _ChildEmailController = TextEditingController();
@@ -52,8 +52,9 @@ class _SignUpLawyer extends State<SignUpLawyer> {
   bool _autoValidate = false;
   bool _loadingVisible = false;
 
-  Color prime = Colors.red[800] ;
+   Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
 
   Future getImage(File requierdImage) async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -79,7 +80,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
           children: <Widget>[
             Container(
               child: IconButton(
-                  icon: Icon(Icons.photo_filter , color: prime,),
+                  icon: Icon(Icons.photo_filter , color: third,),
                   onPressed: () async {
                     var image = await ImagePicker.pickImage(
                         source: ImageSource.gallery);
@@ -104,7 +105,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
           children: <Widget>[
             Container(
               child: IconButton(
-                  icon: Icon(Icons.camera_alt , color: prime,),
+                  icon: Icon(Icons.camera_alt , color: third,),
                   onPressed: () async {
                     var image =
                     await ImagePicker.pickImage(source: ImageSource.camera);
@@ -140,7 +141,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
     _ChildPersonaladdressController.dispose();
   }
 
-
+/*
   List<String> _Categories = [
     " الاسرة والاحوال الشخصية ",
     " الاندماج والتملك ",
@@ -161,7 +162,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
 
   _AddCategory() {
     _selectedCategory = _Categories[0];
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -178,6 +179,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                     left: 15, top: 10, right: 0, bottom: 20.0),
               ),
               new Card(
+              //  color: third,
                 margin: EdgeInsets.only(
                     left: 20.0, right: 20.0, top: 30, bottom: 0),
                 child: new Form(
@@ -191,7 +193,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                           'الملف الشخصي',
                           style: TextStyle(
                               fontSize: 25.0,
-                              color: prime,
+                              color: third,
                               fontWeight: FontWeight.w900),
                         ),
                       ),
@@ -205,7 +207,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                           textDirection: TextDirection.rtl,
                           decoration: InputDecoration(
                             hintStyle: TextStyle(
-                              color: prime,
+                              color: third,
                               fontSize: 18,
                             ),
                             alignLabelWithHint: true,
@@ -218,7 +220,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                                 size: 23,
                               ),
                               shape: new CircleBorder(),
-                              fillColor: prime,
+                              fillColor: third,
                             ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -244,7 +246,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                           textDirection: TextDirection.rtl,
                           decoration: InputDecoration(
                             hintStyle: TextStyle(
-                              color: prime,
+                              color: third,
                               fontSize: 18,
                             ),
                             alignLabelWithHint: true,
@@ -257,7 +259,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                                 size: 23,
                               ),
                               shape: new CircleBorder(),
-                              fillColor: prime,
+                              fillColor: third,
                             ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -283,7 +285,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                           textDirection: TextDirection.rtl,
                           decoration: InputDecoration(
                             hintStyle: TextStyle(
-                              color: prime,
+                              color: third,
                               fontSize: 18,
                             ),
                             alignLabelWithHint: true,
@@ -296,7 +298,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                                 size: 23,
                               ),
                               shape: new CircleBorder(),
-                              fillColor: prime,
+                              fillColor: third,
                             ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -317,7 +319,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                           textDirection: TextDirection.rtl,
                           decoration: InputDecoration(
                             hintStyle: TextStyle(
-                              color: prime,
+                              color: third,
                               fontSize: 18,
                             ),
                             alignLabelWithHint: true,
@@ -330,7 +332,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                                 size: 23,
                               ),
                               shape: new CircleBorder(),
-                              fillColor: prime,
+                              fillColor: third,
                             ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -350,7 +352,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                           textDirection: TextDirection.rtl,
                           decoration: InputDecoration(
                             hintStyle: TextStyle(
-                              color: prime,
+                              color: third,
                               fontSize: 18,
                             ),
                             alignLabelWithHint: true,
@@ -363,7 +365,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                                 size: 23,
                               ),
                               shape: new CircleBorder(),
-                              fillColor: prime,
+                              fillColor: third,
                             ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -392,7 +394,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                           textDirection: TextDirection.rtl,
                           decoration: InputDecoration(
                             hintStyle: TextStyle(
-                              color: prime,
+                              color: third,
                               fontSize: 18,
                             ),
                             alignLabelWithHint: true,
@@ -405,7 +407,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                                 size: 23,
                               ),
                               shape: new CircleBorder(),
-                              fillColor: prime,
+                              fillColor: third,
                             ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -434,7 +436,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                           textDirection: TextDirection.rtl,
                           decoration: InputDecoration(
                             hintStyle: TextStyle(
-                              color: prime,
+                              color: third,
                               fontSize: 18,
                             ),
                             alignLabelWithHint: true,
@@ -447,7 +449,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                                 size: 23,
                               ),
                               shape: new CircleBorder(),
-                              fillColor: prime,
+                              fillColor: third,
                             ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -473,7 +475,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                           textDirection: TextDirection.rtl,
                           decoration: InputDecoration(
                             hintStyle: TextStyle(
-                              color: prime,
+                              color: third,
                               fontSize: 18,
                             ),
                             alignLabelWithHint: true,
@@ -486,7 +488,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                                 size: 23,
                               ),
                               shape: new CircleBorder(),
-                              fillColor: prime,
+                              fillColor: third,
                             ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -512,7 +514,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                           textDirection: TextDirection.rtl,
                           decoration: InputDecoration(
                             hintStyle: TextStyle(
-                              color: prime,
+                              color: third,
                               fontSize: 18,
                             ),
                             alignLabelWithHint: true,
@@ -525,7 +527,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                                 size: 23,
                               ),
                               shape: new CircleBorder(),
-                              fillColor: prime,
+                              fillColor: third,
                             ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -541,7 +543,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                           onSaved: (input) => _officeaddress = input,
                         ),
                       ),
-                      Padding(
+                    /*  Padding(
                         padding: EdgeInsets.only(
                             left: 15, top: 10, right: 90, bottom: 20.0),
                         child: DropdownButton<String>(
@@ -572,7 +574,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                             });
                           },
                         ),
-                      ),
+                      ),*/
 
                       Padding(
                         padding: EdgeInsets.only(
@@ -603,8 +605,8 @@ class _SignUpLawyer extends State<SignUpLawyer> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40),
             ),
-            color: prime,
-            textColor: second,
+            color: second,
+            textColor: third,
             onPressed: () {
               _emailSignUp2(
                 fname: _ChildFirstnameController.text,
@@ -613,7 +615,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                 email: _ChildEmailController.text,
                 password: _ChildPassWordController.text,
                 phone: _ChildPhonenumberController.text,
-                paddress: _ChildPersonaladdressController.text ,
+                personaladdress: _ChildPersonaladdressController.text ,
                 officeaddress: _ChildOfficeaddressController.text ,
                 officenumber: _ChildOfficenumberController.text ,
                 image: imageurl,
@@ -651,7 +653,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
         String email,
         String password,
         String phone,
-        String paddress ,
+        String personaladdress ,
         String officeaddress ,
         String officenumber ,
         String image,
@@ -680,10 +682,10 @@ class _SignUpLawyer extends State<SignUpLawyer> {
               email: email,
               password: password,
               phone: phone,
-              paddress: paddress,
+              personaladdress: personaladdress,
               officeaddress: officeaddress,
               officenumber: officenumber,
-              category: category,
+            //  category: category,
               image: imageurl,
               role: role,
             ),

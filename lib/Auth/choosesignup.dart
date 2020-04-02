@@ -11,11 +11,15 @@ class Buttons extends StatefulWidget {
 }
 
 class _Buttons extends State<Buttons> {
+   Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   @override
   Widget build(BuildContext context) {
 
     return new Scaffold(
-        backgroundColor: Color.fromRGBO(1, 44, 45, 15),
+        backgroundColor: prime,
+        //Color.fromRGBO(1, 44, 45, 15),
 
         body: ListView(
           children: <Widget>[
@@ -32,7 +36,7 @@ class _Buttons extends State<Buttons> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 35,
-                    color: Colors.amber,
+                    color: third,
                     //  color: Color.fromRGBO(218, 154, 28, 15),
                   ),
 
@@ -52,7 +56,7 @@ class _Buttons extends State<Buttons> {
                 },
                 shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(10.0),
-                  side: BorderSide(color: Colors.amber, width: 3),
+                  side: BorderSide(color: third, width: 3),
                 ),
                 child: new Text(
                   "محامي",
@@ -72,7 +76,7 @@ class _Buttons extends State<Buttons> {
                 },
                 shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(10.0),
-                  side: BorderSide(color: Colors.amber, width: 3),
+                  side: BorderSide(color: third, width: 3),
                 ),
                 child: new Text(
                   "مستخدم",
@@ -92,7 +96,7 @@ class _Buttons extends State<Buttons> {
                 },
                 shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(10.0),
-                  side: BorderSide(color: Colors.amber, width: 3),
+                  side: BorderSide(color:third, width: 3),
                 ),
                 child: new Text(
                   "محكمة",
