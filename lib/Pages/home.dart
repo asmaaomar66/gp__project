@@ -3,9 +3,7 @@ import 'package:gpproject/Classes/User.dart';
 import 'package:gpproject/Pages/addCase.dart';
 import 'package:gpproject/Pages/manageCases.dart';
 import 'package:gpproject/Classes/notification.dart';
-import 'package:gpproject/Pages/questionPage.dart';
 import 'package:gpproject/Services/searchservice.dart';
-import 'package:gpproject/Pages/answerquestions.dart';
 import 'package:gpproject/Pages/question_and_answer.dart';
 import 'package:gpproject/Pages/question_list.dart';
 import 'package:gpproject/models/user.dart';
@@ -17,7 +15,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'addCase.dart';
 import 'ProfileUsers.dart';
-import 'clicky_button.dart';
 import 'drawerprofile.dart';
 import 'lawyer_list.dart';
 
