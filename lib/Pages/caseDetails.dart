@@ -211,60 +211,7 @@ class _caseDetails extends State<caseDetails>{
 
                       _buildTwoButtons(),
                                     ],
-
-                        Container(
-                    padding: EdgeInsets.only(top: 20,left: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                              side: BorderSide(color: third)),
-                          onPressed: () {},
-                          color: third,
-                          textColor: Colors.white,
-                          child: Row(
-                            children:<Widget>[
-                              Icon(
-                                Icons.archive
-                              ),
-                              Text("ارشيف",
-                              style: TextStyle(
-                                fontSize: 15.0,
-                              )),
-                            ]
-                          )
-                        ),
-                        SizedBox(
-                          width: 40.0,
-                        ),
-                        //---------------edit button----------------
-                        RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                              side: BorderSide(color: third)),
-                          onPressed: () {
-                           
-                               Navigator.of(context).push((MaterialPageRoute(
-                                 builder: (context)=>
-                                 editCase(currentCase: widget.currentCase,currentCourt: widget.currentCourt,) ) ) );
-                          },
-                          color: third,
-                          textColor: Colors.white,
-                          child:  Row(
-                            children:<Widget>[
-                              Icon(
-                                Icons.edit
-                              ),
-                              Text("تعديل",
-                              style: TextStyle(
-                                fontSize: 15.0,
-                              )),
-                            ]
-                          )
-                        ),
-                      ],
+                   
                     ),
                   ),
          
@@ -272,10 +219,10 @@ class _caseDetails extends State<caseDetails>{
 
                     ),
                   ),
-                         ])
+                      
  
        
-     )
+  
     );
   }
   
