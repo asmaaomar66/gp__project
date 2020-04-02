@@ -1,7 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:gpproject/Classes/User.dart';
-import 'package:gpproject/Pages/CourtPages/addCase.dart';
-import 'package:gpproject/Pages/CourtPages/manageCases.dart';
+import 'package:gpproject/Pages/addCase.dart';
+import 'package:gpproject/Pages/manageCases.dart';
 import 'package:gpproject/Classes/notification.dart';
 import 'package:gpproject/Pages/questionPage.dart';
 import 'package:gpproject/Pages/answerquestions.dart';
@@ -15,13 +15,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gpproject/Pages/CourtPages/addCase.dart';
+import 'addCase.dart';
 import 'ProfileUsers.dart';
 import 'clicky_button.dart';
 import 'drawerprofile.dart';
 import 'lawyer_list.dart';
-
-import 'package:gpproject/Pages/CourtPages/view_archived_cases.dart';
+import 'package:gpproject/Pages/view_archived_cases.dart';
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title, this.user, this.currentUser });
   final FirebaseUser user;
