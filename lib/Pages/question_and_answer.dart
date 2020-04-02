@@ -23,7 +23,9 @@ class QuestionAndAnswer extends StatefulWidget {
 }
 
 class _QuestionAndAnswer extends State<QuestionAndAnswer> {
- 
+ Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
  
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class _QuestionAndAnswer extends State<QuestionAndAnswer> {
 
               new Card(
 
-                  color: Colors.white,
+                  color: third,
                   margin: EdgeInsets.only(
                       left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
                   child: new Column(
@@ -58,7 +60,7 @@ class _QuestionAndAnswer extends State<QuestionAndAnswer> {
                         child: Text(doc.data['title'],
                           //textDirection: TextDirection.rtl,
                           textAlign: TextAlign.right,
-                          style: TextStyle(fontSize: 20, color: Colors.black),),
+                          style: TextStyle(fontSize: 20, color: second),),
 
 
                       ),
@@ -85,8 +87,8 @@ class _QuestionAndAnswer extends State<QuestionAndAnswer> {
       new Row(
         //crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          IconButton(icon: new Icon(FontAwesomeIcons.solidHeart), alignment: Alignment.topRight,color: Colors.teal[900],onPressed: (){},),
-          IconButton(icon: new Icon(FontAwesomeIcons.share), alignment: Alignment.topRight,color: Colors.teal[900],onPressed: (){},),
+          IconButton(icon: new Icon(FontAwesomeIcons.solidHeart), alignment: Alignment.topRight,color: prime,onPressed: (){},),
+          IconButton(icon: new Icon(FontAwesomeIcons.share), alignment: Alignment.topRight,color: prime,onPressed: (){},),
         ],
       ),
 

@@ -20,8 +20,9 @@ class managelawyers extends StatefulWidget {
 
 
 class _managelawyersState extends State<managelawyers> {
-  Color prime = Colors.red[800] ;
+  Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   final snapshotusers = Firestore.instance;
   
    static Future<void> signOut() async {
@@ -57,6 +58,7 @@ class _managelawyersState extends State<managelawyers> {
               leading: Icon(
                 Icons.supervised_user_circle,
                 size: 25,
+                color: third,
               ),
               title: Text(
                 'إدارة_المستخدمين',
@@ -67,7 +69,7 @@ class _managelawyersState extends State<managelawyers> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.markunread_mailbox),
+              leading: Icon(Icons.markunread_mailbox ,color: third,),
               title: Text(
                 'إدارة_المحاكم',
                 style: TextStyle(fontSize: 22),
@@ -77,7 +79,7 @@ class _managelawyersState extends State<managelawyers> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.warning),
+              leading: Icon(Icons.warning ,color: third,),
               title: Text(
                 'إدارة_القوانين',
                 style: TextStyle(fontSize: 22 , ),
@@ -87,7 +89,7 @@ class _managelawyersState extends State<managelawyers> {
               },
             ),
              ListTile(
-              leading: Icon(Icons.exit_to_app),
+              leading: Icon(Icons.exit_to_app ,color: third,),
               title: Text(
                 'تسجيل الخروج',
                 style: TextStyle(fontSize: 22),
@@ -132,7 +134,7 @@ class _managelawyersState extends State<managelawyers> {
                               borderRadius: BorderRadius.circular(20.0),
                               boxShadow: [
                                 BoxShadow(
-                                    color: Color(0xff69a5a5),
+                                    color: third,
                                     spreadRadius: 0.0,
                                     blurRadius: 13.0,
                                     offset: Offset(6, 7))
@@ -147,7 +149,7 @@ class _managelawyersState extends State<managelawyers> {
                                       borderRadius: BorderRadius.only(
                                           topRight: Radius.circular(20.0),
                                           bottomRight: Radius.circular(20.0)),
-                                      color: Color(0xff1bd0d0),
+                                      color: third,
                                       image:  DecorationImage(
                                               image: NetworkImage( '${doc.data['image']}' ),
                                               fit: BoxFit.fill),

@@ -24,8 +24,9 @@ class editroles extends StatefulWidget{
 }
 
 class _editrolesState extends State<editroles> {
-  Color prime = Colors.red[800] ;
+ Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   UserClass userClass = new UserClass();
   Role _role = new Role();
    final _formKey = GlobalKey<FormState>();
@@ -70,7 +71,7 @@ class _editrolesState extends State<editroles> {
               child: new Text(
                   "تعديل " + _role.rolename,
                   style: TextStyle(
-                      color: Colors.purple,
+                      color: third,
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
 
@@ -94,6 +95,7 @@ class _editrolesState extends State<editroles> {
                           decoration: InputDecoration( 
                             hintText: "إدخل اسم القانون", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 18,
                             ),
                             contentPadding:
@@ -125,6 +127,7 @@ class _editrolesState extends State<editroles> {
                           decoration: InputDecoration( 
                             hintText: "إدخل رقم المادة", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 18,
                             ),
                             contentPadding:
@@ -157,6 +160,7 @@ class _editrolesState extends State<editroles> {
                           decoration: InputDecoration( 
                             hintText: "إدخل نص المادة", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 18,
                             ),
                             contentPadding:
@@ -190,6 +194,7 @@ class _editrolesState extends State<editroles> {
                           decoration: InputDecoration(  
                             hintText: "البند", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 18,
                             ),         
                             contentPadding:
@@ -208,7 +213,7 @@ class _editrolesState extends State<editroles> {
                     Container(
                   width: double.infinity,
                   child: FloatingActionButton(
-                    backgroundColor: prime,
+                    backgroundColor: third,
                    // color: Colors.blue,
                    // textColor: Colors.white,
                     child: Text("تعديل"),

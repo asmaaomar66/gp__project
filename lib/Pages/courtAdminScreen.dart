@@ -22,8 +22,9 @@ class courtscreen extends StatefulWidget{
 }
 
 class _courtscreenState extends State<courtscreen> {
-  Color prime = Colors.red[800] ;
+ Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   UserClass userClass = new UserClass();
 
   @override
@@ -56,7 +57,7 @@ class _courtscreenState extends State<courtscreen> {
                                   width: 100.0,
                                   height: 100.0,
                                   decoration: BoxDecoration(
-                                    color: prime,
+                                    color: third,
                                     //image here
                                     image: DecorationImage(
                                               image: NetworkImage( '${widget.currentcourt.data['image']}'),
@@ -99,7 +100,7 @@ class _courtscreenState extends State<courtscreen> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.perm_identity,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -120,7 +121,7 @@ class _courtscreenState extends State<courtscreen> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.phone,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -135,7 +136,10 @@ class _courtscreenState extends State<courtscreen> {
                                 ],
                               ),
                             ),
-                                  Container(
+                            SizedBox(
+                              height: 15.0,
+                            ),
+                      Container(
                     padding: EdgeInsets.only(left: 10.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -157,7 +161,7 @@ class _courtscreenState extends State<courtscreen> {
                           Toast.show("Err" + err.toString(), context);
                         });
                           },
-                          backgroundColor: prime,
+                          backgroundColor: third,
                           child: new Text( "حذف",
                               style: TextStyle(
                                 fontSize: 15.0,
@@ -166,6 +170,9 @@ class _courtscreenState extends State<courtscreen> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                              height: 10.0,
+                            ),
                            /* Padding(
                               padding: EdgeInsets.only(top: 80.0),
                               child: new Center(

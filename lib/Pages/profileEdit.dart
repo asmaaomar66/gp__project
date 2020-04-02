@@ -35,8 +35,9 @@ class profileEditState extends State<profileEdit>  {
     await prefs.clear();
     FirebaseAuth.instance.signOut();
   }
-  Color prime = Colors.red[800] ;
+  Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
 @override
   void initState() {
     super.initState();
@@ -113,7 +114,7 @@ class profileEditState extends State<profileEdit>  {
                                                         width: 100.0,
                                                         height: 100.0,
                                                         decoration: BoxDecoration(
-                                                          color: Colors.red,
+                                                          color: third,
                                                           //image here
                                                           image: DecorationImage(
                                                          image: NetworkImage( '${snapshot.data['image']}' ),
@@ -135,6 +136,7 @@ class profileEditState extends State<profileEdit>  {
                                                       decoration: InputDecoration(
                                                            hintText: "ادخل الاسم الاول", 
                                                           hintStyle: TextStyle(
+                                                            color: third,
                                                             fontSize: 18,
                                                           ),
                                                           contentPadding:
@@ -161,6 +163,7 @@ class profileEditState extends State<profileEdit>  {
                                                       decoration: InputDecoration(
                                                          hintText: "إدخل اسم العائلة", 
                                                           hintStyle: TextStyle(
+                                                            color: third,
                                                             fontSize: 18,
                                                           ),
                                                           contentPadding:
@@ -187,12 +190,14 @@ class profileEditState extends State<profileEdit>  {
                                                       decoration: InputDecoration(
                                                          hintText: "إدخل اسم المستخدم", 
                                                           hintStyle: TextStyle(
+                                                            color: third,
                                                             fontSize: 18,
                                                           ),
                                                           contentPadding:
                                                               EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                                                               border: OutlineInputBorder(
                                                               borderRadius: BorderRadius.circular(10.0)),
+                                                              
                                                       ),
                                                       validator: (value) {
                                                         if (value.isEmpty) {
@@ -213,6 +218,7 @@ class profileEditState extends State<profileEdit>  {
                                                       decoration: InputDecoration(
                                                          hintText: "إدخل رقم الهاتف", 
                                                         hintStyle: TextStyle(
+                                                          color: third,
                                                           fontSize: 18,
                                                         ),
                                                         contentPadding:
@@ -221,7 +227,7 @@ class profileEditState extends State<profileEdit>  {
                                                             borderRadius: BorderRadius.circular(10.0)),
                                                         prefixIcon: Icon(
                                                           Icons.phone,
-                                                          color: Colors.grey,
+                                                          color: third,
                                                           size: 32.0,
                                                         ),
                                                       ),
@@ -244,6 +250,7 @@ class profileEditState extends State<profileEdit>  {
                                                       decoration: InputDecoration(
                                                          hintText: "إدخل البريد الالكتروني", 
                                                         hintStyle: TextStyle(
+                                                          color: third,
                                                           fontSize: 18,
                                                         ),
                                                         contentPadding:
@@ -252,7 +259,7 @@ class profileEditState extends State<profileEdit>  {
                                                             borderRadius: BorderRadius.circular(10.0)),
                                                         prefixIcon: Icon(
                                                           Icons.mail,
-                                                          color: Colors.grey,
+                                                          color: third,
                                                           size: 32.0,
                                                         ),
                                                       ),
@@ -264,37 +271,7 @@ class profileEditState extends State<profileEdit>  {
                                                       },
                                                     ),
                                                   ),
-                                                /*  Padding(
-                                                    padding: const EdgeInsets.all(10.0),
-                                                    child: TextFormField(
-                                                      initialValue: '${snapshot.data['password']}',
-                                                      style: TextStyle(
-                                                        fontSize: 18.0,
-                                                      ),
-                                                      onSaved: (input) => _user.password = input,
-                                                      decoration: InputDecoration(
-                                                         hintText: "إدخل كلمة المرور", 
-                                                              hintStyle: TextStyle(
-                                                                fontSize: 18,
-                                                              ),
-                                                              contentPadding:
-                                                                  EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-                                                                  border: OutlineInputBorder(
-                                                                  borderRadius: BorderRadius.circular(10.0)),
-                                                        prefixIcon: Icon(
-                                                          Icons.visibility,
-                                                          color: Colors.grey,
-                                                          size: 32.0,
-                                                        ),
-                                                      ),
-                                                      validator: (value) {
-                                                        if (value.isEmpty) {
-                                                          _user.password = '${snapshot.data['password']}';
-                                                        }
-                                                        return null;
-                                                      },
-                                                    ),
-                                                  ),*/
+                                               
                                                  
                                                   Container(
                                                     padding: const EdgeInsets.all(10.0),
@@ -331,7 +308,7 @@ class profileEditState extends State<profileEdit>  {
                                                         }
                                                          },
                                                       child: Text('حفظ'),
-                                                      backgroundColor: prime,
+                                                      backgroundColor: third,
                                                     ),
                                                   ),
                                                 ],
@@ -355,7 +332,7 @@ class profileEditState extends State<profileEdit>  {
                                                         width: 100.0,
                                                         height: 100.0,
                                                         decoration: BoxDecoration(
-                                                          color: Colors.red,
+                                                          color: third,
                                                           //image here
                                                           image: DecorationImage(
                                                          image: NetworkImage( '${snapshot.data['image']}' ),
@@ -377,6 +354,7 @@ class profileEditState extends State<profileEdit>  {
                                                       decoration: InputDecoration(
                                                            hintText: "ادخل الاسم الاول", 
                                                           hintStyle: TextStyle(
+                                                            color: third,
                                                             fontSize: 18,
                                                           ),
                                                           contentPadding:
@@ -403,6 +381,7 @@ class profileEditState extends State<profileEdit>  {
                                                       decoration: InputDecoration(
                                                          hintText: "إدخل اسم العائلة", 
                                                           hintStyle: TextStyle(
+                                                            color: third,
                                                             fontSize: 18,
                                                           ),
                                                           contentPadding:
@@ -429,6 +408,7 @@ class profileEditState extends State<profileEdit>  {
                                                       decoration: InputDecoration(
                                                          hintText: "إدخل اسم المستخدم", 
                                                           hintStyle: TextStyle(
+                                                            color: third,
                                                             fontSize: 18,
                                                           ),
                                                           contentPadding:
@@ -455,6 +435,7 @@ class profileEditState extends State<profileEdit>  {
                                                       decoration: InputDecoration(
                                                          hintText: "إدخل رقم الهاتف", 
                                                         hintStyle: TextStyle(
+                                                          color: third,
                                                           fontSize: 18,
                                                         ),
                                                         contentPadding:
@@ -463,7 +444,7 @@ class profileEditState extends State<profileEdit>  {
                                                             borderRadius: BorderRadius.circular(10.0)),
                                                         prefixIcon: Icon(
                                                           Icons.phone_android,
-                                                          color: Colors.grey,
+                                                          color: third,
                                                           size: 32.0,
                                                         ),
                                                       ),
@@ -486,6 +467,7 @@ class profileEditState extends State<profileEdit>  {
                                                       decoration: InputDecoration(
                                                          hintText: "إدخل البريد الالكتروني", 
                                                         hintStyle: TextStyle(
+                                                          color: third,
                                                           fontSize: 18,
                                                         ),
                                                         contentPadding:
@@ -494,7 +476,7 @@ class profileEditState extends State<profileEdit>  {
                                                             borderRadius: BorderRadius.circular(10.0)),
                                                         prefixIcon: Icon(
                                                           Icons.mail,
-                                                          color: Colors.grey,
+                                                          color: third,
                                                           size: 32.0,
                                                         ),
                                                       ),
@@ -517,6 +499,7 @@ class profileEditState extends State<profileEdit>  {
                                                       decoration: InputDecoration(
                                                          hintText: "إدخل العنوان الشخصي", 
                                                               hintStyle: TextStyle(
+                                                                color: third,
                                                                 fontSize: 18,
                                                               ),
                                                               contentPadding:
@@ -525,7 +508,7 @@ class profileEditState extends State<profileEdit>  {
                                                                   borderRadius: BorderRadius.circular(10.0)),
                                                         prefixIcon: Icon(
                                                           Icons.location_on,
-                                                          color: Colors.grey,
+                                                          color: third,
                                                           size: 32.0,
                                                         ),
                                                       ),
@@ -548,6 +531,7 @@ class profileEditState extends State<profileEdit>  {
                                                       decoration: InputDecoration(
                                                          hintText: "إدخل عنوان المكتب", 
                                                               hintStyle: TextStyle(
+                                                                color: third,
                                                                 fontSize: 18,
                                                               ),
                                                               contentPadding:
@@ -556,7 +540,7 @@ class profileEditState extends State<profileEdit>  {
                                                                   borderRadius: BorderRadius.circular(10.0)),
                                                         prefixIcon: Icon(
                                                           Icons.location_city,
-                                                          color: Colors.grey,
+                                                          color: third,
                                                           size: 32.0,
                                                         ),
                                                       ),
@@ -579,6 +563,7 @@ class profileEditState extends State<profileEdit>  {
                                                       decoration: InputDecoration(
                                                          hintText: "إدخل رقم المكتب", 
                                                               hintStyle: TextStyle(
+                                                                color: third,
                                                                 fontSize: 18,
                                                               ),
                                                               contentPadding:
@@ -587,7 +572,7 @@ class profileEditState extends State<profileEdit>  {
                                                                   borderRadius: BorderRadius.circular(10.0)),
                                                         prefixIcon: Icon(
                                                           Icons.phone,
-                                                          color: Colors.grey,
+                                                          color: third,
                                                           size: 32.0,
                                                         ),
                                                       ),
@@ -640,7 +625,7 @@ class profileEditState extends State<profileEdit>  {
                                                         }
                                                          },
                                                       child: Text('حفظ'),
-                                                      backgroundColor: prime,
+                                                      backgroundColor: third,
                                                     ),
                                                   ),
                                                 ],
@@ -663,7 +648,7 @@ class profileEditState extends State<profileEdit>  {
                                                         width: 100.0,
                                                         height: 100.0,
                                                         decoration: BoxDecoration(
-                                                          color: Colors.red,
+                                                          color: third,
                                                           //image here
                                                           image: DecorationImage(
                                                          image: NetworkImage( '${snapshot.data['image']}' ),
@@ -686,6 +671,7 @@ class profileEditState extends State<profileEdit>  {
                                                       decoration: InputDecoration(
                                                          hintText: "إدخل اسم العائلة", 
                                                           hintStyle: TextStyle(
+                                                            color: third,
                                                             fontSize: 18,
                                                           ),
                                                           contentPadding:
@@ -712,6 +698,7 @@ class profileEditState extends State<profileEdit>  {
                                                       decoration: InputDecoration(
                                                          hintText: "إدخل اسم المستخدم", 
                                                           hintStyle: TextStyle(
+                                                            color: third,
                                                             fontSize: 18,
                                                           ),
                                                           contentPadding:
@@ -738,6 +725,7 @@ class profileEditState extends State<profileEdit>  {
                                                       decoration: InputDecoration(
                                                          hintText: "إدخل البريد الالكتروني", 
                                                         hintStyle: TextStyle(
+                                                          color: third,
                                                           fontSize: 18,
                                                         ),
                                                         contentPadding:
@@ -746,7 +734,7 @@ class profileEditState extends State<profileEdit>  {
                                                             borderRadius: BorderRadius.circular(10.0)),
                                                         prefixIcon: Icon(
                                                           Icons.mail,
-                                                          color: Colors.grey,
+                                                          color: third,
                                                           size: 32.0,
                                                         ),
                                                       ),
@@ -792,7 +780,7 @@ class profileEditState extends State<profileEdit>  {
                                                         }
                                                          },
                                                       child: Text('حفظ'),
-                                                      backgroundColor: prime,
+                                                      backgroundColor: third,
                                                     ),
                                                   ),
                                                 ],

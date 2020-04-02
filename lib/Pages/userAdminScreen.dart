@@ -21,8 +21,9 @@ class userscreen extends StatefulWidget{
 }
 
 class _userscreenState extends State<userscreen> {
-  Color prime = Colors.red[800] ;
+  Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   UserClass userClass = new UserClass();
 
   @override
@@ -55,7 +56,7 @@ class _userscreenState extends State<userscreen> {
                                   width: 100.0,
                                   height: 100.0,
                                   decoration: BoxDecoration(
-                                    color: prime,
+                                    color: third,
                                     //image here
                                     image: DecorationImage(
                                               image: NetworkImage( '${widget.currentuser.data['image']}'),
@@ -98,7 +99,7 @@ class _userscreenState extends State<userscreen> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.perm_identity,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -119,7 +120,7 @@ class _userscreenState extends State<userscreen> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.phone,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -140,7 +141,7 @@ class _userscreenState extends State<userscreen> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.mail,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -161,7 +162,7 @@ class _userscreenState extends State<userscreen> {
                                 children: <Widget>[
                                   Icon(
                                     Icons.visibility,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -175,6 +176,9 @@ class _userscreenState extends State<userscreen> {
                                   ),
                                 ],
                               ),
+                            ),
+                            SizedBox(
+                              height: 15.0,
                             ),
                    Container(
                     padding: EdgeInsets.only(left: 10.0),
@@ -198,15 +202,19 @@ class _userscreenState extends State<userscreen> {
                           Toast.show("Err" + err.toString(), context);
                         });
                           },
-                          backgroundColor: prime,
+                          backgroundColor: third,
                           child: new Text( "حذف",
                               style: TextStyle(
                                 fontSize: 15.0,
-                              ),),
+                              ),
+                              ),
                         ),
                       ],
                     ),
                   ),
+                  SizedBox(
+                              height: 10.0,
+                            ),
                            /* Padding(
                               padding: EdgeInsets.only(top: 80.0),
                               child: new Center(

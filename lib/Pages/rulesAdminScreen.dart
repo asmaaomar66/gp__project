@@ -20,8 +20,9 @@ class rulescreen extends StatefulWidget{
 }
 
 class _rulescreenState extends State<rulescreen> {
-  Color prime = Colors.red[800] ;
+  Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   UserClass userClass = new UserClass();
 
 
@@ -59,7 +60,7 @@ class _rulescreenState extends State<rulescreen> {
                             style: TextStyle(
                                 fontSize: 20.0,
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xffcb4154)),
+                                color: third),
                           )),
                         ),
                         Text(
@@ -107,7 +108,7 @@ class _rulescreenState extends State<rulescreen> {
                           Toast.show("Err" + err.toString(), context);
                         });
                           },
-                          backgroundColor: prime,
+                          backgroundColor: third,
                           child: new Text( "حذف",
                               style: TextStyle(
                                 fontSize: 15.0,
@@ -116,6 +117,9 @@ class _rulescreenState extends State<rulescreen> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                              height: 10.0,
+                            ),
                 ]
                 )
                 )

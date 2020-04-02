@@ -33,8 +33,9 @@ class _SignUpCourt extends State<SignUpCourt> {
   bool _autoValidate = false;
   bool _loadingVisible = false;
 
-  Color prime = Colors.red[800];
-  Color second = Colors.white;
+   Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
 
   Future getImage(File requierdImage) async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -73,7 +74,7 @@ class _SignUpCourt extends State<SignUpCourt> {
               child: IconButton(
                   icon: Icon(
                     Icons.camera_alt,
-                    color: prime,
+                    color: third,
                   ),
                   onPressed: () async {
                     var image =
@@ -100,7 +101,7 @@ class _SignUpCourt extends State<SignUpCourt> {
               child: IconButton(
                   icon: Icon(
                     Icons.photo_filter,
-                    color: prime,
+                    color: third,
                   ),
                   onPressed: () async {
                     var image = await ImagePicker.pickImage(
@@ -154,7 +155,7 @@ class _SignUpCourt extends State<SignUpCourt> {
                             'الملف الشخصي',
                             style: TextStyle(
                                 fontSize: 25.0,
-                                color: prime,
+                                color: third,
                                 fontWeight: FontWeight.w900),
                           ),
                         ),
@@ -168,7 +169,7 @@ class _SignUpCourt extends State<SignUpCourt> {
                             textDirection: TextDirection.rtl,
                             decoration: InputDecoration(
                               hintStyle: TextStyle(
-                                color: prime,
+                                color: third,
                                 fontSize: 18,
                               ),
                               alignLabelWithHint: true,
@@ -181,7 +182,7 @@ class _SignUpCourt extends State<SignUpCourt> {
                                   size: 23,
                                 ),
                                 shape: new CircleBorder(),
-                                fillColor: prime,
+                                fillColor: third,
                               ),
                               contentPadding:
                                   EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -207,7 +208,7 @@ class _SignUpCourt extends State<SignUpCourt> {
                             textDirection: TextDirection.rtl,
                             decoration: InputDecoration(
                               hintStyle: TextStyle(
-                                color: prime,
+                                color: third,
                                 fontSize: 18,
                               ),
                               alignLabelWithHint: true,
@@ -220,7 +221,7 @@ class _SignUpCourt extends State<SignUpCourt> {
                                   size: 23,
                                 ),
                                 shape: new CircleBorder(),
-                                fillColor: prime,
+                                fillColor: third,
                               ),
                               contentPadding:
                                   EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -241,7 +242,7 @@ class _SignUpCourt extends State<SignUpCourt> {
                             textDirection: TextDirection.rtl,
                             decoration: InputDecoration(
                               hintStyle: TextStyle(
-                                color: prime,
+                                color: third,
                                 fontSize: 18,
                               ),
                               alignLabelWithHint: true,
@@ -254,7 +255,7 @@ class _SignUpCourt extends State<SignUpCourt> {
                                   size: 23,
                                 ),
                                 shape: new CircleBorder(),
-                                fillColor: prime,
+                                fillColor: third,
                               ),
                               contentPadding:
                                   EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -275,7 +276,7 @@ class _SignUpCourt extends State<SignUpCourt> {
                             textDirection: TextDirection.rtl,
                             decoration: InputDecoration(
                               hintStyle: TextStyle(
-                                color: prime,
+                                color: third,
                                 fontSize: 18,
                               ),
                               alignLabelWithHint: true,
@@ -288,7 +289,7 @@ class _SignUpCourt extends State<SignUpCourt> {
                                   size: 23,
                                 ),
                                 shape: new CircleBorder(),
-                                fillColor: prime,
+                                fillColor: third,
                               ),
                               contentPadding:
                                   EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
@@ -334,8 +335,8 @@ class _SignUpCourt extends State<SignUpCourt> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40),
             ),
-            color: prime,
-            textColor: second,
+            color: second,
+            textColor: third,
             onPressed: () {
               _emailSignUp3(
                 name: _ChildNameController.text,
