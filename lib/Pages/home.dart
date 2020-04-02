@@ -1,12 +1,13 @@
 import 'package:badges/badges.dart';
 import 'package:gpproject/Classes/User.dart';
-import 'package:gpproject/Pages/addCase.dart';
-import 'package:gpproject/Pages/manageCases.dart';
+import 'package:gpproject/Pages/CourtPages/addCase.dart';
+import 'package:gpproject/Pages/CourtPages/manageCases.dart';
 import 'package:gpproject/Classes/notification.dart';
 import 'package:gpproject/Pages/questionPage.dart';
 import 'package:gpproject/Pages/answerquestions.dart';
 import 'package:gpproject/Pages/question_and_answer.dart';
 import 'package:gpproject/Pages/question_list.dart';
+import 'package:gpproject/models/archivedCases.dart';
 import 'package:gpproject/models/user.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,12 +15,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'addCase.dart';
+import 'package:gpproject/Pages/CourtPages/addCase.dart';
 import 'ProfileUsers.dart';
 import 'clicky_button.dart';
 import 'drawerprofile.dart';
 import 'lawyer_list.dart';
 
+import 'package:gpproject/Pages/CourtPages/view_archived_cases.dart';
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title, this.user, this.currentUser });
   final FirebaseUser user;
@@ -428,7 +430,7 @@ void countDocumentLengthAnswer() async {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
 
                     }else if (_page == 1){
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => view_archived_cases(currentCourt: widget.user)));
                     }else if (_page == 2){
                          Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
                     }

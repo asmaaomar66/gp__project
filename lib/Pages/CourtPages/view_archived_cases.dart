@@ -1,38 +1,38 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gpproject/Pages/caseDetails.dart';
-import 'package:gpproject/Pages/questionPage.dart';
-import 'package:gpproject/models/cases.dart';
-import 'drawerprofile.dart';
-//import 'lawyerScreen.dart';
-class  manageCases extends StatefulWidget {
+import 'caseDetails.dart';
+import 'package:gpproject/Pages/drawerprofile.dart';
+
+class  view_archived_cases extends StatefulWidget {
 final FirebaseUser currentCourt ;
-  manageCases({Key key ,this.currentCourt}) : super(key: key);
+  view_archived_cases({Key key ,this.currentCourt}) : super(key: key);
  @override
-  _manageCases createState()=> new _manageCases();
+  _view_archived_cases createState()=> new _view_archived_cases();
   }
 
 
 
-  class _manageCases extends State<manageCases>{
+  class _view_archived_cases extends State<view_archived_cases>{
       final a = Firestore.instance;
 
    @override
   Widget build(BuildContext context) {
     return
       StreamBuilder<QuerySnapshot>(
-       stream:  a.collection('cases').where("courtId", isEqualTo: "${widget.currentCourt.uid}").snapshots(),
+       stream:  a.collection('archivedCases').where("courtId", isEqualTo: "${widget.currentCourt.uid}").snapshots(),
        builder: (context, snapshot) {
            if (snapshot.hasData) {
                 return Scaffold(
                 drawer: drawerprofile(currentUser: widget.currentCourt,),
                 appBar: AppBar( 
                   backgroundColor: Color(0xff314d4d),
+                   //actions: <Widget>[ Icon(Icons.archive, size: 38,)],
                   title:
-                 new Text("ادارة القضايا الحاليه" ),),  
+                 new Text(" أرشيف القضايا" , style: TextStyle(fontSize: 23) ,),
+                
+                 ),  
                 body: new ListView(children: <Widget>[
           Column(
                    children: snapshot.data.documents.map((doc) {
@@ -82,9 +82,10 @@ final FirebaseUser currentCourt ;
                              ]),
                   onTap: 
                    (){
-                     
-                               Navigator.of(context).push((MaterialPageRoute(
-                                 builder: (context)=>caseDetails(currentCase: doc, currentCourt : widget.currentCourt))));}
+                     var i_am ='archived_cases';
+                     Navigator.of(context).push((MaterialPageRoute(
+                        builder: (context)=>
+                        caseDetails(currentCase: doc, currentCourt : widget.currentCourt , where_i_am: i_am,))));}
                             /*onTap: (){ Navigator.of(context).push((MaterialPageRoute(builder: (context)=> questionPage(id: doc.data['id'], user: widget.value ))));}*/,));
                                   }).toList(),)]));}
                     else {

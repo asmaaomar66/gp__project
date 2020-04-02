@@ -3,10 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gpproject/Pages/caseDetails.dart';
+import 'caseDetails.dart';
 import 'package:gpproject/Pages/home.dart';
 //import 'package:gpproject/Pages/lawyerquestions.dart';
-import 'package:gpproject/Pages/manageCases.dart';
+import 'manageCases.dart';
 import 'package:gpproject/Pages/questionPage.dart';
 import 'package:toast/toast.dart';
 
