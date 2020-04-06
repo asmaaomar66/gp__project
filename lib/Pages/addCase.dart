@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gpproject/Pages/manageCases.dart';
+import 'manageCases.dart';
 import 'package:gpproject/Pages/questionPage.dart';
 import 'package:toast/toast.dart';
-import 'drawerprofile.dart';
+import 'package:gpproject/Pages/drawerprofile.dart';
 
 class addCase extends StatefulWidget {
   addCase({this.currentCourt});

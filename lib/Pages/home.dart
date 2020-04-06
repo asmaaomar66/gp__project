@@ -6,6 +6,7 @@ import 'package:gpproject/Classes/notification.dart';
 import 'package:gpproject/Services/searchservice.dart';
 import 'package:gpproject/Pages/question_and_answer.dart';
 import 'package:gpproject/Pages/question_list.dart';
+import 'package:gpproject/models/archivedCases.dart';
 import 'package:gpproject/models/user.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,8 +18,7 @@ import 'addCase.dart';
 import 'ProfileUsers.dart';
 import 'drawerprofile.dart';
 import 'lawyer_list.dart';
-
-
+import 'package:gpproject/Pages/view_archived_cases.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title, this.user, this.currentUser });
@@ -523,7 +523,9 @@ var queryResultSet = [];
                       Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
 
                     }else if (_page == 1){
-                   // Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => view_archived_cases(currentCourt: widget.user)));
+
                     }else if (_page == 2){
                      //    Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
                     }
