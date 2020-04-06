@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gpproject/Auth/login.dart';
+import 'package:gpproject/Pages/HelloApp.dart';
 import 'package:gpproject/Pages/userAdminScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -97,7 +98,7 @@ class _AdminHomeState extends State<AdminHome> {
               onTap: () {
                 signOut();
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
+                    context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
           ],

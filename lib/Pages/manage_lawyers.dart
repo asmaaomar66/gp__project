@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gpproject/Auth/login.dart';
 import 'package:gpproject/Pages/AdminHome.dart';
+import 'package:gpproject/Pages/HelloApp.dart';
 import 'package:gpproject/Pages/Rules.dart';
 import 'package:gpproject/Pages/manage_courts.dart';
 import 'package:gpproject/Pages/manage_rules.dart';
@@ -97,7 +98,7 @@ class _managelawyersState extends State<managelawyers> {
               onTap: () {
                 signOut();
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
+                    context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
           ],
@@ -184,7 +185,7 @@ class _managelawyersState extends State<managelawyers> {
                                   child: Text(
                                     doc.data['officenumber'],
                                     style: TextStyle(
-                                      fontSize: 20.0,
+                                      fontSize: 18.0,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
