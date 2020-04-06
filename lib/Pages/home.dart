@@ -19,6 +19,7 @@ import 'ProfileUsers.dart';
 import 'drawerprofile.dart';
 import 'lawyer_list.dart';
 import 'package:gpproject/Pages/view_archived_cases.dart';
+
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title, this.user, this.currentUser });
   final FirebaseUser user;
