@@ -4,6 +4,7 @@ import 'package:gpproject/Pages/AdminHome.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gpproject/Pages/HelloApp.dart';
 import 'package:gpproject/Pages/Rules.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -97,7 +98,7 @@ drawer: new Drawer(
               onTap: () {
                 signOut();
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
+                    context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
           ],
