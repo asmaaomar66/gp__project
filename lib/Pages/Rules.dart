@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'AddRoles.dart';
-import 'AddRules.dart';
+//import 'AddRules.dart';
 
 class Rules extends StatefulWidget {
   @override
