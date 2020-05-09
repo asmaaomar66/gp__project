@@ -9,6 +9,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
 import 'package:badges/badges.dart';
 import 'package:gpproject/Classes/User.dart';
+import 'package:gpproject/Pages/addCase.dart';
+import 'package:gpproject/Pages/manageCases.dart';
 import 'package:gpproject/Classes/notification.dart';
 import 'package:gpproject/Pages/questionPage.dart';
 import 'package:file_picker/file_picker.dart';
@@ -23,6 +25,9 @@ import 'package:gpproject/Pages/answerquestions.dart';
 import 'package:gpproject/Pages/question_and_answer.dart';
 import 'package:gpproject/Pages/question_list.dart';
 import 'folderUpload.dart';
+import 'package:gpproject/Services/searchservice.dart';
+import 'package:gpproject/models/archivedCases.dart';
+
 import 'package:gpproject/models/user.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,10 +35,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'addCase.dart';
 import 'ProfileUsers.dart';
-import 'clicky_button.dart';
 import 'drawerprofile.dart';
 import 'lawyer_list.dart';
+import 'package:gpproject/Pages/view_archived_cases.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title, this.user, this.currentUser });
@@ -256,7 +262,9 @@ IconButton(icon: new Icon(Icons.file_upload, color: Colors.black,),
   FirebaseUser firebaseUser;
   User currentUser = new User();
 
+
  NotificationClass noti = new NotificationClass();
+
   initUser() async {
     //firebaseUser = await _firebaseAuth.currentUser();
     //userID = firebaseUser.uid;
@@ -279,12 +287,7 @@ IconButton(icon: new Icon(Icons.file_upload, color: Colors.black,),
     return qn.documents;
   }
 
-/*  navigateToDetail(DocumentSnapshot user) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => FbCprofileState(user: currentUser)),
-    );
-  }*/
+
 
   static Future<void> signOut() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -315,8 +318,43 @@ void countDocumentLengthAnswer() async {
     b =_x.length;
   }
 
-  Color prime = Colors.red[800] ;
+var queryResultSet = [];
+  var tempSearchStore = [];
+
+  initiateSearch(value) {
+    if (value.length == 0) {
+      setState(() {
+        queryResultSet = [];
+        tempSearchStore = [];
+      });
+    }
+
+    var capitalizedValue =
+        value.substring(0, 1).toUpperCase() + value.substring(1);
+
+    if (queryResultSet.length == 0 && value.length == 1) {
+      SearchService().searchByName(value).then((QuerySnapshot docs) {
+        for (int i = 0; i < docs.documents.length; ++i) {
+          queryResultSet.add(docs.documents[i].data);
+        }
+      });
+    } else {
+      tempSearchStore = [];
+      queryResultSet.forEach((element) {
+        if (element['bussinesname'].startsWith(capitalizedValue)) {
+          setState(() {
+            tempSearchStore.add(element);
+          });
+        }
+      });
+    }
+  }
+  
+
+
+ Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
    int _page = 0 ;
    
   @override
@@ -341,7 +379,7 @@ void countDocumentLengthAnswer() async {
             } else if (snapshot.hasData) {
               return checkRole(snapshot.data);
             }
-            return CircularProgressIndicator();
+            return LinearProgressIndicator();
           },
         ),
     );
@@ -362,13 +400,13 @@ void countDocumentLengthAnswer() async {
     }
     if (snapshot.data['role'] == '1') {
       return userPage(snapshot) ;
-            //return userPage(snapshot);
+
           } else if (snapshot.data['role'] == '2') {
             return createListView(snapshot);
-            //return lawyerPage(snapshot);
-          } else {
+          } else if (snapshot.data['role'] == '3'){
             return courtPage(snapshot);
-          }
+          } 
+
         }    
         FutureBuilder userPage(DocumentSnapshot snapshot) {
           return FutureBuilder(
@@ -379,10 +417,9 @@ void countDocumentLengthAnswer() async {
                     child: Text("Loading ..."),
                   );
                 } else {
-                return new  Column(
+                return new  ListView(
                           children: <Widget>[
-      
-                             new  BottomNavigationBar(
+                    new  BottomNavigationBar(
                        currentIndex: _page,
                          items: [
                             BottomNavigationBarItem(
@@ -414,7 +451,6 @@ void countDocumentLengthAnswer() async {
                    setState(() {
                      _page = index ; 
                     if(_page == 0){
-
                           Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers( currentUser: widget.user,)));             
                     }else if (_page == 1){
                    Navigator.push(context,MaterialPageRoute(builder: (context) =>  LawyerList(value: widget.user)));
@@ -424,20 +460,40 @@ void countDocumentLengthAnswer() async {
                         {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});                
 
                     }else if (_page == 3){
-                          Navigator.push(context,  MaterialPageRoute(builder: (context) => questionPage()));
+                        //  Navigator.push(context,  MaterialPageRoute(builder: (context) => questionPage()));
                     }
                    });
                   },
                   ),
-                 new Container(
+                     /* Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: TextField(
+                     onChanged: (val) {
+                         initiateSearch(val);
+                         },
+              decoration: InputDecoration(
+                  prefixIcon: IconButton(
+                    color: Colors.black,
+                    icon: Icon(Icons.arrow_back),
+                    iconSize: 20.0,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  contentPadding: EdgeInsets.only(left: 25.0),
+                  hintText: 'Search by name',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4.0))),
+            ),
+          ),*/
+                    new Container(
                           child: Padding(
                           padding: EdgeInsets.only(
                               top: 30.0, bottom: 0.0, right: 10.0, left: 10.0),
                           child: Row(
                             children: <Widget>[
                               Flexible(
-                                child: GestureDetector(
-                                  onTap: () {},
+                                child: GestureDetector( 
                                   child: Container(
                                      decoration: BoxDecoration(
                           border: Border.all(color: Colors.teal[900]),
@@ -447,6 +503,8 @@ void countDocumentLengthAnswer() async {
                         margin: EdgeInsets.fromLTRB(20, 0, 20, 50),
                         padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                         child: new TextField(
+                          onChanged: (val) {
+                                initiateSearch(val); },
                           style: TextStyle(),
                           textDirection: TextDirection.rtl,
                           autocorrect: true,
@@ -464,12 +522,27 @@ void countDocumentLengthAnswer() async {
                           ),
                         ),
                       ),
-                ]
-              );
-                }
-      
-              });
-        }
+                      SizedBox(height: 10.0),
+                     GridView.count(
+                    padding: EdgeInsets.only(left: 15.0, right: 15.0),
+                    
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 4.0,
+                    mainAxisSpacing: 4.0,
+                    primary: false,
+                    shrinkWrap: true,
+                    children: tempSearchStore.map((element) {
+                      return buildResultCard(element);
+                                          }).toList())
+                                          
+                      
+                      
+                                      ]
+                                    );
+                                      }
+                            
+                                    });
+                              }
         FutureBuilder createListView(DocumentSnapshot snapshot) {
           return FutureBuilder(
               future: _data,
@@ -932,6 +1005,33 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                 }
               });
         }
+
+       
+                      
+  Widget buildResultCard(data) {
+  return Card(
+    color: prime,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+    elevation: 6.0,
+    child: Container(
+      child: Center(
+        child: Text(data['bussinesname'],
+    
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 15.0,
+        ),
+      
+        ),
+      
+      )
+    )
+  );
+}
+
+//---------------------------- COURT PAGE   -------------------------------------
+
         FutureBuilder courtPage(DocumentSnapshot snapshot) {
           return FutureBuilder(
               future: _data,
@@ -954,8 +1054,8 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                            ),
                             BottomNavigationBarItem(
                              backgroundColor: prime,
-                             icon:  new Icon(Icons.add_circle_outline , color: second,),
-                             title: new Text('اضافة قضية' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                             icon:  new Icon(Icons.archive , color: second,),
+                             title: new Text('الارشيف' , style: new TextStyle(fontSize: 10.0 , color: second),)
                            ),
                            BottomNavigationBarItem(
                              backgroundColor: prime,
@@ -968,23 +1068,26 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                      _page = index ; 
                     if(_page == 0){
 
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => profileUsers(currentUser: widget.user,)));             
 
                     }else if (_page == 1){
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => view_archived_cases(currentCourt: widget.user)));
+
                     }else if (_page == 2){
-                         Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
+                     //    Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
                     }
                    });
                   },
                   ),
+                     //-----------------------------SEARCH ----------------------------
                       new Container(
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.brown),
                             borderRadius: BorderRadius.all(Radius.elliptical(30, 30)),
                             color: Colors.white70,
                           ),
-                          margin: EdgeInsets.fromLTRB(20, 20, 20, 50),
+                          margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
                           padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                           child: new TextField(
                             style: TextStyle(),
@@ -997,145 +1100,76 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                               hintText: "ابحث عن اسم أو رقم تسلسل القاضية ",
                             ),
                           )),
-                      Container(
-                        height: 90,
-                        margin: EdgeInsets.fromLTRB(0, 5, 5, 0),
-                        child: new Stack(
-                          children: <Widget>[
-                            new Container(
-                              height: 124,
-                              margin: const EdgeInsets.only(left: 46),
-                              // child: Text("الاسم", textDirection: TextDirection.rtl,),
-                              decoration: new BoxDecoration(
-                                color: Colors.blue,
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(25.0),
-                                  bottomRight: Radius.circular(25.0),
-                                  bottomLeft: Radius.circular(25.0),
-                                ),
-                              ),
-                            ),
-                            new Container(
-                                height: 120,
-                                width: 120,
-                                margin: EdgeInsets.fromLTRB(20, 10, 180, 0),
-                                // margin:  EdgeInsets.symmetric(  horizontal: 20,vertical: 20 ,),
-                                alignment: FractionalOffset.centerLeft,
-                                child: new CircleAvatar(
-                                  radius: 40,
-                                  backgroundColor: Colors.transparent,
-                                  backgroundImage: NetworkImage(
-                                      "http://photo.elcinema.com.s3.amazonaws.com/uploads/_315x420_af94736653749ad01096cd6e2757e6489a8750dc5334bb6a0bb9cf8e428d4cc0.jpg"),
-                                )),
-                            new Positioned(
-                              right: 10,
-                              bottom: 25,
-                              child: IconButton(
-                                  iconSize: 30,
-                                  icon: Icon(
-                                    Icons.more,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (_) => Stack(children: <Widget>[
-                                              AlertDialog(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                ),
-                                                content: SingleChildScrollView(
-                                                    child:
-                                                        ListBody(children: <Widget>[
-                                                  new Text(
-                                                    'الاسم',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'رقم التسلسل',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'عنوان المكتب',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'عنوانه الخاص',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'رقم الهاتف',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'رقم البطاقة',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                  new Text(
-                                                    'رقم كارنية النقابة',
-                                                    textAlign: TextAlign.right,
-                                                    textDirection: TextDirection.rtl,
-                                                  ),
-                                                ])),
-                                                actions: <Widget>[
-                                                  Transform.scale(
-                                                    alignment: Alignment.bottomCenter,
-                                                    scale: 0.5,
-                                                    child: ClickyButton(
-                                                      child: Text(
-                                                        'تعديل',
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 35),
-                                                      ),
-                                                      color: Colors.green,
-                                                      onPressed: () {},
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Positioned(
-                                                  left: 126,
-                                                  top: 35,
-                                                  child: new CircleAvatar(
-                                                    radius: 50,
-                                                    backgroundImage: NetworkImage(
-                                                        "http://photo.elcinema.com.s3.amazonaws.com/uploads/_315x420_af94736653749ad01096cd6e2757e6489a8750dc5334bb6a0bb9cf8e428d4cc0.jpg"),
-                                                    backgroundColor:
-                                                        Colors.transparent,
-      
-                                                    // backgroundColor: Colors.white,
-                                                  ))
-                                            ]));
-                                  }),
-                            ),
-                            new Positioned(
-                                right: 65,
-                                bottom: 50,
-                                child: Text(
-                                  ":الاسم",
-                                  style:
-                                      TextStyle(fontSize: 20, color: Colors.black54),
-                                )),
-                            new Positioned(
-                                right: 65,
-                                bottom: 10,
-                                child: Text(
-                                  ":رقم التسلسل",
-                                  style:
-                                      TextStyle(fontSize: 20, color: Colors.black54),
-                                )),
-                          ],
+      //------------------------2 big buttons---------------------------------
+      //----------------------FIRST BUTTON
+                    Container(
+                     child: new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new CircleAvatar(
+                    backgroundColor: third , 
+                    maxRadius: 87.0,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(
+                            Icons.add_circle,
+                            color: second,
+                            size: 35,
+                          ),
+                          onPressed: () {
+                            Navigator.push(context,new MaterialPageRoute(
+                                builder:(context)=>addCase(currentCourt:widget.user,)
+                            ));
+                          },
                         ),
-                      )
+                        new SizedBox(
+                          height: 3.0,
+                        ),
+                        new Text("اضافة قضيه", style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: second),),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.only(bottom:25),
+                    ),
+                    //---------------------------SECOND BUTTON---------------
+                    Container(
+                       child: new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new CircleAvatar(
+                    backgroundColor:  third,
+                    maxRadius: 87.0,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(
+                            Icons.settings,
+                            color: second,
+                            size: 35,
+                          ),
+                          onPressed: () {
+                             Navigator.push(
+                               context,new MaterialPageRoute(builder:(context)=>manageCases(currentCourt:widget.user )));
+                          },
+                        ),
+                        new SizedBox(
+                          height: 3.0,
+                        ),
+                        new Text("ادارة القضايا الحاليه",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.white),),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+                    )
                     ],
                   );
                 }

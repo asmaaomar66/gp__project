@@ -2,6 +2,7 @@ import 'package:gpproject/Pages/drawerprofile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gpproject/Pages/profileEdit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -20,8 +21,9 @@ class profileUsersState extends State<profileUsers>  {
     await prefs.clear();
     FirebaseAuth.instance.signOut();
   }
-  Color prime = Colors.red[800] ;
+  Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class profileUsersState extends State<profileUsers>  {
           } else if (snapshot.hasData) {
             return checkRole(snapshot.data);
           }
-          return CircularProgressIndicator();
+           return LinearProgressIndicator();
         },
       ),
     );
@@ -97,7 +99,7 @@ class profileUsersState extends State<profileUsers>  {
                                   width: 100.0,
                                   height: 100.0,
                                   decoration: BoxDecoration(
-                                    color: prime,
+                                    color: third,
                                     //image here
                                     image: DecorationImage(
                                               image: NetworkImage( '${snapshot.data['image']}' ),
@@ -140,7 +142,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.perm_identity,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -161,7 +163,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.phone,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -182,7 +184,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.mail,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -203,7 +205,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.visibility,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -218,18 +220,22 @@ class profileUsersState extends State<profileUsers>  {
                                 ],
                               ),
                             ),
+                            
                             Padding(
-                              padding: EdgeInsets.only(top: 80.0),
+                              padding: EdgeInsets.only(top: 80.0 , bottom: 10.0),
                               child: new Center(
                                         child: new FloatingActionButton(
                                           tooltip: 'تعديل',
-                              backgroundColor: prime,
-                               onPressed: () {},
+                                backgroundColor: third,
+                               onPressed: () {
+                                  Navigator.push(context,MaterialPageRoute(builder: (context) => profileEdit(currentUser: widget.currentUser,)));
+                               },
                             child: Icon(
                               Icons.edit,
                               color: second,
-                              size: 50.0,
+                              size: 30.0,
                             ),
+                            
                             ),
                               ),
                             ),
@@ -266,7 +272,7 @@ class profileUsersState extends State<profileUsers>  {
                                   width: 100.0,
                                   height: 100.0,
                                   decoration: BoxDecoration(
-                                    color: prime,
+                                    color: third,
                                     //image here
                                     image: DecorationImage(
                                               image: NetworkImage( '${snapshot.data['image']}' ),
@@ -309,7 +315,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.perm_identity,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -330,7 +336,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.phone_android,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -351,7 +357,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.phone,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -372,7 +378,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.mail,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -393,7 +399,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.visibility,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -414,7 +420,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.location_on,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -435,7 +441,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.location_city,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -450,31 +456,24 @@ class profileUsersState extends State<profileUsers>  {
                                 ],
                               ),
                             ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
                              new FloatingActionButton(
                                           tooltip: 'تعديل',
-                              backgroundColor: prime,
-                               onPressed: () {},
+                              backgroundColor: third,
+                               onPressed: () {
+                                 Navigator.push(context,MaterialPageRoute(builder: (context) => profileEdit(currentUser: widget.currentUser,)));
+                               },
                             child: Icon(
                               Icons.edit,
                               color: second,
-                              size: 50.0,
+                              size: 30.0,
                             ),
                             ),
-                          /*  Padding(
-                              padding: EdgeInsets.only(top: 80.0),
-                              child: new Center(
-                                        child: new FloatingActionButton(
-                                          tooltip: 'تعديل',
-                              backgroundColor: prime,
-                               onPressed: () {},
-                            child: Icon(
-                              Icons.edit,
-                              color: second,
-                              size: 50.0,
+                            SizedBox(
+                              height: 15.0,
                             ),
-                            ),
-                              ),
-                            ),*/
                                      ],
                                    ),
                                  ),
@@ -508,7 +507,7 @@ class profileUsersState extends State<profileUsers>  {
                                   width: 100.0,
                                   height: 100.0,
                                   decoration: BoxDecoration(
-                                    color: prime,
+                                    color: third,
                                     //image here
                                     image: DecorationImage(
                                               image: NetworkImage( '${snapshot.data['image']}' ),
@@ -551,7 +550,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.perm_identity,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -572,7 +571,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.mail,
-                                    color: Colors.grey,
+                                     color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -593,7 +592,7 @@ class profileUsersState extends State<profileUsers>  {
                                 children: <Widget>[
                                   Icon(
                                     Icons.visibility,
-                                    color: Colors.grey,
+                                    color: third,
                                     size: 32.0,
                                   ),
                                   Container(
@@ -609,16 +608,18 @@ class profileUsersState extends State<profileUsers>  {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 80.0),
+                              padding: EdgeInsets.only(top: 50.0 , bottom: 10),
                               child: new Center(
                                         child: new FloatingActionButton(
                                           tooltip: 'تعديل',
-                              backgroundColor: prime,
-                               onPressed: () {},
+                              backgroundColor: third,
+                               onPressed: () {
+                                 Navigator.push(context,MaterialPageRoute(builder: (context) => profileEdit(currentUser: widget.currentUser,)));
+                               },
                             child: Icon(
                               Icons.edit,
                               color: second,
-                              size: 50.0,
+                              size: 30.0,
                             ),
                             ),
                               ),

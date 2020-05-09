@@ -10,6 +10,9 @@ class ResetPassword extends StatefulWidget {
 //enum DataType {_email}
 
 class _ResetPasswordState extends State<ResetPassword> {
+   Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
 
   ScrollController _scrollController = new ScrollController();
 
@@ -20,6 +23,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+     // backgroundColor: prime,
       appBar: AppBar(
         title: Text(
           'إعادة تعين كلمة المرور',
@@ -28,7 +32,7 @@ class _ResetPasswordState extends State<ResetPassword> {
             fontSize: 25.0,
           ),
         ),
-        backgroundColor: Colors.teal[900],
+        backgroundColor: third,
         //leading: Icon(Icons.dehaze, size: 30.0, color: Colors.white),
       ),
 
@@ -37,9 +41,11 @@ class _ResetPasswordState extends State<ResetPassword> {
         child: ListView(
           controller: _scrollController,
           children: <Widget>[
+            
             Padding(
-              padding: EdgeInsets.only( top: 40.0, bottom: 0.0, right: 25.0, left: 20.0),
+              padding: EdgeInsets.only( top: 120.0, bottom: 0.0, right: 25.0, left: 20.0),
               child: TextFormField(
+                
                 validator: (input){
                   if (input.isEmpty) {
                     return 'من فضلم ادخل البريد الالكتروني';
@@ -48,11 +54,12 @@ class _ResetPasswordState extends State<ResetPassword> {
                 onSaved: (input) => _email = input,
                 decoration: InputDecoration(
                   labelText: 'البريد الالكتروني',
-                  icon: Icon(Icons.email),
+                  icon: Icon(Icons.email , color: third,),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
+                cursorColor: third,
               ),
             ),
 
@@ -67,19 +74,23 @@ class _ResetPasswordState extends State<ResetPassword> {
                       width: 80,
                     ),
                     ButtonTheme(
-                      minWidth: 170,
-                      child: RaisedButton(
-                        padding: EdgeInsets.only( top: 5, bottom: 5, right: 20, left: 20),
+                     // minWidth: 170,
+                      child: FloatingActionButton(
+                       // padding: EdgeInsets.only( top: 5, bottom: 5, right: 20, left: 20),
                         onPressed: resetPassword,
 
                         child: Text( 'ادخال',
                           style: TextStyle(
-                              fontSize: 27,
+                              fontSize: 18.0,
                               fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal),
+                              fontStyle: FontStyle.normal,
+                              color: second
+                              ),
                         ),
-                        color: Colors.cyan,
-                        textColor: Colors.white,
+                        //color: Colors.cyan,
+                        //textColor: Colors.white,
+                        backgroundColor: third,
+
                       ),
                     ),
                   ],
