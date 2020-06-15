@@ -63,7 +63,7 @@ class _managerulesState extends State<managerules> {
                 style: TextStyle(fontSize: 22 , ),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => AdminHome()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AdminHome()));
               },
             ),
             ListTile(
@@ -77,7 +77,7 @@ class _managerulesState extends State<managerules> {
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => managelawyers()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managelawyers()));
               },
             ),
             ListTile(
@@ -87,7 +87,7 @@ class _managerulesState extends State<managerules> {
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                 Navigator.push(context,MaterialPageRoute(builder: (context) => managecourts()));
+                 Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managecourts()));
               },
             ),
              ListTile(
@@ -98,7 +98,7 @@ class _managerulesState extends State<managerules> {
               ),
               onTap: () {
                 signOut();
-                Navigator.push(
+                Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),

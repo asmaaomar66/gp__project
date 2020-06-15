@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gpproject/Pages/HelloApp.dart';
+import 'package:gpproject/Pages/settingpage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gpproject/Pages/AddTime2.dart';
@@ -147,7 +148,9 @@ Color prime = Color(0xff0e243b);
                 'الإعدادات',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                 Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>  SettingsPage(currentUser: widget.currentUser,)));
+              },
             ),
             ListTile(
               leading: Icon(
@@ -171,7 +174,7 @@ Color prime = Color(0xff0e243b);
               ),
               onTap: () {
                 signOut();
-                Navigator.push(
+                Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
@@ -277,7 +280,9 @@ Color prime = Color(0xff0e243b);
                 'الإعدادات',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>  SettingsPage(currentUser: widget.currentUser,)));
+              },
             ),
 
             ListTile(
@@ -288,7 +293,7 @@ Color prime = Color(0xff0e243b);
               ),
               onTap: () {
                 signOut();
-                Navigator.push(
+                Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
@@ -383,7 +388,9 @@ Color prime = Color(0xff0e243b);
                 'الإعدادات',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>  SettingsPage(currentUser: widget.currentUser,)));
+              },
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app , color: third,),
@@ -393,7 +400,7 @@ Color prime = Color(0xff0e243b);
               ),
               onTap: () {
                 signOut();
-                Navigator.push(
+                Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
