@@ -92,6 +92,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.3"
+  curved_navigation_bar:
+    dependency: "direct main"
+    description:
+      name: curved_navigation_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.2"
   file_picker:
     dependency: "direct main"
     description:
@@ -112,9 +119,7 @@ packages:
       name: filex
       url: "https://pub.dartlang.org"
     source: hosted
-
     version: "0.2.2"
-    version: "0.3.2"
   firebase:
     dependency: transitive
     description:
@@ -122,7 +127,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.2.1"
-
   firebase_analytics:
     dependency: "direct main"
     description:
@@ -198,7 +202,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.0"
-
   flutter_full_pdf_viewer:
     dependency: "direct main"
     description:
@@ -206,7 +209,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.6"
-
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -214,7 +216,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.4"
-
   flutter_plugin_android_lifecycle:
     dependency: "direct main"
     description:
@@ -253,7 +254,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-
   folder_picker:
     dependency: "direct main"
     description:
@@ -261,7 +261,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.0"
-
   folding_cell:
     dependency: "direct main"
     description:
@@ -269,7 +268,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
-
   font_awesome_flutter:
     dependency: transitive
     description:
@@ -319,15 +317,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.16.1"
-
-  loading_overlay:
-    dependency: "direct main"
-    description:
-      name: loading_overlay
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.1"
-
   js:
     dependency: transitive
     description:
@@ -335,7 +324,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.1+1"
-
+  loading_overlay:
+    dependency: "direct main"
+    description:
+      name: loading_overlay
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
   matcher:
     dependency: transitive
     description:
