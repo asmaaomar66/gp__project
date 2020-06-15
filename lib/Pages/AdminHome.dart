@@ -66,7 +66,7 @@ class _AdminHomeState extends State<AdminHome> {
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => managelawyers()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managelawyers()));
               },
             ),
             ListTile(
@@ -76,7 +76,7 @@ class _AdminHomeState extends State<AdminHome> {
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => managecourts()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managecourts()));
               },
             ),
             ListTile(
@@ -86,7 +86,7 @@ class _AdminHomeState extends State<AdminHome> {
                 style: TextStyle(fontSize: 22 , ),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => Rules()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Rules()));
               },
             ),
              ListTile(
@@ -97,7 +97,7 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               onTap: () {
                 signOut();
-                Navigator.push(
+                Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),

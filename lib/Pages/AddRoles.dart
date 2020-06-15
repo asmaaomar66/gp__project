@@ -312,7 +312,7 @@ Color prime = Color(0xff0e243b);
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => managelawyers()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managelawyers()));
               },
             ),
             ListTile(
@@ -322,7 +322,7 @@ Color prime = Color(0xff0e243b);
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => managecourts()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managecourts()));
               },
             ),
             ListTile(
@@ -332,10 +332,10 @@ Color prime = Color(0xff0e243b);
                 style: TextStyle(fontSize: 22 , ),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => Rules()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managerules()));
               },
             ),
-             ListTile(
+             /*ListTile(
               leading: Icon(Icons.exit_to_app , color: third,),
               title: Text(
                 'تسجيل الخروج',
@@ -346,7 +346,7 @@ Color prime = Color(0xff0e243b);
                 Navigator.push(
                     context, MaterialPageRoute(builder: (context) => Login()));
               },
-            ),
+            ),*/
           ],
         ),
         ),

@@ -15,6 +15,7 @@ class Login extends StatefulWidget {
 class _Login extends State<Login> {
   String _email;
   String _password;
+  String msgStatus = '';
   final _formkey = GlobalKey<FormState>();
   Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
@@ -153,17 +154,17 @@ Future<void> signIn()async{
             email: _email,
          password:_password ) ;
          if (_email == 'admin2020@gmail.com' && _password == '123456admin') {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> AdminHome()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> AdminHome()));
 
          }else{
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> MainPage(user:user.user)));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MainPage(user:user.user)));
          }
         }
         catch(e){
           print(e.message);
         }
         
-      } 
+      }
     }
 
 

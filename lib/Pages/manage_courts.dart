@@ -66,7 +66,7 @@ drawer: new Drawer(
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => managelawyers()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managelawyers()));
               },
             ),
             ListTile(
@@ -76,7 +76,7 @@ drawer: new Drawer(
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => AdminHome()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AdminHome()));
               },
             ),
             ListTile(
@@ -86,7 +86,7 @@ drawer: new Drawer(
                 style: TextStyle(fontSize: 22 , ),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => Rules()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Rules()));
               },
             ),
              ListTile(
@@ -97,7 +97,7 @@ drawer: new Drawer(
               ),
               onTap: () {
                 signOut();
-                Navigator.push(
+                Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
