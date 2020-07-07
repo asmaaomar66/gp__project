@@ -3,10 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gpproject/Pages/caseDetails.dart';
+import 'caseDetails.dart';
 import 'package:gpproject/Pages/home.dart';
 //import 'package:gpproject/Pages/lawyerquestions.dart';
-import 'package:gpproject/Pages/manageCases.dart';
+import 'manageCases.dart';
 import 'package:gpproject/Pages/questionPage.dart';
 import 'package:toast/toast.dart';
 
@@ -23,6 +23,9 @@ class editCase extends StatefulWidget{
 }
 
 class _editCase extends State<editCase>{
+  Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   //-----------------------variables------------------
  
    TextEditingController  caseType = new TextEditingController();
@@ -60,7 +63,7 @@ class _editCase extends State<editCase>{
   Widget build(BuildContext context) {
     return Scaffold(
        appBar: AppBar(
-              backgroundColor: Color(0xff314d4d),
+              backgroundColor: prime,
               title: Text("تعديل القضيه"),
               leading: IconButton(
                   icon: Icon(Icons.arrow_back),
@@ -74,7 +77,7 @@ class _editCase extends State<editCase>{
               child: new Text(
                   "تعديل علي قضيه رقم  ${widget.currentCase.data['caseNumber']} " ,
                   style: TextStyle(
-                      color: Color(0xff314d4d),
+                      color: prime,
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
 
@@ -107,6 +110,7 @@ class _editCase extends State<editCase>{
                           decoration: InputDecoration( 
                             hintText: "ادخل نوع القضيه", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 18,
                             ),
                             contentPadding:
@@ -143,6 +147,7 @@ class _editCase extends State<editCase>{
                           decoration: InputDecoration( 
                             hintText: "ادخل حالة القضيه", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 18,
                             ),
                             contentPadding:
@@ -180,6 +185,7 @@ class _editCase extends State<editCase>{
                           decoration: InputDecoration( 
                             hintText: "ادخل اسم المجني عليه", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 18,
                             ),
                             contentPadding:
@@ -217,6 +223,7 @@ class _editCase extends State<editCase>{
                           decoration: InputDecoration( 
                             hintText: "ادخل اسم الجاني ", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 18,
                             ),
                             contentPadding:
@@ -254,6 +261,7 @@ class _editCase extends State<editCase>{
                           decoration: InputDecoration( 
                             hintText: "ادخل اسم الجريمه المرتكبه", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 18,
                             ),
                             contentPadding:
@@ -291,6 +299,7 @@ class _editCase extends State<editCase>{
                           decoration: InputDecoration( 
                             hintText: "ادخل تاريخ القضيه  ", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 18,
                             ),
                             contentPadding:
@@ -328,6 +337,7 @@ class _editCase extends State<editCase>{
                           decoration: InputDecoration( 
                             hintText: "ادخل رقم القضيه التسلسلي", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 18,
                             ),
                             contentPadding:
@@ -345,7 +355,7 @@ class _editCase extends State<editCase>{
                  Container(
                   width: double.infinity,
                   child: FloatingActionButton(
-                    backgroundColor: Color(0xff314d4d),
+                    backgroundColor: third,
                     child: Text("تعديل"),
                     onPressed: () {
                       onClickEditCase();

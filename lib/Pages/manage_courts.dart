@@ -4,6 +4,7 @@ import 'package:gpproject/Pages/AdminHome.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gpproject/Pages/HelloApp.dart';
 import 'package:gpproject/Pages/Rules.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -65,7 +66,7 @@ drawer: new Drawer(
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => managelawyers()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managelawyers()));
               },
             ),
             ListTile(
@@ -75,7 +76,7 @@ drawer: new Drawer(
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => AdminHome()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AdminHome()));
               },
             ),
             ListTile(
@@ -85,7 +86,7 @@ drawer: new Drawer(
                 style: TextStyle(fontSize: 22 , ),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => Rules()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Rules()));
               },
             ),
              ListTile(
@@ -96,8 +97,8 @@ drawer: new Drawer(
               ),
               onTap: () {
                 signOut();
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
           ],

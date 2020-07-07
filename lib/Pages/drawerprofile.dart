@@ -2,7 +2,12 @@ import 'package:gpproject/Auth/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:gpproject/Pages/userViewTime.dart';
+
+import 'package:gpproject/Pages/HelloApp.dart';
+import 'package:gpproject/Pages/settingpage.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gpproject/Pages/AddTime2.dart';
@@ -10,6 +15,7 @@ import 'package:gpproject/Pages/AddTime2.dart';
 import 'ProfileUsers.dart';
 import 'home.dart';
 import 'lawyer_list.dart';
+import 'view_archived_cases.dart';
 
 
 class drawerprofile extends StatefulWidget {
@@ -148,7 +154,9 @@ Color prime = Color(0xff0e243b);
                 'الإعدادات',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                 Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>  SettingsPage(currentUser: widget.currentUser,)));
+              },
             ),
             ListTile(
               leading: Icon(
@@ -186,8 +194,8 @@ Color prime = Color(0xff0e243b);
               ),
               onTap: () {
                 signOut();
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
           ],
@@ -294,7 +302,9 @@ Color prime = Color(0xff0e243b);
                 'الإعدادات',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>  SettingsPage(currentUser: widget.currentUser,)));
+              },
             ),
 
             ListTile(
@@ -305,8 +315,8 @@ Color prime = Color(0xff0e243b);
               ),
               onTap: () {
                 signOut();
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
           ],
@@ -382,23 +392,27 @@ Color prime = Color(0xff0e243b);
                 'الأرشيف',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                 Navigator.push(context,MaterialPageRoute(builder: (context) => view_archived_cases(currentCourt: widget.currentUser)));
+              },
             ),
-             ListTile(
+            /* ListTile(
               leading: Icon(Icons.fiber_new , color: third,),
               title: Text(
                 'تحديث',
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {},
-            ),
+            ),*/
             ListTile(
               leading: Icon(Icons.settings , color: third,),
               title: Text(
                 'الإعدادات',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>  SettingsPage(currentUser: widget.currentUser,)));
+              },
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app , color: third,),
@@ -408,8 +422,8 @@ Color prime = Color(0xff0e243b);
               ),
               onTap: () {
                 signOut();
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
           ],

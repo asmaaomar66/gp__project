@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gpproject/Pages/manageCases.dart';
+import 'manageCases.dart';
 import 'package:gpproject/Pages/questionPage.dart';
 import 'package:toast/toast.dart';
-import 'drawerprofile.dart';
+import 'package:gpproject/Pages/drawerprofile.dart';
 
 class addCase extends StatefulWidget {
   addCase({this.currentCourt});
@@ -62,6 +62,9 @@ ScrollController _scrollController = new ScrollController();
    
   
 }
+Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   
   @override
   Widget build(BuildContext context) {
@@ -78,7 +81,11 @@ ScrollController _scrollController = new ScrollController();
                    SizedBox(height: 20,),
                   
                 //---------------case type----------------
-                    TextFormField(
+                Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: new Column(
+                    children: <Widget>[
+                              TextFormField(
                       
                           keyboardType: TextInputType.text,
                           autofocus: true,
@@ -88,6 +95,7 @@ ScrollController _scrollController = new ScrollController();
                           decoration: InputDecoration( 
                             hintText: "نوع القضيه", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 20,
                               fontWeight: FontWeight.bold
                             ),
@@ -112,6 +120,7 @@ ScrollController _scrollController = new ScrollController();
                           decoration: InputDecoration( 
                             hintText: "حالة القضيه", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 20,
                               fontWeight: FontWeight.bold
                             ),
@@ -136,6 +145,7 @@ ScrollController _scrollController = new ScrollController();
                           decoration: InputDecoration( 
                             hintText: "اسم المجني عليه", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 20,
                               fontWeight: FontWeight.bold
                             ),
@@ -159,6 +169,7 @@ ScrollController _scrollController = new ScrollController();
                           decoration: InputDecoration( 
                             hintText: "اسم الجاني", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 20,
                               fontWeight: FontWeight.bold
                             ),
@@ -182,6 +193,7 @@ ScrollController _scrollController = new ScrollController();
                           decoration: InputDecoration( 
                             hintText: "الجريمة المرتكبه", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 20,
                               fontWeight: FontWeight.bold
                             ),
@@ -205,6 +217,7 @@ ScrollController _scrollController = new ScrollController();
                           decoration: InputDecoration( 
                             hintText: "تاريخ القضيه", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 20,
                               fontWeight: FontWeight.bold
                             ),
@@ -228,6 +241,7 @@ ScrollController _scrollController = new ScrollController();
                           decoration: InputDecoration( 
                             hintText: "تسلسل القضيه", 
                             hintStyle: TextStyle(
+                              color: third,
                               fontSize: 20,
                               fontWeight: FontWeight.bold
                             ),
@@ -242,12 +256,14 @@ ScrollController _scrollController = new ScrollController();
                         ),
                          SizedBox(height: 20,),
                          //-------------------- add button------------------------
-                      new RaisedButton(
-                        shape:new RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),), 
-                        color: Colors.grey, 
-                        textColor: Colors.white, 
+                      new FloatingActionButton(
+                       // shape:new RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),), 
+                        backgroundColor: third,
+                       // color: Colors.grey, 
+                        //textColor: Colors.white, 
                         child: new Text("اضافه ", 
-                        style: TextStyle(fontWeight: FontWeight.w700,fontSize: 25)), 
+                        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0)
+                        ), 
                         onPressed: () => {
                                if (_formKey.currentState.validate()){
                                  addNewCase()
@@ -258,6 +274,10 @@ ScrollController _scrollController = new ScrollController();
                                      }, 
                         splashColor: Colors.lightBlueAccent,
                         ),
+                    ],
+                  ),
+                ),
+                   
 
  
                                        ],),

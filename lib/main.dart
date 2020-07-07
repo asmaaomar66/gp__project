@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gpproject/Pages/HelloApp.dart' ;
+import 'Pages/SplashScreen.dart';
 
 
 
@@ -31,10 +31,9 @@ class MyApp extends StatelessWidget {
        primaryColor: prime,
      ),
 
+      home: new splash_screen(),
 
-      home: new HelloApp()
-
-      ,
+      
 
     );
   }

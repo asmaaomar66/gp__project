@@ -23,6 +23,9 @@ List _allTimes=u.fillTimes();
   
 }
 class AddTimeState extends State<AddTime> {
+  Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Firestore _firestore = Firestore.instance;
 
@@ -88,7 +91,7 @@ _selectedTime.clear();
     return new Scaffold(
       appBar: AppBar(
         title: new Text("افوكادو"),
-        backgroundColor: Color(0xff314d4d),
+        backgroundColor: prime,
         actions: <Widget>[
           FlatButton(onPressed: (){
           _addFirebase();
@@ -179,7 +182,7 @@ _selectedTime.clear();
              style: TextStyle(
                                 fontSize: 23.0,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.redAccent)
+                                color: prime,)
             ) ,
             SizedBox(
               width: MediaQuery.of(context).size.width/10 ,
@@ -188,7 +191,7 @@ _selectedTime.clear();
              style: TextStyle(
                                 fontSize: 15.0,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.black)
+                                color: third)
             ) ,
                  ],
                )

@@ -23,6 +23,7 @@ FreeTime({Key key, this.currentUser, this.user}) : super(key: key);
 }
 
 class _FreeTime extends State<FreeTime> {
+
   List <List<Map<String,String>>> freeTime=  [[],[],[],[],[],[],[]];
   List groupingTimes=[];
   List allTimes=[];
@@ -76,6 +77,11 @@ void _groupingTime(List times){
     //print(groupingTimes.length);
   }
 }
+
+  Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
+
   
   @override
   Widget build(BuildContext context) {
@@ -163,7 +169,7 @@ void _groupingTime(List times){
                                 fontWeight: FontWeight.w500,
                                 color: Colors.white),))
         ],
-        backgroundColor: Color(0xff314d4d),),
+        backgroundColor: prime,),
         //drawer: drawerprofile(currentUser: widget.currentUser,),
         body: Container(
           child: ListView(
