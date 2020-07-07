@@ -5,13 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gpproject/Pages/FreeTime.dart';
 import 'package:gpproject/models/user.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/services.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:intl/intl.dart';
-//import'package:saraah/data.dart';
 
-import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
+
 
 
 class AddTime extends StatefulWidget {
@@ -54,7 +50,7 @@ _selectedTime.clear();
  //Navigator.push(context, MaterialPageRoute(builder:(context)=>Data(_selectedTime)));
   
  }
- void _addFire() async{
+ void _addFirebase() async{
    addTime();
    final FirebaseUser user = await _auth.currentUser();
     Firestore _firestore = new Firestore();
@@ -95,7 +91,7 @@ _selectedTime.clear();
         backgroundColor: Color(0xff314d4d),
         actions: <Widget>[
           FlatButton(onPressed: (){
-          _addFire();
+          _addFirebase();
             
           },child:Text('تم',style: TextStyle(
                                 fontSize: 20.0,
@@ -253,7 +249,7 @@ _selectedTime.clear();
  
 class FallTime{
   final _dates=List<DateTime>.generate(8, (i)=>
-DateTime.utc(
+DateTime(
 DateTime.now().year,
 DateTime.now().month,
 DateTime.now().day
