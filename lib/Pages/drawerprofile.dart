@@ -2,8 +2,12 @@ import 'package:gpproject/Auth/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:gpproject/Pages/userViewTime.dart';
+
 import 'package:gpproject/Pages/HelloApp.dart';
 import 'package:gpproject/Pages/settingpage.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gpproject/Pages/AddTime2.dart';
@@ -140,7 +144,9 @@ Color prime = Color(0xff0e243b);
                 'مواعيد الحجوزات',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push((MaterialPageRoute(builder: (context)=> UserTimesPage( user: widget.currentUser ))));
+              },
             ),
             ListTile(
               leading: Icon(Icons.settings , color: third,),
@@ -160,6 +166,20 @@ Color prime = Color(0xff0e243b);
               ),
               title: Text(
                 'أسال الان',
+                style: TextStyle(fontSize: 22),
+              ),
+              onTap: () {
+                 Navigator.push(context,MaterialPageRoute(builder: (context) =>  LawyerList(value: widget.currentUser)));
+              },
+            ),
+             ListTile(
+              leading: Icon(
+                Icons.timer,
+                size: 25,
+                color: third,
+              ),
+              title: Text(
+                " احجز ",
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
@@ -264,7 +284,9 @@ Color prime = Color(0xff0e243b);
                 'مواعيد الحجوزات',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                
+              },
             ),
             ListTile(
               leading: Icon(Icons.insert_drive_file , color: third,),
