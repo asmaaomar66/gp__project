@@ -9,9 +9,9 @@ import 'package:flip_card/flip_card.dart';
 import 'drawerprofile.dart';
 
 class UserTimesPage extends StatefulWidget {
-  FirebaseUser user;
-   
-  UserTimesPage({Key key , this.user}) : super(key: key);
+ 
+  UserTimesPage({Key key , this.currentUser}) : super(key: key);
+  final FirebaseUser currentUser;
   @override
   _UserTimesState createState() => _UserTimesState();
 }
@@ -77,7 +77,7 @@ void _groupingTime(List times){
                     
 //------------------------------------------------------------------------------------------------
   Stream<List> getData() async*{
-var reservesStream=Firestore.instance.collection("Reserve").where("userId" , isEqualTo:  widget.user.uid)
+var reservesStream=Firestore.instance.collection("Reserve").where("userId" , isEqualTo:  widget.currentUser.uid)
       .where('date', isGreaterThanOrEqualTo: DateTime.now()).orderBy('date').snapshots();
      List  reservations=[];
      reservations.clear();
@@ -382,7 +382,7 @@ var reservesStream=Firestore.instance.collection("Reserve").where("userId" , isE
            }
            if(reservationsSnapshot.hasData){
              return Scaffold(
-         drawer: drawerprofile(currentUser: widget.user,),
+         drawer: drawerprofile(currentUser: widget.currentUser,),
                 appBar: AppBar(title: new Text("مواعيد الحجوزات" ),), 
              body: Container(
           // padding:EdgeInsets.only(top:40),

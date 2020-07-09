@@ -14,6 +14,7 @@ import 'package:gpproject/Pages/AddTime2.dart';
 
 import 'ProfileUsers.dart';
 import 'home.dart';
+import 'lawyerViewTime.dart';
 import 'lawyer_list.dart';
 import 'view_archived_cases.dart';
 
@@ -145,7 +146,7 @@ Color prime = Color(0xff0e243b);
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.of(context).push((MaterialPageRoute(builder: (context)=> UserTimesPage( user: widget.currentUser ))));
+                Navigator.of(context).push((MaterialPageRoute(builder: (context)=> UserTimesPage( currentUser: widget.currentUser ))));
               },
             ),
             ListTile(
@@ -285,7 +286,7 @@ Color prime = Color(0xff0e243b);
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                
+                Navigator.of(context).push((MaterialPageRoute(builder: (context)=> LawyerTimesPage( currentUser: widget.currentUser ))));
               },
             ),
             ListTile(

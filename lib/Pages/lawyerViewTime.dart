@@ -8,9 +8,9 @@ import 'package:intl/intl.dart';
 import 'drawerprofile.dart';
 
 class LawyerTimesPage extends StatefulWidget {
-  FirebaseUser user;
    
-  LawyerTimesPage({Key key , this.user}) : super(key: key);
+  LawyerTimesPage({Key key , this.currentUser}) : super(key: key);
+   final FirebaseUser currentUser;
   @override
   _LawyerTimesState createState() => _LawyerTimesState();
 }
@@ -24,7 +24,7 @@ class _LawyerTimesState extends State<LawyerTimesPage> {
                       'الجمعة','السبت','الأحد']; 
   Stream<List> getData() async*{
 var reservesStream=Firestore.instance.collection("Reserve").
-where("lawyerId" , isEqualTo:  widget.user.uid)
+where("lawyerId" , isEqualTo:  widget.currentUser.uid)
       .where('date', isGreaterThanOrEqualTo: DateTime.now()).orderBy('date').snapshots();
      List  reservations=[];
      reservations.clear();
@@ -162,7 +162,7 @@ Future _replayDialog(String id ,String userId) async {
            }
            if(reservationsSnapshot.hasData){
              return Scaffold(
-         drawer: drawerprofile(currentUser: widget.user,),
+         drawer: drawerprofile(currentUser: widget.currentUser,),
                 appBar: AppBar(title: new Text("مواعيد الحجوزات" ),), 
              body: Container(
           // padding:EdgeInsets.only(top:40),

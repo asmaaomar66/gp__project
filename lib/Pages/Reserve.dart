@@ -502,7 +502,7 @@ void _groupingTime(List times){
                             }
                             else{
                               _addReserve();
-                              Navigator.of(context).push((MaterialPageRoute(builder: (context)=> UserTimesPage( user: widget.user ))));
+                              Navigator.of(context).push((MaterialPageRoute(builder: (context)=> UserTimesPage( currentUser: widget.user ))));
                             //  Scaffold.of(context).showSnackBar(SnackBar(content:Text("تم حجز الميعاد")));
 
 

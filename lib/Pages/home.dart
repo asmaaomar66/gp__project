@@ -513,7 +513,7 @@ notificationReplay();
                         {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});                
 
                     }else if (_page == 3){
-                         Navigator.push(context,  MaterialPageRoute(builder: (context) => UserTimesPage(user: widget.currentUser)));
+                         Navigator.push(context,  MaterialPageRoute(builder: (context) => UserTimesPage(currentUser: widget.user)));
                     }
                    });
                   },
@@ -646,14 +646,14 @@ notificationReplay();
                            {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});
 
                     }else if (_page == 2){
-                                               Navigator.push(context,MaterialPageRoute(builder: (context) => LawyerTimesPage(user: widget.currentUser)));
+                                               Navigator.push(context,MaterialPageRoute(builder: (context) => LawyerTimesPage(currentUser: widget.user)));
                                           }
                                          });
                                         },
                                         ),
                   
-                         Container(
-     
+                                  Container(
+                      
                         child: Column(
                           children: <Widget>[
                           new Container(
@@ -684,7 +684,6 @@ notificationReplay();
                                                  
                             StreamBuilder<QuerySnapshot>(
                       stream:  
-
                       
                        Firestore.instance.collection('files').where('lawyerid' , isEqualTo: widget.user.uid ).snapshots(),
                        
@@ -1025,7 +1024,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                         }
                       } ),
                              
-     
+       
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: Material(
@@ -1041,7 +1040,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                                   backgroundColor: Colors.blue
                               )),
                           )
-                        ]                     
+                        ]
                       ),
                       )
                       ],
