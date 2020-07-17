@@ -1151,7 +1151,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   new CircleAvatar(
-                    backgroundColor: third , 
+                    backgroundColor: prime , 
                     maxRadius: 87.0,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -1188,7 +1188,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   new CircleAvatar(
-                    backgroundColor:  third,
+                    backgroundColor:  prime,
                     maxRadius: 87.0,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -1207,7 +1207,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                         new SizedBox(
                           height: 3.0,
                         ),
-                        new Text("ادارة القضايا الحاليه",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.white),),
+                        new Text("ادارة القضايا الحاليه",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color:second),),
                       ],
                     ),
                   ),
