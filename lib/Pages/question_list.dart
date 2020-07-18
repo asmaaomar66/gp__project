@@ -25,7 +25,7 @@ final FirebaseUser v ;
   
 Widget build(BuildContext context) {
  return StreamBuilder<QuerySnapshot>(
-    stream: Firestore.instance.collection('info').where("lawyerid", isEqualTo: widget.value).snapshots(),
+    stream: Firestore.instance.collection('info').where("lawyerid", isEqualTo: widget.value).orderBy("Date", descending: true)/*.orderBy("role", descending: true)*/.snapshots(),
     builder: (context, snapshot) {
         if (snapshot.hasData) {
             return Scaffold(
@@ -33,6 +33,7 @@ Widget build(BuildContext context) {
                 appBar: AppBar(title: new Text("الاسئلة" ),),  
                 body: new ListView(
                     children: snapshot.data.documents.map((doc) {
+                      
                         return new Card(
                             color: Colors.white,
                             margin: EdgeInsets.only(
