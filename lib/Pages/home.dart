@@ -625,7 +625,7 @@ notificationReplay();
                          animationType: BadgeAnimationType.slide,
                          badgeContent:  Text("$m"),
                          child: new Icon(Icons.question_answer , color: second, ),),
-                         title: new Text('الجواب' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                         title: new Text('الاسئلة' , style: new TextStyle(fontSize: 10.0 , color: second),)
                      ),
 
                            BottomNavigationBarItem(
@@ -646,6 +646,7 @@ notificationReplay();
                            {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});
 
                     }else if (_page == 2){
+
                                                Navigator.push(context,MaterialPageRoute(builder: (context) => LawyerTimesPage(currentUser: widget.user)));
                                           }
                                          });
@@ -737,7 +738,7 @@ builder: (BuildContext context){
      title: Text("عرض"),
      trailing: Icon(Icons.open_in_new, color: Colors.black,),
      onTap: ()async{
-        Navigator.of(context).pop();
+       // Navigator.of(context).pop();
              if(doc.data['role'] == "2"){
           showDialog<void>(
             barrierDismissible: false,
@@ -769,7 +770,8 @@ content:new SingleChildScrollView(child:  Image.network(doc.data['url'])));
   Firestore.instance.collection("files").where("Address", isEqualTo: doc.data['Address']).getDocuments().then((snapshot)
                            {for (DocumentSnapshot so in snapshot.documents){so.reference.updateData({'filePath': pathPDF});}});  
                                  Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => PDFScreen(pathPDF)));
+                              MaterialPageRoute(
+                                builder: (context) => PDFScreen(pathPDF)));
                              }
    
    else{
@@ -945,7 +947,9 @@ builder: (BuildContext context){
    ListTile(onTap: (){
                 Navigator.pop(context);
 
-      Navigator.push(context,MaterialPageRoute(builder: (context) => UploadFolder(address: doc.data['Address'], nam: doc.data['name'])));
+      Navigator.push(context,MaterialPageRoute(
+         settings: RouteSettings(name: "/folder"),
+        builder: (context) => UploadFolder(address: doc.data['Address'], nam: doc.data['name'])));
   },
    
    title : Text("عرض"),
@@ -1007,7 +1011,9 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                                }), 
                                onTap: (){ 
 
- Navigator.push(context,MaterialPageRoute(builder: (context) => UploadFolder(address: doc.data['Address'], nam: doc.data['name'])));
+ Navigator.push(context,MaterialPageRoute(
+    settings: RouteSettings(name: "/folder"),
+   builder: (context) => UploadFolder(address: doc.data['Address'], nam: doc.data['name'])));
 
                                },
                               

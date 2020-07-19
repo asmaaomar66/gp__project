@@ -1,6 +1,5 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -16,6 +15,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_full_pdf_viewer/full_pdf_viewer_plugin.dart';
 
 
 
@@ -44,7 +44,7 @@ String name ;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   List<StorageUploadTask> _tasks = <StorageUploadTask>[];
     TextEditingController _new = TextEditingController();
-bool wait = false;
+bool wait ;
   
   void openFileExplorer() async {
     
@@ -91,7 +91,7 @@ setState(() {
     if(extension != "png" && extension != "jpg" && extension != "jpeg" && extension != "pdf" ){
 showDialog<void>(
                     
-  context: context,
+context: context,
 builder: (BuildContext context){  
   return 
   AlertDialog(
@@ -173,7 +173,9 @@ setState(() {
 
   }
  
- 
+  /*String _bytesTransferred(StorageTaskSnapshot snapshots) {
+    return '${snapshots.bytesTransferred}/${snapshots.totalByteCount}';
+  }*/
  
   
  
@@ -193,7 +195,8 @@ setState(() {
         body: new ListView(children: <Widget>[ Container(
           padding: EdgeInsets.all(20.0),
           child: Column(
-          
+           // crossAxisAlignment: CrossAxisAlignment.start,
+          //  mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
       
              
@@ -251,7 +254,7 @@ builder: (BuildContext context){
      title: Text("عرض"),
      trailing: Icon(Icons.open_in_new, color: Colors.black,),
      onTap: ()async{
-     Navigator.pop(context);
+       Navigator.of(context).pop(true);
              if(doc.data['role'] == "2"){
           showDialog<void>(
             barrierDismissible: false,
@@ -264,7 +267,8 @@ titlePadding: EdgeInsets.fromLTRB(230, 0, 0, 0),
 content:new SingleChildScrollView(child:  Image.network(doc.data['url'])));
          });}
    else{ 
-           if(doc.data['filePath']== "12"){
+     if(doc.data['filePath']== "12"){
+    
       final url = doc.data['url'];
     final filename = url.substring(url.lastIndexOf("/") +1 );
     var request = await HttpClient().getUrl(Uri.parse(url));
@@ -277,21 +281,27 @@ content:new SingleChildScrollView(child:  Image.network(doc.data['url'])));
     on FileSystemException catch (e){
     Text("the file is too big to load");
 
-    }
-  pathPDF = file.path;
-   Navigator.push(context,MaterialPageRoute(builder: (context) => PDFScreen(pathPDF)));
+    
+  pathPDF = file.path;}
+  
   Firestore.instance.collection('folder').document(widget.address).collection('files').where("Address", isEqualTo: doc.data['Address']).getDocuments().then((snapshot)
-           {for (DocumentSnapshot so in snapshot.documents){so.reference.updateData({'filePath': pathPDF});}});  
-                      
+           {for (DocumentSnapshot so in snapshot.documents){so.reference.updateData({'filePath': pathPDF});}});
+            
           
-    }     
+      
+       
+                                 Navigator.
+                              push(context,
+                              MaterialPageRoute(builder: (context) => PDFScreen(pathPDF)));}
+                              
+                              
    
-       else{
-       Navigator.push(context,MaterialPageRoute(builder: (context) => PDFScreen(doc.data['filePath'])));
+   else{
+       Navigator.push(context, MaterialPageRoute(builder: (context) => PDFScreen(doc.data['filePath'])));
    }
+     }
      
-     } }
-   ),
+     }),
    ListTile(
      title: Text("حذف"),
      trailing: Icon(Icons.delete,color: Colors.black,),
@@ -437,10 +447,13 @@ class PDFScreen extends StatelessWidget { // new page presents the pdf
   @override
   Widget build(BuildContext context) {
     return PDFViewerScaffold(
+
         appBar: AppBar(
           title: Text("ملفك"),
          
         ),
+        
+        
         path: pathPDF,
         
         );

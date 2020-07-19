@@ -49,7 +49,8 @@ class questionPageState extends State<questionPage> {
                child: new ListView(
                        children: <Widget>[
                          new TextField(controller: _controller,
-                                      maxLines:10 ,
+                                      //maxLines:10 ,
+                                      maxLength: 500,
                                       keyboardType: TextInputType.text,
                                       decoration: new InputDecoration(
                                         icon: new Icon(Icons.help,color: third),
