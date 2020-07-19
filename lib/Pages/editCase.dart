@@ -12,9 +12,10 @@ import 'package:toast/toast.dart';
 
 class editCase extends StatefulWidget{
 
-  editCase({this.currentCase , this.currentCourt});
+  editCase({this.currentCase , this.currentCourt });
   FirebaseUser currentCourt;
   var currentCase;
+  var varToShow;
   @override
   State<StatefulWidget> createState() {
     return new _editCase();

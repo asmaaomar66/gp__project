@@ -66,7 +66,7 @@ class _managelawyersState extends State<managelawyers> {
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => AdminHome()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AdminHome()));
               },
             ),
             ListTile(
@@ -76,7 +76,7 @@ class _managelawyersState extends State<managelawyers> {
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                 Navigator.push(context,MaterialPageRoute(builder: (context) => managecourts()));
+                 Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managecourts()));
               },
             ),
             ListTile(
@@ -86,10 +86,10 @@ class _managelawyersState extends State<managelawyers> {
                 style: TextStyle(fontSize: 22 , ),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => Rules())); 
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Rules())); 
               },
             ),
-             ListTile(
+            ListTile(
               leading: Icon(Icons.exit_to_app ,color: third,),
               title: Text(
                 'تسجيل الخروج',
@@ -97,7 +97,7 @@ class _managelawyersState extends State<managelawyers> {
               ),
               onTap: () {
                 signOut();
-                Navigator.push(
+                Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),

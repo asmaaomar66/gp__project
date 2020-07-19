@@ -2,13 +2,19 @@ import 'package:gpproject/Auth/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:gpproject/Pages/userViewTime.dart';
+
 import 'package:gpproject/Pages/HelloApp.dart';
+import 'package:gpproject/Pages/settingpage.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gpproject/Pages/AddTime2.dart';
 
 import 'ProfileUsers.dart';
 import 'home.dart';
+import 'lawyerViewTime.dart';
 import 'lawyer_list.dart';
 import 'view_archived_cases.dart';
 
@@ -139,7 +145,9 @@ Color prime = Color(0xff0e243b);
                 'مواعيد الحجوزات',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push((MaterialPageRoute(builder: (context)=> UserTimesPage( currentUser: widget.currentUser ))));
+              },
             ),
             ListTile(
               leading: Icon(Icons.settings , color: third,),
@@ -147,7 +155,9 @@ Color prime = Color(0xff0e243b);
                 'الإعدادات',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                 Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>  SettingsPage(currentUser: widget.currentUser,)));
+              },
             ),
             ListTile(
               leading: Icon(
@@ -163,6 +173,20 @@ Color prime = Color(0xff0e243b);
                  Navigator.push(context,MaterialPageRoute(builder: (context) =>  LawyerList(value: widget.currentUser)));
               },
             ),
+             ListTile(
+              leading: Icon(
+                Icons.timer,
+                size: 25,
+                color: third,
+              ),
+              title: Text(
+                " احجز ",
+                style: TextStyle(fontSize: 22),
+              ),
+              onTap: () {
+                 Navigator.push(context,MaterialPageRoute(builder: (context) =>  LawyerList(value: widget.currentUser)));
+              },
+            ),
             ListTile(
               leading: Icon(Icons.exit_to_app , color: third,),
               title: Text(
@@ -171,7 +195,7 @@ Color prime = Color(0xff0e243b);
               ),
               onTap: () {
                 signOut();
-                Navigator.push(
+                Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
@@ -261,7 +285,9 @@ Color prime = Color(0xff0e243b);
                 'مواعيد الحجوزات',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push((MaterialPageRoute(builder: (context)=> LawyerTimesPage( currentUser: widget.currentUser ))));
+              },
             ),
             ListTile(
               leading: Icon(Icons.insert_drive_file , color: third,),
@@ -277,7 +303,9 @@ Color prime = Color(0xff0e243b);
                 'الإعدادات',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>  SettingsPage(currentUser: widget.currentUser,)));
+              },
             ),
 
             ListTile(
@@ -288,7 +316,7 @@ Color prime = Color(0xff0e243b);
               ),
               onTap: () {
                 signOut();
-                Navigator.push(
+                Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
@@ -383,7 +411,9 @@ Color prime = Color(0xff0e243b);
                 'الإعدادات',
                 style: TextStyle(fontSize: 22),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>  SettingsPage(currentUser: widget.currentUser,)));
+              },
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app , color: third,),
@@ -393,7 +423,7 @@ Color prime = Color(0xff0e243b);
               ),
               onTap: () {
                 signOut();
-                Navigator.push(
+                Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),

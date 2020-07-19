@@ -24,9 +24,14 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gpproject/Pages/answerquestions.dart';
 import 'package:gpproject/Pages/question_and_answer.dart';
 import 'package:gpproject/Pages/question_list.dart';
+
+import 'package:gpproject/Pages/lawyerViewTime.dart';
+import 'package:gpproject/Pages/userViewTime.dart';
+
 import 'folderUpload.dart';
 import 'package:gpproject/Services/searchservice.dart';
 import 'package:gpproject/models/archivedCases.dart';
+
 
 import 'package:gpproject/models/user.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -317,7 +322,54 @@ void countDocumentLengthAnswer() async {
     List<DocumentSnapshot> _x = x.documents;
     b =_x.length;
   }
+  int notifiReserve=0;
+void notificationReserve() async {
+    QuerySnapshot x = await Firestore.instance.collection("notifiReserve").
+    where("id", isEqualTo: widget.user.uid).getDocuments();
+    List<DocumentSnapshot> _x = x.documents;
+    setState(() {
+      notifiReserve =_x.length;
+    });
+    
+  }
+   int notifiReplay=0;
+void notificationReplay() async {
+    QuerySnapshot x = await Firestore.instance.collection("notifiReplay").
+    where("id", isEqualTo: widget.user.uid).getDocuments();
+    List<DocumentSnapshot> _x = x.documents;
+    setState(() {
+       notifiReplay =_x.length;
+    });
+   
+  }
 
+  Widget notificationRS()
+{
+  if(notifiReserve==0){
+   return  new Icon(Icons.timer , color: second,);
+  }
+  else {
+    return  new Badge(
+                         animationType: BadgeAnimationType.slide,
+                         badgeContent:  Text("$notifiReserve"),
+                       child: new Icon(Icons.timer , color: second,));
+  }
+ 
+}
+
+ Widget notificationRp()
+{
+  if(notifiReplay==0){
+   return  new Icon(Icons.timer , color: second,);
+  }
+  else {
+    return  new Badge(
+                         animationType: BadgeAnimationType.slide,
+                         badgeContent:  Text("$notifiReplay"),
+                       child: new Icon(Icons.timer , color: second,));
+  }
+ 
+}
 var queryResultSet = [];
   var tempSearchStore = [];
 
@@ -361,7 +413,8 @@ var queryResultSet = [];
   Widget build(BuildContext context) {
     countDocumentLength();
     countDocumentLengthAnswer();
-
+notificationReserve() ;
+notificationReplay(); 
     return new  Scaffold(
         drawer: drawerprofile(currentUser: widget.user),
         appBar: AppBar(
@@ -443,8 +496,8 @@ var queryResultSet = [];
                      ),
                            BottomNavigationBarItem(
                              backgroundColor: prime,
-                             icon: new Icon(Icons.notifications_none , color: second,),
-                             title: new Text('الاشعارات' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                             icon: notificationRp(),
+                             title: new Text('مواعيد الحجوزات' , style: new TextStyle(fontSize: 10.0 , color: second),)
                            ),
                          ],
                           onTap: (index){
@@ -460,7 +513,7 @@ var queryResultSet = [];
                         {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});                
 
                     }else if (_page == 3){
-                        //  Navigator.push(context,  MaterialPageRoute(builder: (context) => questionPage()));
+                         Navigator.push(context,  MaterialPageRoute(builder: (context) => UserTimesPage(currentUser: widget.user)));
                     }
                    });
                   },
@@ -593,13 +646,14 @@ var queryResultSet = [];
                            {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});
 
                     }else if (_page == 2){
-                         //Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
-                    }
-                   });
-                  },
-                  ),
+
+                                               Navigator.push(context,MaterialPageRoute(builder: (context) => LawyerTimesPage(currentUser: widget.user)));
+                                          }
+                                         });
+                                        },
+                                        ),
                   
-                         Container(
+                                  Container(
                       
                         child: Column(
                           children: <Widget>[
@@ -976,16 +1030,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                         }
                       } ),
                              
-
-                                  
-                                 
-                                 
-              
-
-
-          
-
-                           
+       
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: Material(
@@ -1002,7 +1047,6 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                               )),
                           )
                         ]
-                      
                       ),
                       )
                       ],
@@ -1010,6 +1054,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                 }
               });
         }
+
 
        
                       
@@ -1112,7 +1157,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   new CircleAvatar(
-                    backgroundColor: third , 
+                    backgroundColor: prime , 
                     maxRadius: 87.0,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -1149,7 +1194,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   new CircleAvatar(
-                    backgroundColor:  third,
+                    backgroundColor:  prime,
                     maxRadius: 87.0,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -1168,7 +1213,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                         new SizedBox(
                           height: 3.0,
                         ),
-                        new Text("ادارة القضايا الحاليه",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.white),),
+                        new Text("ادارة القضايا الحاليه",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color:second),),
                       ],
                     ),
                   ),
