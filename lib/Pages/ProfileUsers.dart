@@ -28,7 +28,9 @@ class profileUsersState extends State<profileUsers>  {
   @override
   Widget build(BuildContext context) {
    
-    return Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child:new Scaffold(
       drawer: drawerprofile(currentUser: widget.currentUser),
       body:  StreamBuilder<DocumentSnapshot>(
         stream: Firestore.instance
@@ -45,7 +47,8 @@ class profileUsersState extends State<profileUsers>  {
            return LinearProgressIndicator();
         },
       ),
-    );
+     ),
+      );
   }
  Widget checkRole(DocumentSnapshot snapshot) {
     if (snapshot.data == null) {

@@ -52,7 +52,9 @@ class SettingsPageState extends State<SettingsPage>  {
   @override
   Widget build(BuildContext context) {
    
-    return Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child:new Scaffold(
      // backgroundColor: Colors.grey.shade200,
      appBar: AppBar(
                   elevation: 0,
@@ -77,7 +79,7 @@ class SettingsPageState extends State<SettingsPage>  {
            return LinearProgressIndicator();
         },
       ),
-    );
+     ), );
   }
  Widget checkRole(DocumentSnapshot snapshot) {
     if (snapshot.data == null) {

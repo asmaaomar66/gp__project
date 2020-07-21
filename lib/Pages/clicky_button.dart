@@ -29,7 +29,9 @@ class _ClickyButtonState extends State<ClickyButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child: new Container(
       width: 220.0,
       height: 80.0,
       child: GestureDetector(
@@ -89,7 +91,7 @@ class _ClickyButtonState extends State<ClickyButton> {
         onTapUp: _unPressedOnTapUp,
         onTapCancel: _unPressed,
       ),
-    );
+     ), );
   }
 
   void _pressed(_) {

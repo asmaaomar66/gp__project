@@ -32,7 +32,9 @@ class _AdminHomeState extends State<AdminHome> {
   }
   @override
   Widget build(BuildContext context) { 
-    return  Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child:new Scaffold(
          drawer: new Drawer(
             child: Column(
           children: <Widget>[
@@ -193,7 +195,7 @@ class _AdminHomeState extends State<AdminHome> {
            return LinearProgressIndicator();
            }
            ),
-
+    ),
     );
     
   }
