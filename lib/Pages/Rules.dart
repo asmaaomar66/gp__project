@@ -5,7 +5,6 @@ import 'package:gpproject/Pages/manage_rules.dart';
 
 import 'AddRoles.dart';
 
-
 class Rules extends StatefulWidget {
   @override
  State<StatefulWidget> createState() {
