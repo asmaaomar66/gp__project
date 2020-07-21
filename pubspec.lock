@@ -21,7 +21,18 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< Updated upstream
     version: "2.4.0"
+=======
+    version: "2.4.1"
+  audioplayers:
+    dependency: "direct main"
+    description:
+      name: audioplayers
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.14.2"
+>>>>>>> Stashed changes
   badges:
     dependency: "direct main"
     description:
