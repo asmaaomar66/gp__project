@@ -106,7 +106,9 @@ class _AddRolesState extends State<AddRoles> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                     new Expanded(
-                        child: TextFormField(
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          child:   TextFormField(
                           keyboardType: TextInputType.text,
                           autofocus: true,
                            onSaved: (input) => _rulename = input,
@@ -127,6 +129,8 @@ class _AddRolesState extends State<AddRoles> {
                            if (input.isEmpty) {
                         return 'من فضلك ادخل اسم القانون';  }},
                         ),
+                        ),
+                      
                   ),
                       ],
                     ),
@@ -279,7 +283,9 @@ Color prime = Color(0xff0e243b);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child:new Scaffold(
      drawer: new Drawer(
             child: Column(
           children: <Widget>[
@@ -389,7 +395,8 @@ Color prime = Color(0xff0e243b);
       body: ListView(
         children: _myPets,
       ),
-    );
+     ),
+      );
   }
 
   

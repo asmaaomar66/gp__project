@@ -34,7 +34,9 @@ class _managerulesState extends State<managerules> {
   }
   @override
   Widget build(BuildContext context) { 
-    return Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child: new Scaffold(
       drawer: new Drawer(
              child: Column(
           children: <Widget>[
@@ -211,7 +213,7 @@ class _managerulesState extends State<managerules> {
             return LinearProgressIndicator();
            }
            ),
-    );
+     ), );
     
     
   }

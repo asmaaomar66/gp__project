@@ -93,10 +93,10 @@ void countDocumentLengthAnswer() async {
     b =_x.length;
   }
 
-var queryResultSet = [];
-  var tempSearchStore = [];
+//var queryResultSet = [];
+  //var tempSearchStore = [];
 
-  initiateSearch(value) {
+  /*initiateSearch(value) {
     if (value.length == 0) {
       setState(() {
         queryResultSet = [];
@@ -123,7 +123,7 @@ var queryResultSet = [];
         }
       });
     }
-  }
+  }*/
   
 
 
@@ -137,7 +137,9 @@ var queryResultSet = [];
     countDocumentLength();
     countDocumentLengthAnswer();
 
-    return new  Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child: new  Scaffold(
         drawer: drawerprofile(currentUser: widget.user),
         appBar: AppBar(
           title: new Icon(Icons.home , size: 20.0, color: second ),
@@ -157,6 +159,7 @@ var queryResultSet = [];
             return LinearProgressIndicator();
           },
         ),
+    ),
     );
   }
   FutureBuilder checkRole(DocumentSnapshot snapshot) {
@@ -240,28 +243,11 @@ var queryResultSet = [];
                    });
                   },
                   ),
-                     /* Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: TextField(
-                     onChanged: (val) {
-                         initiateSearch(val);
-                         },
-              decoration: InputDecoration(
-                  prefixIcon: IconButton(
-                    color: Colors.black,
-                    icon: Icon(Icons.arrow_back),
-                    iconSize: 20.0,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  contentPadding: EdgeInsets.only(left: 25.0),
-                  hintText: 'Search by name',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0))),
-            ),
-          ),*/
-                    new Container(
+                   Container(
+                     
+                   ),
+                
+                 /*   new Container(
                           child: Padding(
                           padding: EdgeInsets.only(
                               top: 30.0, bottom: 0.0, right: 10.0, left: 10.0),
@@ -296,9 +282,9 @@ var queryResultSet = [];
                             ],
                           ),
                         ),
-                      ),
-                      SizedBox(height: 10.0),
-                     GridView.count(
+                      ),*/
+                     // SizedBox(height: 10.0),
+                    /* GridView.count(
                     padding: EdgeInsets.only(left: 15.0, right: 15.0),
                     
                     crossAxisCount: 2,
@@ -308,7 +294,7 @@ var queryResultSet = [];
                     shrinkWrap: true,
                     children: tempSearchStore.map((element) {
                       return buildResultCard(element);
-                                          }).toList())
+                                          }).toList())*/
                                           
                       
                       
@@ -461,7 +447,7 @@ var queryResultSet = [];
                               }
        
                       
-  Widget buildResultCard(data) {
+  /*Widget buildResultCard(data) {
   return Card(
     color: prime,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -481,7 +467,7 @@ var queryResultSet = [];
       )
     )
   );
-}
+}*/
 
 //---------------------------- COURT PAGE   -------------------------------------
         FutureBuilder courtPage(DocumentSnapshot snapshot) {

@@ -36,7 +36,9 @@ Color prime = Color(0xff0e243b);
   @override
   Widget build(BuildContext context) {
 
-    return Drawer(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child: new Drawer(
       child: StreamBuilder<DocumentSnapshot>(
         stream: Firestore.instance
             .collection("users")
@@ -52,7 +54,8 @@ Color prime = Color(0xff0e243b);
           return CircularProgressIndicator();
         },
       ),
-    );
+     ),
+      );
   }
 
   Drawer checkRole(DocumentSnapshot snapshot) {
@@ -149,7 +152,7 @@ Color prime = Color(0xff0e243b);
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                 Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>  SettingsPage(currentUser: widget.currentUser,)));
+                 Navigator.push(context,MaterialPageRoute(builder: (context) =>  SettingsPage(currentUser: widget.currentUser,)));
               },
             ),
             ListTile(
@@ -174,7 +177,7 @@ Color prime = Color(0xff0e243b);
               ),
               onTap: () {
                 signOut();
-                Navigator.pushReplacement(
+                Navigator.push(
                     context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
@@ -281,7 +284,7 @@ Color prime = Color(0xff0e243b);
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>  SettingsPage(currentUser: widget.currentUser,)));
+                Navigator.push(context,MaterialPageRoute(builder: (context) =>  SettingsPage(currentUser: widget.currentUser,)));
               },
             ),
 
@@ -293,7 +296,7 @@ Color prime = Color(0xff0e243b);
               ),
               onTap: () {
                 signOut();
-                Navigator.pushReplacement(
+                Navigator.push(
                     context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
@@ -389,7 +392,7 @@ Color prime = Color(0xff0e243b);
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>  SettingsPage(currentUser: widget.currentUser,)));
+                Navigator.push(context,MaterialPageRoute(builder: (context) =>  SettingsPage(currentUser: widget.currentUser,)));
               },
             ),
             ListTile(
@@ -400,7 +403,7 @@ Color prime = Color(0xff0e243b);
               ),
               onTap: () {
                 signOut();
-                Navigator.pushReplacement(
+                Navigator.push(
                     context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
