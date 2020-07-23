@@ -62,7 +62,11 @@ class _editCase extends State<editCase>{
    }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+
+//-----------------------------------Body of Class---------------------------------
+return WillPopScope(
+  onWillPop: () async => false,
+  child: Scaffold(
        appBar: AppBar(
               backgroundColor: prime,
               title: Text("تعديل القضيه"),
@@ -369,7 +373,9 @@ class _editCase extends State<editCase>{
         ],
         ),
       ),
-      );
-  }
+      )
+  ,
+);
+      }
 
 }

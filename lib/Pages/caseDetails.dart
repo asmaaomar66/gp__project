@@ -162,11 +162,9 @@ class _caseDetails extends State<caseDetails>{
                 ({ "caseNumber": inputData.text,}).then((data){});
                  }
                      Toast.show("تم تعديل القضيه بنجاح", context, duration: 3);
-                                     Navigator.pushAndRemoveUntil(context,new MaterialPageRoute(
-                                       builder:(context)=>manageCases(currentCourt: widget.currentCourt,)
-                                        ), 
-        //------------------------V E R Y I M P O R T A N T------------------------------------------
-                                        ModalRoute.withName('/homepage'));
+                                      Navigator.push(context,new MaterialPageRoute(
+                          builder:(context)=>manageCases(currentCourt: widget.currentCourt,)
+                      ));
                  }
              )
            ],
@@ -245,8 +243,11 @@ class _caseDetails extends State<caseDetails>{
 //------------------------------------END OF FUNCTIONS -------------------------------
   @override
   Widget build(BuildContext context) {
+//---------------------------------------Body of Class-----------------------------------
      Size screenSize = MediaQuery.of(context).size;
-    return Scaffold(
+     return WillPopScope(
+       onWillPop: () async => false,
+       child:  Scaffold(
       appBar: AppBar(
               backgroundColor: prime ,
               title: Text("تفاصيل القضيه"),
@@ -439,6 +440,8 @@ class _caseDetails extends State<caseDetails>{
                   ),
                          ])  
      )
-    );
-  }
+    )
+ ,
+     );
+     }
 }

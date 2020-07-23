@@ -21,7 +21,10 @@ Color prime = Color(0xff0e243b);
   Color third =  Color(0xff0ccaee) ;
    @override
      Widget build(BuildContext context) {
-    return new Scaffold(
+  //--------------------------------Body of Class ------------------------------
+  return WillPopScope(
+      onWillPop: () async => false,
+      child: new Scaffold(
       drawer: drawerprofile(currentUser: widget.currentCourt,),
       appBar: AppBar( 
          backgroundColor: prime,
@@ -120,9 +123,11 @@ Color prime = Color(0xff0e243b);
           }
         } ,
         ),    
-    );
+    )
   
 
+  );
+     
   }
  /* Widget build(BuildContext context) {
     return

@@ -22,7 +22,10 @@ final FirebaseUser currentCourt ;
   Color third =  Color(0xff0ccaee) ;
    @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    //---------------------------------- BODY OF CLASS ---------------------------------------------
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: new Scaffold(
       drawer: drawerprofile(currentUser: widget.currentCourt,),
       appBar: AppBar( 
          backgroundColor: prime,
@@ -122,7 +125,9 @@ final FirebaseUser currentCourt ;
              }
         } ,
         ),    
-    );
+    )
   
-
+,
+    );
+     
   }}
