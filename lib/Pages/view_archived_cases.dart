@@ -23,7 +23,7 @@ Color prime = Color(0xff0e243b);
      Widget build(BuildContext context) {
   //--------------------------------Body of Class ------------------------------
   return WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: () async => true,
       child: new Scaffold(
       drawer: drawerprofile(currentUser: widget.currentCourt,),
       appBar: AppBar( 

@@ -30,10 +30,12 @@ class _caseDetails extends State<caseDetails>{
  final FirebaseAuth _auth = FirebaseAuth.instance;
 
 //-------------------------------------BEGIN OF FUNCTIONS ---------------------------------
+ 
+    //--------------------------Where I show Edite Button--------------------------
   Widget _whereIShowEditButton(num flag){
     if (widget.where_i_am == 'cases'){
       return Container(
-        width: 90,
+        width: 96,
         height: 30,
         child: RaisedButton(
                           shape: RoundedRectangleBorder(
