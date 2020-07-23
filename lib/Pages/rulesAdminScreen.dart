@@ -31,7 +31,9 @@ class _rulescreenState extends State<rulescreen> {
   Widget build(BuildContext context) {
     Firestore firebaseref = Firestore.instance;
     CollectionReference rulesRef = firebaseref.collection("Rules");
-     return Scaffold(
+     return new WillPopScope(
+    onWillPop: () async => false,
+    child:new Scaffold(
        appBar: new AppBar(
                           title: Text(
                             '${widget.currentrule.data['Rolename']}',
@@ -123,7 +125,8 @@ class _rulescreenState extends State<rulescreen> {
                 ]
                 )
                 )
-     );
+       ),
+         );
     
 
   }

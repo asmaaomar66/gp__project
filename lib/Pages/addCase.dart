@@ -322,12 +322,14 @@ return WillPopScope(
                         child: new Text("اضافه ", 
                         style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0)
                         ), 
-                        onPressed: () => {
-                               if (_formKey.currentState.validate())
-                                 addNewCase()
-                          
+
+                        onPressed: () {
+                               if(_formKey.currentState.validate()){
+                                 addNewCase();
+                               }
+
                                else {
-                                  Toast.show("ادخل جميع البيانات", context,  duration: 3)
+                                  Toast.show("ادخل جميع البيانات", context,  duration: 3);
                                }
                                      }, 
                         splashColor: Colors.lightBlueAccent,

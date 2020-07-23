@@ -21,7 +21,7 @@ class SignUpUser extends StatefulWidget {
 
 class _SignUpUser extends State<SignUpUser> {
   bool isloading = false;
-
+ ScrollController _scrollController = new ScrollController();
   File _image1, _image2, _image3, _image4;
   String imageurl;
   // Uri
@@ -169,7 +169,9 @@ class _SignUpUser extends State<SignUpUser> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child: new Scaffold(
       body: ListView(
         children: <Widget>[
           new Container(
@@ -187,6 +189,7 @@ class _SignUpUser extends State<SignUpUser> {
                     key: _formkey,
                     child: new Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      //controller: _scrollController,
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.only(top: 30, bottom: 20),
@@ -205,8 +208,8 @@ class _SignUpUser extends State<SignUpUser> {
                           child: TextFormField(
                             //cursorColor: Colors.white70 ,
                             controller: _ChildFirstnameController,
-                            keyboardType: TextInputType.emailAddress,
-                            autofocus: true,
+                            keyboardType: TextInputType.text,
+                            autofocus: false,
                             textDirection: TextDirection.rtl,
                             decoration: InputDecoration(
                               hintStyle: TextStyle(
@@ -236,6 +239,7 @@ class _SignUpUser extends State<SignUpUser> {
                               }
                               return null;
                             },
+                           // validator: validateName,
                             onSaved: (input) => _fname = input,
                           ),
                         ),
@@ -245,8 +249,8 @@ class _SignUpUser extends State<SignUpUser> {
                               left: 15, top: 10, right: 0, bottom: 20.0),
                           child: TextFormField(
                             controller: _ChildFamilynameController,
-                            keyboardType: TextInputType.emailAddress,
-                            autofocus: true,
+                            keyboardType: TextInputType.text,
+                            autofocus: false,
                             textDirection: TextDirection.rtl,
                             decoration: InputDecoration(
                               hintStyle: TextStyle(
@@ -270,12 +274,13 @@ class _SignUpUser extends State<SignUpUser> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0)),
                             ),
-                            validator: (value) {
+                           validator: (value) {
                               if (value.isEmpty) {
                                 return 'من فضلك ادخل اسم العائلة ';
                               }
                               return null;
                             },
+                           // validator: validateName,
                             onSaved: (input) => _lname = input,
                           ),
                         ),
@@ -285,8 +290,8 @@ class _SignUpUser extends State<SignUpUser> {
                               left: 15, top: 10, right: 0, bottom: 20.0),
                           child: TextFormField(
                             controller: _ChildUserNameController,
-                            keyboardType: TextInputType.emailAddress,
-                            autofocus: true,
+                            keyboardType: TextInputType.text,
+                            autofocus: false,
                             textDirection: TextDirection.rtl,
                             decoration: InputDecoration(
                               hintStyle: TextStyle(
@@ -321,7 +326,7 @@ class _SignUpUser extends State<SignUpUser> {
                           child: TextFormField(
                             controller: _ChildEmailController,
                             keyboardType: TextInputType.emailAddress,
-                            autofocus: true,
+                            autofocus: false,
                             textDirection: TextDirection.rtl,
                             decoration: InputDecoration(
                               hintStyle: TextStyle(
@@ -355,8 +360,9 @@ class _SignUpUser extends State<SignUpUser> {
                               left: 15, top: 10, right: 0, bottom: 20.0),
                           child: TextFormField(
                             controller: _ChildPassWordController,
-                            keyboardType: TextInputType.emailAddress,
-                            autofocus: true,
+                            keyboardType: TextInputType.visiblePassword,
+                            autofocus: false,
+                            obscureText: true,
                             textDirection: TextDirection.rtl,
                             decoration: InputDecoration(
                               hintStyle: TextStyle(
@@ -380,14 +386,13 @@ class _SignUpUser extends State<SignUpUser> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0)),
                             ),
-                            validator: (value) {
-                              if (value.isEmpty) {
+                            validator: (input) {
+                              if (input.isEmpty) {
                                 return 'من فضلك ادخل كلمة المرور';
                               }
-                              if (value.length < 8) {
+                              if (input.length < 8) {
                                 return 'كلمة المرور يجب الا تقل عن ثماني ارقام او حروف';
                               }
-                              return null;
                             },
                             onSaved: (input) => _password = input,
                           ),
@@ -397,8 +402,8 @@ class _SignUpUser extends State<SignUpUser> {
                               left: 15, top: 10, right: 0, bottom: 20.0),
                           child: TextFormField(
                             controller: _ChildPhonenumberController,
-                            keyboardType: TextInputType.emailAddress,
-                            autofocus: true,
+                            keyboardType: TextInputType.phone,
+                            autofocus: false,
                             textDirection: TextDirection.rtl,
                             decoration: InputDecoration(
                               hintStyle: TextStyle(
@@ -422,7 +427,7 @@ class _SignUpUser extends State<SignUpUser> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0)),
                             ),
-                            validator: (value) {
+                           /* validator: (value) {
                               if (value.isEmpty) {
                                 return ' من فضلك ادخل رقم الهاتف الجوال';
                               }
@@ -430,7 +435,8 @@ class _SignUpUser extends State<SignUpUser> {
                                 return 'يجب الا يقل رقم الهاتف عن 11 رقم';
                               }
                               return null;
-                            },
+                            },*/
+                            validator: validateMobile,
                             onSaved: (input) => _phone = input,
                           ),
                         ),
@@ -544,10 +550,10 @@ class _SignUpUser extends State<SignUpUser> {
                 role: "1",
                 context: context,
               );
-              Navigator.push(
+             /* Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Login()),
-              );
+              );*/
             },
             child: Text('إنشاء حساب',
                 style: TextStyle(
@@ -559,6 +565,7 @@ class _SignUpUser extends State<SignUpUser> {
           ),
         ),
       ],
+      ),
     );
   }
 
@@ -579,12 +586,11 @@ class _SignUpUser extends State<SignUpUser> {
       int gender,
       String role,
       BuildContext context}) async {
-    if (_formkey.currentState.validate()) {
-      if (_image1 != null) {
+        if (_formkey.currentState.validate()) {
+         if (_image1 != null) {
         imageurl = await UploadImage(_image1);
-      } else if (_image4 != null) imageurl = await UploadImage(_image4);
-
-      try {
+         } else if (_image4 != null) imageurl = await UploadImage(_image4);
+        try {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         await _changeLoadingVisible();
         //need await so it has chance to go through error if found.
@@ -604,18 +610,16 @@ class _SignUpUser extends State<SignUpUser> {
             ),
           );
         });
-        //now automatically login user too
-        //await StateWidget.of(context).logInUser(email, password);
+      
         await Navigator.pushNamed(context, '/signin');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Login()),
+        );
       } catch (e) {
         _changeLoadingVisible();
         print("فشل في الادخال: $e");
-//        String exception = Auth.getExceptionText(e);
-        // Flushbar(
-        //   title: "Sign Up Error",
-        //   //     message: exception,
-        //   duration: Duration(seconds: 5),
-        // )..show(context);
+
       }
     } else {
       setState(() => _autoValidate = true);
@@ -624,27 +628,47 @@ class _SignUpUser extends State<SignUpUser> {
 
   //////////////////////////////
 ///// validation form///////
-  ///valid email//
-  String validateEmail(String value) {
-    Pattern pattern =
+ String validateEmail(String value) {
+    String pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    if (value.isEmpty) return 'من فضلك ادخل البريد الالكتروني ';
-    if (!regex.hasMatch(value)) return 'من فضلك ادخل بريد الكتروني متاح';
-
-/////////////////////////////////////////
-  }
-
-  //validate username//
-  String validateName(String value) {
-    if (value.isEmpty) return 'من فضلك ادخل اسم المستخدم';
-    if (value.length < 6)
-      return 'يجب الا يقل اسم المستخدم عن 6 حروف وارقام';
-    else
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return "من فضلك ادخل البريد الالكتروني";
+    } else if (!regExp.hasMatch(value)) {
+      return "من فضلك ادخل بريد الكتروني متاح";
+    } else {
       return null;
+    }
   }
 ////////////////////////////
+String validateName(String value) {
+    String patttern = r'(^[a-zA-Z ]*$)';
+    RegExp regExp = new RegExp(patttern);
+    if (value.length == 0) {
+      return "من فضلك ادخل اسم المستخدم";
+    } else if (!regExp.hasMatch(value)) {
+      return "من فضلك ادخل اسم المستخدم";
+    }if (value.length < 6){
+      return 'يجب الا يقل اسم المستخدم عن 6 حروف وارقام';
+      }
 
+    return null;
+  }
+  //////////////////////
+   String validateMobile(String value) {
+    String patttern = r'(^[0-9]*$)';
+    RegExp regExp = new RegExp(patttern);
+    if (value.length == 0) {
+      return "من فضلك ادخل رقم الهاتف";
+    } else if (value.length != 11) {
+      return "!!يجب ألا يقل رقم الهاتف عن 11 رقم";
+    } else if (!regExp.hasMatch(value)) {
+      return "!!يجب ان يكون رقم الهاتف ارقام فقط دون حروف";
+    }
+    return null;
+  }
+  ///////////
+  
   Widget _loading() {
     return Container(
       child: Center(

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'questionPage.dart';
+import 'Reserve.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class lawyerScreen extends StatefulWidget{
@@ -172,7 +173,8 @@ class _stateLawyerScreen extends State<lawyerScreen>{
         children: <Widget>[
           Expanded(
             child: InkWell(
-              onTap: ()=> print('followed'),
+              onTap: (){ Navigator.of(context).push(
+                (MaterialPageRoute(builder: (context)=> Reservation(lawyerId: widget.id, user: widget.user ))));},
               child: Container(
                 height: 40,
                 decoration: BoxDecoration(
@@ -181,7 +183,7 @@ class _stateLawyerScreen extends State<lawyerScreen>{
                 ),
                 child: Center(
                   child:  Text(
-                    'متابعه ',
+                    'احجز الان ',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,

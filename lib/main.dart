@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Pages/SplashScreen.dart';
-
-
+import 'Pages/home.dart';
 
 void main() => runApp(new MaterialApp(home: new MyApp(),));
 
@@ -30,8 +29,6 @@ class MyApp extends StatelessWidget {
      ThemeData(
        primaryColor: prime,
      ),
-
-
       home: new splash_screen(),
 
       

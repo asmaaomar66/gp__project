@@ -49,7 +49,9 @@ class _editrolesState extends State<editroles> {
   Widget build(BuildContext context) {
     Firestore firebaseref = Firestore.instance;
     CollectionReference rulesRef = firebaseref.collection("Rules");
-    return Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child:new Scaffold(
       appBar: new AppBar(
         backgroundColor: prime,
         title: Text(
@@ -242,6 +244,6 @@ class _editrolesState extends State<editroles> {
         ],
         ),
       ),
-    );
+      ),  );
   }
   }

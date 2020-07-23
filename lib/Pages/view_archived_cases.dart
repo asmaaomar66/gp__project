@@ -16,6 +16,7 @@ final FirebaseUser currentCourt ;
 
   class _view_archived_cases extends State<view_archived_cases>{
       final a = Firestore.instance;
+
 Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
   Color third =  Color(0xff0ccaee) ;
@@ -25,6 +26,7 @@ Color prime = Color(0xff0e243b);
   return WillPopScope(
       onWillPop: () async => true,
       child: new Scaffold(
+
       drawer: drawerprofile(currentUser: widget.currentCourt,),
       appBar: AppBar( 
          backgroundColor: prime,
@@ -123,11 +125,13 @@ Color prime = Color(0xff0e243b);
           }
         } ,
         ),    
+
     )
   
 
   );
      
+
   }
  /* Widget build(BuildContext context) {
     return
@@ -138,7 +142,7 @@ Color prime = Color(0xff0e243b);
                 return Scaffold(
                 drawer: drawerprofile(currentUser: widget.currentCourt,),
                 appBar: AppBar( 
-                  backgroundColor: Color(0xff314d4d),
+                  backgroundColor: prime,
                    //actions: <Widget>[ Icon(Icons.archive, size: 38,)],
                   title:
                  new Text(" أرشيف القضايا" , style: TextStyle(fontSize: 23) ,),
@@ -150,12 +154,12 @@ Color prime = Color(0xff0e243b);
                         return
                          
                           new Card(
-                            color: Color(0xff314d4d),
+                            color: Colors.white70,
                             margin: EdgeInsets.only(
                             left: 3, right: 3.0, top: 20.0, bottom: 5.0),
                             child: ListTile(title: Text(
                              'نوع القضيه : ${ doc.data['caseType']}',
-                            style: TextStyle(fontSize: 25,color: Color(0xffcb4154)),
+                            style: TextStyle(fontSize: 25,color: third),
                             textAlign: TextAlign.right,),
                             subtitle: Column(children: <Widget>[ 
                               Row(
@@ -163,14 +167,14 @@ Color prime = Color(0xff0e243b);
                                 children: <Widget>[
                                  Icon(
                                    Icons.arrow_right,
-                                   color: Colors.white,
+                                   color: prime,
                                    size: 30,
                                  ),
                                  Container(
                                 child:Text(
                                   'حالة القضيه : ${doc.data['caseState']}',
                                   style: TextStyle(fontSize: 18
-                                  ,color: Colors.white,)
+                                  ,color: prime)
                                   ,textAlign: TextAlign.left,
                                 ),),
                                 ],
@@ -179,14 +183,14 @@ Color prime = Color(0xff0e243b);
                                children: <Widget>[
                                Icon(
                                    Icons.arrow_right,
-                                   color: Colors.white,
+                                   color: prime,
                                    size: 30,
                                  ),
                                Flexible(
                                 child:Text(
                                   'الجريمة المرتكبه  : ${doc.data['crimeName']}',
                                   style: TextStyle(fontSize: 18
-                                  ,color: Colors.white,)
+                                  ,color: prime)
                                   ,textAlign: TextAlign.left,
                                 ),)
                              ],)
