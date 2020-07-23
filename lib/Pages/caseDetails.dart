@@ -24,7 +24,6 @@ class _caseDetails extends State<caseDetails>{
   Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
   Color third =  Color(0xff0ccaee) ;
-
   TextEditingController  inputData = new TextEditingController();
 
  final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -176,6 +175,7 @@ class _caseDetails extends State<caseDetails>{
                                        Navigator.push(
                 context,new MaterialPageRoute(builder:(context)=>manageCases(currentCourt:widget.currentCourt )));
                 
+ 
                  }
              )
            ],
@@ -228,13 +228,13 @@ class _caseDetails extends State<caseDetails>{
       archivedCaseReff.setData({
           "caseId": archivedCaseReff.documentID,
           "courtId": user.uid,
-          "caseType": widget.currentCase.data['caseType'],
-          "caseState": widget.currentCase.data['caseState'],
-          "victimName": widget.currentCase.data['victimName'],
-          "offenderName": widget.currentCase.data['offenderName'],
-          "crimeName": widget.currentCase.data['crimeName'],
-          "caseDate": widget.currentCase.data['caseDate'],
-          "caseNumber": widget.currentCase.data['caseNumber'],
+          "caseType": widget.currentCase.data['caseId'],
+          "caseState": widget.currentCase.data['caseId'],
+          "victimName": widget.currentCase.data['caseId'],
+          "offenderName": widget.currentCase.data['caseId'],
+          "crimeName":widget.currentCase.data['caseId'],
+          "caseDate": widget.currentCase.data['caseId'],
+          "caseNumber": widget.currentCase.data['caseId'],
     });
 
       CollectionReference casesReff = Firestore.instance.collection('cases');
@@ -251,11 +251,29 @@ class _caseDetails extends State<caseDetails>{
    
   
   }
+//-----------------------Get case Details--------------------------
 
-//-----------------------Build Body Container---------------------
-Widget _buildContainer(){
-  Size screenSize = MediaQuery.of(context).size;
-  return  Container(
+ 
+//------------------------------------END OF FUNCTIONS -------------------------------
+  @override
+  Widget build(BuildContext context) {
+//---------------------------------------Body of Class-----------------------------------
+     Size screenSize = MediaQuery.of(context).size;
+     
+     return WillPopScope(
+       
+       onWillPop: () async => false,
+       child:  Scaffold(
+        
+      appBar: AppBar(
+              backgroundColor: prime ,
+              title: Text("تفاصيل القضيه"),
+              leading: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop()),
+            ),
+            //--------------------show case details-----------------------------
+     body: Container(
                padding: EdgeInsets.only( top: 20, bottom: 20.0),
                 child: Column(children: <Widget>[
                   Expanded(
@@ -438,27 +456,8 @@ Widget _buildContainer(){
                     ),
                   ),
                          ])  
-     );
-  
-}
+     )
  
-//------------------------------------END OF FUNCTIONS -------------------------------
-  @override
-  Widget build(BuildContext context) {
-//---------------------------------------Body of Class-----------------------------------
-     
-     return WillPopScope(
-       onWillPop: () async => false,
-       child:  Scaffold(
-      appBar: AppBar(
-              backgroundColor: prime ,
-              title: Text("تفاصيل القضيه"),
-              leading: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () => Navigator.of(context).pop()),
-            ),
-            //--------------------show case details-----------------------------
-     body: _buildContainer()
       
        )
  ,
