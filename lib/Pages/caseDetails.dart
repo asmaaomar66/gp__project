@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'editCase.dart';
 import 'package:toast/toast.dart';
-
+import 'package:gpproject/main.dart';
 import 'manageCases.dart';
 
 class caseDetails extends StatefulWidget{
@@ -21,17 +21,60 @@ class caseDetails extends StatefulWidget{
 }
 
 class _caseDetails extends State<caseDetails>{
-
-
- final FirebaseAuth _auth = FirebaseAuth.instance;
-
-
   Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
   Color third =  Color(0xff0ccaee) ;
 
-  //-----------------functions -------------------
-  Widget _buildTwoButtons(){
+  TextEditingController  inputData = new TextEditingController();
+
+ final FirebaseAuth _auth = FirebaseAuth.instance;
+
+//-------------------------------------BEGIN OF FUNCTIONS ---------------------------------
+  Widget _whereIShowEditButton(num flag){
+    if (widget.where_i_am == 'cases'){
+      return Container(
+        width: 90,
+        height: 30,
+        child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                              side: BorderSide(color:third)),
+                          onPressed: () {
+                                  _onClickEditButton(flag);        
+                          },
+                          color: third,
+                          textColor: Colors.white,
+                          
+                          child:  Row(
+                            children:<Widget>[
+                              Icon(
+                                Icons.edit
+                              ),
+                              Text("تعديل",
+                              style: TextStyle(
+                                fontSize: 15.0,
+                              )),
+                            ]
+                          )
+                        ),
+        
+      )  ;
+    }
+    else{
+      return SizedBox();
+    }
+    }
+ 
+  Widget _buildSeparator(Size screenSize, BuildContext context){
+    return Container(
+      width: screenSize.width / 1.2,
+      height: 2.0,
+      color: prime,
+      margin: EdgeInsets.only(top: 10.0),
+    );
+  }
+ 
+  Widget _whereIShowArchiveButton(){
     if (widget.where_i_am == 'cases') {
      return Container(
         padding: EdgeInsets.only(top: 20,left: 10.0),
@@ -45,6 +88,7 @@ class _caseDetails extends State<caseDetails>{
                               side: BorderSide(color: Color(0xffcb4154))),
                           onPressed: () {
                             onClickArchive();
+
                           },
                           color: Color(0xffcb4154),
                           textColor: Colors.white,
@@ -53,7 +97,7 @@ class _caseDetails extends State<caseDetails>{
                               Icon(
                                 Icons.archive
                               ),
-                              Text("ارشيف",
+                              Text("أضافة القضية الي الأرضيف",
                               style: TextStyle(
                                 fontSize: 15.0,
                               )),
@@ -61,36 +105,7 @@ class _caseDetails extends State<caseDetails>{
                           )
                         ),
                 
-                       
-                          SizedBox(
-                          width: 40.0,
-                        ),
-                        //---------------edit button----------------
-                        RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                              side: BorderSide(color: Color(0xff69a5a5))),
-                          onPressed: () {
-                           
-                               Navigator.of(context).push((MaterialPageRoute(
-                                 builder: (context)=>
-                                 editCase(currentCase: widget.currentCase,currentCourt: widget.currentCourt,) ) ) );
-                          },
-                          color: Color(0xff69a5a5),
-                          textColor: Colors.white,
-                          child:  Row(
-                            children:<Widget>[
-                              Icon(
-                                Icons.edit
-                              ),
-                              Text("تعديل",
-                              style: TextStyle(
-                                fontSize: 15.0,
-                              )),
-                            ]
-                          )
-                        ),
-                      ],
+                     ],
                     ),
                   );
  }
@@ -99,6 +114,101 @@ class _caseDetails extends State<caseDetails>{
   }      
   }
 
+ Widget _onClickEditButton(num flag){
+   showDialog<void>(
+     context: context,
+     builder: (BuildContext context) {
+       return AlertDialog(
+         title: _setEditName(flag),
+         content: new TextField(
+           controller: inputData,),
+           actions: <Widget>[
+             IconButton(icon: new Icon(Icons.edit, color: third,size: 35,  ),
+             alignment: Alignment.topRight,color: prime,
+               onPressed:(){
+                 if(flag == 1){
+                  Navigator.of(context).pop();
+                Firestore.instance.collection('cases').document(widget.currentCase.data['caseId']).updateData
+                ({ "caseType": inputData.text,}).then((data){});
+                 }
+                  else if(flag == 2){
+                  Navigator.of(context).pop();
+                Firestore.instance.collection('cases').document(widget.currentCase.data['caseId']).updateData
+                ({ "caseState": inputData.text,}).then((data){});
+                 }
+                   else if(flag == 3){
+                  Navigator.of(context).pop();
+                Firestore.instance.collection('cases').document(widget.currentCase.data['caseId']).updateData
+                ({ "offenderName": inputData.text,}).then((data){});
+                 }
+                   else if(flag == 4){
+                  Navigator.of(context).pop();
+                Firestore.instance.collection('cases').document(widget.currentCase.data['caseId']).updateData
+                ({ "victimName": inputData.text,}).then((data){});
+                 }
+                   else if(flag == 5){
+                  Navigator.of(context).pop();
+                Firestore.instance.collection('cases').document(widget.currentCase.data['caseId']).updateData
+                ({ "crimeName": inputData.text,}).then((data){});
+                 }
+                   else if(flag == 6){
+                  Navigator.of(context).pop();
+                Firestore.instance.collection('cases').document(widget.currentCase.data['caseId']).updateData
+                ({ "caseDate": inputData.text,}).then((data){});
+                 }
+                   else if(flag == 7){
+                  Navigator.of(context).pop();
+                Firestore.instance.collection('cases').document(widget.currentCase.data['caseId']).updateData
+                ({ "caseNumber": inputData.text,}).then((data){});
+                 }
+                     Toast.show("تم تعديل القضيه بنجاح", context, duration: 3);
+                                     Navigator.pushAndRemoveUntil(context,new MaterialPageRoute(
+                                       builder:(context)=>manageCases(currentCourt: widget.currentCourt,)
+                                        ), 
+        //------------------------V E R Y I M P O R T A N T------------------------------------------
+                                        ModalRoute.withName('/homepage'));
+                 }
+             )
+           ],
+       );
+      }
+   );
+ }
+  
+  Widget _setEditName(num flag){
+     if (flag == 1){
+      return Text('نوع القضيه',
+      style: TextStyle(color: prime ,fontSize: 23 ,fontWeight: FontWeight.w600 ),
+    );
+    }
+    else if (flag == 2){
+      return Text('حالة القضيه',
+      style: TextStyle(color: prime ,fontSize: 23 ,fontWeight: FontWeight.w600 ),);
+    }
+     else if (flag == 3){
+      return Text(' اسم الجاني',
+      style: TextStyle(color: prime ,fontSize: 23 ,fontWeight: FontWeight.w600 ),);
+    }
+     else if (flag == 4){
+      return Text(' اسم المجني عليه',
+      style: TextStyle(color: prime ,fontSize: 23 ,fontWeight: FontWeight.w600 ),);
+    }
+     else if (flag == 5){
+      return Text(' الجريمة المرتكبه',
+      style: TextStyle(color: prime ,fontSize: 23 ,fontWeight: FontWeight.w600 ),);
+    }
+  else if (flag == 6){
+      return Text('تاريخ القضيه',
+      style: TextStyle(color: prime ,fontSize: 23 ,fontWeight: FontWeight.w600 ),);
+    }
+  else if (flag == 7){
+      return Text('رقم القضيه التسلسلي',
+      style: TextStyle(color: prime ,fontSize: 23 ,fontWeight: FontWeight.w600 ),);
+    }
+ 
+ 
+  }
+  
   Future onClickArchive() async {
      final FirebaseUser user = await _auth.currentUser();
     Firestore _firestore = new Firestore();
@@ -132,152 +242,203 @@ class _caseDetails extends State<caseDetails>{
    
   
   }
-  
+//------------------------------------END OF FUNCTIONS -------------------------------
   @override
   Widget build(BuildContext context) {
+     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-              backgroundColor: prime,
+              backgroundColor: prime ,
               title: Text("تفاصيل القضيه"),
               leading: IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () => Navigator.of(context).pop()),
             ),
+            //--------------------show case details-----------------------------
      body: Container(
-                padding:
-                    EdgeInsets.only(left: 5, right: 20, top: 20, bottom: 20.0),
+               padding: EdgeInsets.only( top: 20, bottom: 20.0),
                 child: Column(children: <Widget>[
                   Expanded(
                     child: ListView(
                       children: <Widget>[
-                        Container(
+                //--------------------case type----------------------
+                 Expanded(
+                   child: Column(
+                          children: <Widget>[
+                             Container(
                           padding: EdgeInsets.only(
-                              left: 40, right: 30, top: 20, bottom: 20.0),
+                              left: 20, right: 20, top: 20,bottom: 5),
+                          child: Text(
+                            'قضية : ${widget.currentCase.data['caseType']}',
+                            style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold),
+                          )),
+                        //---------------edit button----------------
+                       _whereIShowEditButton(1),
+                       _buildSeparator(screenSize,context),
+                          ],
+                        ),
+                   
+                 ),
+                //--------------------case State----------------------
+                 Expanded(
+                   child:  Column(
+                          children: <Widget>[
+                             Container(
+                          padding: EdgeInsets.only(
+                              left: 20, right: 20, top: 20,bottom: 5),
                           child: Center(
                               child: 
-                               Text(
-                            'قضية ${widget.currentCase.data['caseType']}',
-                            style: TextStyle(
-                                fontSize: 25.0,
-                                fontWeight: FontWeight.w500,
-                                color: third),
-                          )),
-                        ),
-                        Text(
+                                Text(
                           "حالة القضيه : ${widget.currentCase.data['caseState']}",
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
+                        ),),
+                          ),
+                         SizedBox(
+                          width: 1.0,),
+                        //---------------edit button----------------
+                       _whereIShowEditButton(2),
+                        _buildSeparator(screenSize,context),
+                          ],
                         ),
-                        Text(
+        ),
+                //--------------------offender name----------------------
+                 Expanded(
+                   child:Column(
+                          children: <Widget>[
+                             Container(
+                          padding: EdgeInsets.only(
+                              left: 20, right: 20, top: 20,bottom: 5),
+                          child: Center(
+                              child: 
+                                Text(
                           " الجاني : ${widget.currentCase.data['offenderName']}",
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
+                        ),),
+                          ),
+                         SizedBox(
+                          width: 1.0,),
+                        //---------------edit button----------------
+                       _whereIShowEditButton(3),
+                        _buildSeparator(screenSize,context),
+                          ],
                         ),
-                        Text(
+      )
+                //--------------------victim name------------------------
+                 ,Expanded(
+                   child:  Column(
+                          children: <Widget>[
+                             Container(
+                          padding: EdgeInsets.only(
+                              left: 20, right: 20, top: 20, bottom: 5),
+                          child: Center(
+                              child: 
+                                Text(
                           " المجني عليه : ${widget.currentCase.data['victimName']}",
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
+                        ),),
+                          ),
+                         SizedBox(
+                          width: 1.0,),
+                        //---------------edit button----------------
+                       _whereIShowEditButton(4),
+                        _buildSeparator(screenSize,context),
+                          ],
                         ),
-                        
-                        Text(
+                    )
+                //--------------------crime name----------------------
+                 ,Expanded(
+                   child:  Column(
+                          children: <Widget>[
+                             Container(
+                          padding: EdgeInsets.only(
+                              left: 20, right: 20, top: 20, bottom: 5),
+                          child: Center(
+                              child: 
+                                Text(
                           "الجريمه المرتكبه : ${widget.currentCase.data['crimeName']}",
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
+                        ),),
+                          ),
+                         SizedBox(
+                          width: 1.0,),
+                        //---------------edit button----------------
+                       _whereIShowEditButton(5),
+                        _buildSeparator(screenSize,context),
+                          ],
                         ),
-                       Text(
+          )
+                //--------------------case date------------------------
+                 ,Expanded(
+                   child: Column(
+                          children: <Widget>[
+                             Container(
+                          padding: EdgeInsets.only(
+                              left: 20, right: 20, top: 20, bottom: 5),
+                          child: Center(
+                              child: 
+                                Text(
                           " تاريخ القضيه : ${widget.currentCase.data['caseDate']}",
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
+                        ),),
+                          ),
+                         SizedBox(
+                          width: 1.0,),
+                        //---------------edit button----------------
+                       _whereIShowEditButton(6),
+                        _buildSeparator(screenSize,context),
+                          ],
                         ),
-                        Text(
-                          " رقم القضيه التسلسلي : ${widget.currentCase.data['caseNumber']}",
+                    )
+                //--------------------case number----------------------
+                 ,Expanded(
+                   child:  Column(
+                          children: <Widget>[
+                             Container(
+                          padding: EdgeInsets.only(
+                              left: 20, right: 20, top: 20, bottom: 5),
+                          child: Center(
+                              child: 
+                                Text(
+                         " رقم القضيه التسلسلي : ${widget.currentCase.data['caseNumber']}",
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
-                        ),
-                        
-                        //--------------------two buttons--------------------------
-
-                      _buildTwoButtons(),
-                                    ],
-
-                        Container(
-                    padding: EdgeInsets.only(top: 20,left: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                              side: BorderSide(color: third)),
-                          onPressed: () {},
-                          color: third,
-                          textColor: Colors.white,
-                          child: Row(
-                            children:<Widget>[
-                              Icon(
-                                Icons.archive
-                              ),
-                              Text("ارشيف",
-                              style: TextStyle(
-                                fontSize: 15.0,
-                              )),
-                            ]
-                          )
-                        ),
-                        SizedBox(
-                          width: 40.0,
-                        ),
+                        ),),
+                          ),
+                         SizedBox(
+                          width: 1.0,),
                         //---------------edit button----------------
-                        RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                              side: BorderSide(color: third)),
-                          onPressed: () {
-                           
-                               Navigator.of(context).push((MaterialPageRoute(
-                                 builder: (context)=>
-                                 editCase(currentCase: widget.currentCase,currentCourt: widget.currentCourt,) ) ) );
-                          },
-                          color: third,
-                          textColor: Colors.white,
-                          child:  Row(
-                            children:<Widget>[
-                              Icon(
-                                Icons.edit
-                              ),
-                              Text("تعديل",
-                              style: TextStyle(
-                                fontSize: 15.0,
-                              )),
-                            ]
-                          )
+                       _whereIShowEditButton(7),
+                        _buildSeparator(screenSize,context),
+                          ],
                         ),
-                      ],
+                       ),
+                       
+                        //--------------------Archive buttons--------------------------
+                     _whereIShowArchiveButton(),
+                                    ],
                     ),
                   ),
-         
-                      ],
-
-                    ),
-                  ),
-                         ])
- 
-       
+                         ])  
      )
     );
   }
-  
-
 }

@@ -486,6 +486,7 @@ var queryResultSet = [];
 }
 
 //---------------------------- COURT PAGE   -------------------------------------
+      //---------------------------- COURT PAGE   -------------------------------------
         FutureBuilder courtPage(DocumentSnapshot snapshot) {
           return FutureBuilder(
               future: _data,
@@ -561,8 +562,8 @@ var queryResultSet = [];
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   new CircleAvatar(
-                    backgroundColor: third , 
-                    maxRadius: 87.0,
+                    backgroundColor: prime , 
+                    maxRadius: 85.0,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -570,7 +571,7 @@ var queryResultSet = [];
                           icon: Icon(
                             Icons.add_circle,
                             color: second,
-                            size: 35,
+                            size: 37,
                           ),
                           onPressed: () {
                             Navigator.push(context,new MaterialPageRoute(
@@ -598,8 +599,8 @@ var queryResultSet = [];
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   new CircleAvatar(
-                    backgroundColor:  third,
-                    maxRadius: 87.0,
+                    backgroundColor:  prime,
+                    maxRadius: 85.0,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -607,7 +608,7 @@ var queryResultSet = [];
                           icon: Icon(
                             Icons.settings,
                             color: second,
-                            size: 35,
+                            size: 37,
                           ),
                           onPressed: () {
                              Navigator.push(
@@ -617,7 +618,7 @@ var queryResultSet = [];
                         new SizedBox(
                           height: 3.0,
                         ),
-                        new Text("ادارة القضايا الحاليه",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.white),),
+                        new Text("ادارة القضايا الحاليه",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color:second),),
                       ],
                     ),
                   ),
@@ -630,5 +631,5 @@ var queryResultSet = [];
               });
         }
 
-    }
+     }
 

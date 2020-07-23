@@ -81,8 +81,16 @@ Color prime = Color(0xff0e243b);
                    SizedBox(height: 20,),
                   
                 //---------------case type----------------
+                Text(
+                      " نوع القضيه ",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                 Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: EdgeInsets.fromLTRB(20.0,0,20,20),
                   child: new Column(
                     children: <Widget>[
                               TextFormField(
@@ -111,6 +119,14 @@ Color prime = Color(0xff0e243b);
                         ),
                          SizedBox(height: 20,),
                          //-----------------------case state -------------------
+                          Text(
+                          " حالة القضيه  ",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                            textDirection: TextDirection.rtl,
+                            ),
                          TextFormField(
                           keyboardType: TextInputType.text,
                           autofocus: true,
@@ -136,6 +152,14 @@ Color prime = Color(0xff0e243b);
                         ),
                          SizedBox(height: 20,),
                          //-----------------------victim name -------------------
+                           Text(
+                          "اسم المجني عليه ",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                            textDirection: TextDirection.rtl,
+                            ),
                          TextFormField(
                           keyboardType: TextInputType.text,
                           autofocus: true,
@@ -160,6 +184,14 @@ Color prime = Color(0xff0e243b);
                         ),
                          SizedBox(height: 20,),
                          //-----------------------offender name -------------------
+                         Text(
+                           "اسم الجاني",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                            textDirection: TextDirection.rtl,
+                            ),
                          TextFormField(
                           keyboardType: TextInputType.text,
                           autofocus: true,
@@ -184,6 +216,14 @@ Color prime = Color(0xff0e243b);
                         ),
                         SizedBox(height: 20,),
                          //-----------------------الجريمة المرتكبه -------------------
+                          Text(
+                           "الجريمة المرتكبه",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                            textDirection: TextDirection.rtl,
+                            ),
                          TextFormField(
                           keyboardType: TextInputType.text,
                           autofocus: true,
@@ -208,6 +248,14 @@ Color prime = Color(0xff0e243b);
                         ),
                         SizedBox(height: 20,),
                         //------------------ case date--------------
+                         Text(
+                          "تاريخ القضيه",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                            textDirection: TextDirection.rtl,
+                            ),
                          TextFormField(
                           keyboardType: TextInputType.datetime,
                           autofocus: true,
@@ -232,6 +280,14 @@ Color prime = Color(0xff0e243b);
                         ),
                          SizedBox(height: 20,),
                          //-----------------case number--------------------------
+                          Text(
+                          "تسلسل القضيه",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                            textDirection: TextDirection.rtl,
+                            ),
                     TextFormField(
                           keyboardType: TextInputType.number,
                           autofocus: true,
@@ -265,9 +321,9 @@ Color prime = Color(0xff0e243b);
                         style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0)
                         ), 
                         onPressed: () => {
-                               if (_formKey.currentState.validate()){
+                               if (_formKey.currentState.validate())
                                  addNewCase()
-                               }
+                          
                                else {
                                   Toast.show("ادخل جميع البيانات", context,  duration: 3)
                                }
