@@ -22,10 +22,12 @@ final FirebaseUser currentCourt ;
   Color third =  Color(0xff0ccaee) ;
    @override
   Widget build(BuildContext context) {
+
     //---------------------------------- BODY OF CLASS ---------------------------------------------
     return WillPopScope(
       onWillPop: () async => false,
       child: new Scaffold(
+
       drawer: drawerprofile(currentUser: widget.currentCourt,),
       appBar: AppBar( 
          backgroundColor: prime,
@@ -108,7 +110,9 @@ final FirebaseUser currentCourt ;
                      var i_am = 'cases';
                                Navigator.of(context).push((MaterialPageRoute(
                                  builder: (context)=>
+
                                  caseDetails(currentCase: doc, currentCourt : widget.currentCourt,where_i_am: i_am,))));}
+
                          ),
                          
                        );
@@ -124,9 +128,11 @@ final FirebaseUser currentCourt ;
              }
         } ,
         ),    
+
     )
   
 ,
     );
      
+
   }}

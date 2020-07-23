@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:gpproject/models/roles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'HelloApp.dart';
 import 'manage_lawyers.dart';
 
 
@@ -33,7 +34,9 @@ class _managerulesState extends State<managerules> {
   }
   @override
   Widget build(BuildContext context) { 
-    return Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child: new Scaffold(
       drawer: new Drawer(
              child: Column(
           children: <Widget>[
@@ -62,7 +65,7 @@ class _managerulesState extends State<managerules> {
                 style: TextStyle(fontSize: 22 , ),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => AdminHome()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AdminHome()));
               },
             ),
             ListTile(
@@ -76,7 +79,7 @@ class _managerulesState extends State<managerules> {
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => managelawyers()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managelawyers()));
               },
             ),
             ListTile(
@@ -86,7 +89,7 @@ class _managerulesState extends State<managerules> {
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                 Navigator.push(context,MaterialPageRoute(builder: (context) => managecourts()));
+                 Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managecourts()));
               },
             ),
              ListTile(
@@ -97,8 +100,8 @@ class _managerulesState extends State<managerules> {
               ),
               onTap: () {
                 signOut();
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
           ],
@@ -210,7 +213,7 @@ class _managerulesState extends State<managerules> {
             return LinearProgressIndicator();
            }
            ),
-    );
+     ), );
     
     
   }

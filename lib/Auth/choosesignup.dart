@@ -17,7 +17,9 @@ class _Buttons extends State<Buttons> {
   @override
   Widget build(BuildContext context) {
 
-    return new Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child: new Scaffold(
         backgroundColor: prime,
         //Color.fromRGBO(1, 44, 45, 15),
 
@@ -108,6 +110,6 @@ class _Buttons extends State<Buttons> {
         )
 
 
-    );
+      ),  );
   }
 }

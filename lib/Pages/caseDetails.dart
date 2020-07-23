@@ -30,12 +30,12 @@ class _caseDetails extends State<caseDetails>{
  final FirebaseAuth _auth = FirebaseAuth.instance;
 
 //-------------------------------------BEGIN OF FUNCTIONS ---------------------------------
- 
     //--------------------------Where I show Edite Button--------------------------
   Widget _whereIShowEditButton(num flag){
     if (widget.where_i_am == 'cases'){
       return Container(
         width: 96,
+
         height: 30,
         child: RaisedButton(
                           shape: RoundedRectangleBorder(
@@ -66,7 +66,9 @@ class _caseDetails extends State<caseDetails>{
       return SizedBox();
     }
     }
+
  //------------------------Build Separator----------------------
+
   Widget _buildSeparator(Size screenSize, BuildContext context){
     return Container(
       width: screenSize.width / 1.2,
@@ -75,7 +77,9 @@ class _caseDetails extends State<caseDetails>{
       margin: EdgeInsets.only(top: 10.0),
     );
   }
+
  //--------------------------Where I Show Archive Button--------------
+
   Widget _whereIShowArchiveButton(){
     if (widget.where_i_am == 'cases') {
      return Container(
@@ -115,7 +119,9 @@ class _caseDetails extends State<caseDetails>{
     return  SizedBox (height: 5,);
   }      
   }
+
   //-------------------------On Cick Edite Button-----------------------
+
  Widget _onClickEditButton(num flag){
    showDialog<void>(
      context: context,
@@ -176,6 +182,7 @@ class _caseDetails extends State<caseDetails>{
                                        Navigator.push(
                 context,new MaterialPageRoute(builder:(context)=>manageCases(currentCourt:widget.currentCourt )));
                 
+
                  }
              )
            ],
@@ -183,7 +190,9 @@ class _caseDetails extends State<caseDetails>{
       }
    );
  }
+
   //----------------------------Set Edit Name -------------------------
+
   Widget _setEditName(num flag){
      if (flag == 1){
       return Text('نوع القضيه',
@@ -217,7 +226,9 @@ class _caseDetails extends State<caseDetails>{
  
  
   }
+
   //--------------------------On click Archive---------------------------
+
   Future onClickArchive() async {
      final FirebaseUser user = await _auth.currentUser();
     Firestore _firestore = new Firestore();
@@ -252,10 +263,12 @@ class _caseDetails extends State<caseDetails>{
   
   }
 
+
 //-----------------------Build Body Container---------------------
 Widget _buildContainer(){
   Size screenSize = MediaQuery.of(context).size;
   return  Container(
+
                padding: EdgeInsets.only( top: 20, bottom: 20.0),
                 child: Column(children: <Widget>[
                   Expanded(
@@ -438,6 +451,7 @@ Widget _buildContainer(){
                     ),
                   ),
                          ])  
+
      );
   
 }
@@ -464,4 +478,5 @@ Widget _buildContainer(){
  ,
      );
      }
+
 }

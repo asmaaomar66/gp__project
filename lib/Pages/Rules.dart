@@ -5,7 +5,6 @@ import 'package:gpproject/Pages/manage_rules.dart';
 
 import 'AddRoles.dart';
 
-
 class Rules extends StatefulWidget {
   @override
  State<StatefulWidget> createState() {
@@ -20,7 +19,9 @@ class _Rules extends State<Rules> {
   @override
   Widget build(BuildContext context) {
     
-    return new Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child: new Scaffold(
        appBar: new AppBar(
         title: new Text("الأفوكاتو", style: new TextStyle(fontSize: 21,fontWeight: FontWeight.bold),),
         actions: <Widget>[
@@ -31,7 +32,7 @@ class _Rules extends State<Rules> {
 
               ),
               onPressed: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => AdminHome()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AdminHome()));
               },
             )
           ],
@@ -56,7 +57,7 @@ class _Rules extends State<Rules> {
 
                           ),
                           onPressed: () {
-                            Navigator.push(context,new MaterialPageRoute(
+                            Navigator.pushReplacement(context,new MaterialPageRoute(
                                 builder:(context)=>AddRoles()
                             ));
                           },
@@ -88,7 +89,7 @@ class _Rules extends State<Rules> {
                             color: second,
                           ),
                           onPressed: () {
-                             Navigator.push(context,new MaterialPageRoute(builder:(context)=>managerules()));
+                             Navigator.pushReplacement(context,new MaterialPageRoute(builder:(context)=>managerules()));
                           },
                         ),
                         new SizedBox(
@@ -104,7 +105,8 @@ class _Rules extends State<Rules> {
           ],
         )
      
-      );
+    ),
+    );
   }
   
   

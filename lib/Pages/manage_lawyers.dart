@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gpproject/Auth/login.dart';
 import 'package:gpproject/Pages/AdminHome.dart';
+import 'package:gpproject/Pages/HelloApp.dart';
 import 'package:gpproject/Pages/Rules.dart';
 import 'package:gpproject/Pages/manage_courts.dart';
 import 'package:gpproject/Pages/manage_rules.dart';
@@ -32,7 +33,9 @@ class _managelawyersState extends State<managelawyers> {
   }
   @override
   Widget build(BuildContext context) { 
-    return  Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child:new Scaffold(
  drawer: new Drawer(
                          child: Column(
           children: <Widget>[
@@ -65,7 +68,7 @@ class _managelawyersState extends State<managelawyers> {
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => AdminHome()));
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AdminHome()));
               },
             ),
             ListTile(
@@ -75,7 +78,7 @@ class _managelawyersState extends State<managelawyers> {
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                 Navigator.push(context,MaterialPageRoute(builder: (context) => managecourts()));
+                 Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managecourts()));
               },
             ),
             ListTile(
@@ -85,10 +88,10 @@ class _managelawyersState extends State<managelawyers> {
                 style: TextStyle(fontSize: 22 , ),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => Rules())); 
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Rules())); 
               },
             ),
-             ListTile(
+            ListTile(
               leading: Icon(Icons.exit_to_app ,color: third,),
               title: Text(
                 'تسجيل الخروج',
@@ -96,8 +99,8 @@ class _managelawyersState extends State<managelawyers> {
               ),
               onTap: () {
                 signOut();
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
           ],
@@ -184,7 +187,7 @@ class _managelawyersState extends State<managelawyers> {
                                   child: Text(
                                     doc.data['officenumber'],
                                     style: TextStyle(
-                                      fontSize: 20.0,
+                                      fontSize: 18.0,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -211,7 +214,7 @@ class _managelawyersState extends State<managelawyers> {
             return LinearProgressIndicator();
            }
            ),
-    );
+      ),  );
    
   }
 

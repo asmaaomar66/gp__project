@@ -29,14 +29,16 @@ class splash_screenState extends State<splash_screen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     Size screenSize = MediaQuery.of(context).size;
-    return new Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child:new Scaffold(
         body: new Container(
         decoration: BoxDecoration(
         image: DecorationImage(
         image: AssetImage("image/3.jpg"), fit: BoxFit.cover)
         )
         ),
-    ) ;
+     ), ) ;
 
   }
 }

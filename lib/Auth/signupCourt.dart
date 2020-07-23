@@ -134,7 +134,9 @@ class _SignUpCourt extends State<SignUpCourt> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child: new Scaffold(
       body: ListView(
         children: <Widget>[
           new Container(
@@ -164,8 +166,8 @@ class _SignUpCourt extends State<SignUpCourt> {
                               left: 15, top: 10, right: 0, bottom: 20.0),
                           child: TextFormField(
                             controller: _ChildNameController,
-                            keyboardType: TextInputType.emailAddress,
-                            autofocus: true,
+                            keyboardType: TextInputType.text,
+                            autofocus: false,
                             textDirection: TextDirection.rtl,
                             decoration: InputDecoration(
                               hintStyle: TextStyle(
@@ -189,11 +191,10 @@ class _SignUpCourt extends State<SignUpCourt> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0)),
                             ),
-                            validator: (value) {
-                              if (value.isEmpty) {
+                            validator: (input) {
+                              if (input.isEmpty) {
                                 return 'من فضلك ادخل الاسم';
                               }
-                              return null;
                             },
                             onSaved: (input) => _name = input,
                           ),
@@ -203,8 +204,8 @@ class _SignUpCourt extends State<SignUpCourt> {
                               left: 15, top: 10, right: 0, bottom: 20.0),
                           child: TextFormField(
                             controller: _ChildUserNameController,
-                            keyboardType: TextInputType.emailAddress,
-                            autofocus: true,
+                            keyboardType: TextInputType.text,
+                            autofocus: false,
                             textDirection: TextDirection.rtl,
                             decoration: InputDecoration(
                               hintStyle: TextStyle(
@@ -238,7 +239,7 @@ class _SignUpCourt extends State<SignUpCourt> {
                           child: TextFormField(
                             controller: _ChildEmailController,
                             keyboardType: TextInputType.emailAddress,
-                            autofocus: true,
+                            autofocus: false,
                             textDirection: TextDirection.rtl,
                             decoration: InputDecoration(
                               hintStyle: TextStyle(
@@ -271,8 +272,9 @@ class _SignUpCourt extends State<SignUpCourt> {
                               left: 15, top: 10, right: 0, bottom: 20.0),
                           child: TextFormField(
                             controller: _ChildPassWordController,
-                            keyboardType: TextInputType.emailAddress,
-                            autofocus: true,
+                            keyboardType: TextInputType.visiblePassword,
+                            autofocus: false,
+                            obscureText: true,
                             textDirection: TextDirection.rtl,
                             decoration: InputDecoration(
                               hintStyle: TextStyle(
@@ -296,14 +298,13 @@ class _SignUpCourt extends State<SignUpCourt> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0)),
                             ),
-                            validator: (value) {
-                              if (value.isEmpty) {
+                            validator: (input) {
+                              if (input.isEmpty) {
                                 return 'من فضلك ادخل كلمة المرور';
                               }
-                              if (value.length < 8) {
+                              if (input.length < 8) {
                                 return 'كلمة المرور يجب الا تقل عن ثماني ارقام او حروف';
                               }
-                              return null;
                             },
                             onSaved: (input) => _password = input,
                           ),
@@ -347,10 +348,10 @@ class _SignUpCourt extends State<SignUpCourt> {
                 role: "3",
                 context: context,
               );
-              Navigator.push(
+             /* Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Login()),
-              );
+              );*/
             },
             child: Text('إنشاء حساب',
                 style: TextStyle(
@@ -361,6 +362,7 @@ class _SignUpCourt extends State<SignUpCourt> {
           ),
         ),
       ],
+      ),
     );
   }
 
@@ -399,9 +401,9 @@ class _SignUpCourt extends State<SignUpCourt> {
             ),
           );
         });
-        //now automatically login user too
-        //await StateWidget.of(context).logInUser(email, password);
+        
         await Navigator.pushNamed(context, '/signin');
+        Navigator.push(context,MaterialPageRoute(builder: (context) => Login()), );
       } catch (e) {
         _changeLoadingVisible();
         print("Sign Up Error: $e");
@@ -414,25 +416,34 @@ class _SignUpCourt extends State<SignUpCourt> {
   //////////////////////////////
 ///// validation form///////
   ///valid email//
-  String validateEmail(String value) {
-    Pattern pattern =
+ String validateEmail(String value) {
+    String pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    if (value.isEmpty) return 'من فضلك ادخل البريد الالكتروني ';
-    if (!regex.hasMatch(value)) return 'من فضلك ادخل بريد الكتروني متاح';
-
-/////////////////////////////////////////
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return "من فضلك ادخل البريد الالكتروني";
+    } else if (!regExp.hasMatch(value)) {
+      return "من فضلك ادخل بريد الكتروني متاح";
+    } else {
+      return null;
+    }
   }
+  ///////////////
 
   //validate username//
-  String validateName(String value) {
-    if (value.isEmpty) return 'من فضلك ادخل اسم المستخدم';
-    if (value.length < 6)
+ String validateName(String value) {
+    String patttern = r'(^[a-zA-Z ]*$)';
+    RegExp regExp = new RegExp(patttern);
+    if (value.length == 0) {
+      return "من فضلك ادخل اسم المستخدم";
+    } else if (!regExp.hasMatch(value)) {
+      return "من فضلك ادخل اسم المستخدم";
+    }if (value.length < 6){
       return 'يجب الا يقل اسم المستخدم عن 6 حروف وارقام';
-    else
-      return null;
-  }
+      }
 
+    return null;
+  }
 ////////////////////////////
 
   Widget _loading() {

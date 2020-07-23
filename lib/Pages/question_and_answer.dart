@@ -32,7 +32,7 @@ class _QuestionAndAnswer extends State<QuestionAndAnswer> {
 
     return   StreamBuilder<QuerySnapshot>(
        stream:  Firestore.instance.collection('info').where("userid" , isEqualTo: widget.value ).
-       where("state", isEqualTo: "     تمت الإجابة عن هذا السؤال   ").snapshots(),
+       where("state", isEqualTo: "     تمت الإجابة عن هذا السؤال   ").orderBy("Date", descending: true).snapshots(),
        builder: (context, snapshot) {
            if (snapshot.hasData) {
                 return
