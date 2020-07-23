@@ -612,7 +612,7 @@ var queryResultSet = [];
                           ),
                           onPressed: () {
                              Navigator.push(
-                               context,new MaterialPageRoute(builder:(context)=>manageCases(currentCourt:widget.user )));
+                context,new MaterialPageRoute(builder:(context)=>manageCases(currentCourt:widget.user )));
                           },
                         ),
                         new SizedBox(

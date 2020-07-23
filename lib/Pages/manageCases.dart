@@ -108,8 +108,7 @@ final FirebaseUser currentCourt ;
                      var i_am = 'cases';
                                Navigator.of(context).push((MaterialPageRoute(
                                  builder: (context)=>
-                                 caseDetails
-                                 (currentCase: doc, currentCourt : widget.currentCourt,where_i_am: i_am,))));}
+                                 caseDetails(currentCase: doc, currentCourt : widget.currentCourt,where_i_am: i_am,))));}
                          ),
                          
                        );
