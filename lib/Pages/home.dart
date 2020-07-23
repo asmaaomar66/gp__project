@@ -1073,6 +1073,8 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
 
 //---------------------------- COURT PAGE   -------------------------------------
 
+      //---------------------------- COURT PAGE   -------------------------------------
+
         FutureBuilder courtPage(DocumentSnapshot snapshot) {
           return FutureBuilder(
               future: _data,
@@ -1149,7 +1151,9 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                 children: <Widget>[
                   new CircleAvatar(
                     backgroundColor: prime , 
-                    maxRadius: 87.0,
+
+                    maxRadius: 85.0,
+
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -1157,7 +1161,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                           icon: Icon(
                             Icons.add_circle,
                             color: second,
-                            size: 35,
+                            size: 37,
                           ),
                           onPressed: () {
                             Navigator.push(context,new MaterialPageRoute(
@@ -1186,7 +1190,9 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                 children: <Widget>[
                   new CircleAvatar(
                     backgroundColor:  prime,
-                    maxRadius: 87.0,
+
+                    maxRadius: 85.0,
+
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -1194,11 +1200,11 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                           icon: Icon(
                             Icons.settings,
                             color: second,
-                            size: 35,
+                            size: 37,
                           ),
                           onPressed: () {
                              Navigator.push(
-                               context,new MaterialPageRoute(builder:(context)=>manageCases(currentCourt:widget.user )));
+                context,new MaterialPageRoute(builder:(context)=>manageCases(currentCourt:widget.user )));
                           },
                         ),
                         new SizedBox(
@@ -1217,41 +1223,8 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
               });
         }
 
-    }
-    /*class DynamicWidget extends StatelessWidget{
-        
 
-  @override
-
-
-
-  var x = _controller.text ;
-  
-  Widget build(BuildContext context) {
-    return Container( 
-  height: 70,    
-         width: 70,
-                                       //   margin:
-                                         //     EdgeInsets.symmetric(horizontal: 3.0),
-                                          decoration: BoxDecoration(
-                                            color: Color.fromARGB(100, 225, 225, 225)
-                                                .withOpacity(0.3),
-                                            borderRadius: BorderRadius.all(
-                                               Radius.elliptical(30, 30)),
-                                         ),
-      child: 
-     ListView(children: <Widget>[
-       IconButton(icon: new Icon(Icons.folder,color: Colors.yellowAccent,size: 70 , ), //padding: EdgeInsets.symmetric(vertical: 20.0,horizontal: 0.0),
-        onPressed:(){ 
-       Navigator.of(context).push((MaterialPageRoute(builder: (context)=> UploadFolder( parameter: 5 , address : imp))));
-     }),
-   new FlatButton(child: new Text("$x"), color: Colors.white,  ), // i will put here a code of retrieve name so i could change it
-    ])
-    
-    
-    );
-  }
-
+     }
 
 
   }*/
