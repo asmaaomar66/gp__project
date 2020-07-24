@@ -670,10 +670,10 @@ void notificationReplay() async {
                                   hintText: "ابحث في ملفاتك و مجلداتك",
                                   icon: new IconButton(
                                       icon: new Icon(Icons.search), onPressed: null),
-                                ),
-                              )),
+                                      ),
+                          )),
                           
-                                                 
+                        
                             StreamBuilder<QuerySnapshot>(
                       stream:  
                       
@@ -683,11 +683,12 @@ void notificationReplay() async {
                            if(snapshot.hasError){
                              return Text("error");
                            }
-                           if(snapshot.connectionState == ConnectionState.waiting){
+                         /*  if(snapshot.connectionState == ConnectionState.active){
 
                                                      return SpinKitRing(color: Colors.blueGrey, size: 50,);
 
-                           }
+                           }*/
+                            if(snapshot.data == null) return CircularProgressIndicator();
                        
                         else{  
                           if(loading == false ){
