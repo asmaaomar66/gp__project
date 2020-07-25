@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gpproject/Classes/User.dart';
 import 'drawerprofile.dart';
 import 'package:gpproject/Classes/notification.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 class AnswerQuestions extends StatefulWidget {
    final String value;
    final String val;
@@ -49,12 +50,15 @@ class _HomeState extends State<AnswerQuestions> {
       children: <Widget>[
            new Text('${widget.value}',style: TextStyle(fontSize: 30,color: prime),textAlign: TextAlign.right,),
            new TextField(controller: _f,
+           
            maxLines:10 ,
            keyboardType: TextInputType.text,
+
            textDirection: TextDirection.rtl,
            textAlign: TextAlign.right,
            decoration: new InputDecoration(
                   focusColor: third,
+
                   border: OutlineInputBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(10),bottom:Radius.circular(10) )),
                   hintText: 'الإجابهً',
                   hintStyle: TextStyle(
@@ -74,12 +78,25 @@ class _HomeState extends State<AnswerQuestions> {
                                       color: Colors.grey[500],
                                      onPressed: (){}, ),
 
-                            RaisedButton.icon(onPressed: () async {
+                            RaisedButton.icon(onPressed: () 
+                            async {  String l = " " ;
+                               if(_f.text.allMatches(l) != null){
+                                Fluttertoast.showToast(
+        msg: "من فضلك اضف اجابتك",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: third,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+                               }
+                               else{
               Firestore.instance.collection('info').document(widget.val).updateData({ "answering" : _f.text });
               Firestore.instance.collection('answers').add({"title": _f.text , "id": widget.userid});
               Firestore.instance.collection('info').document(widget.val).updateData({ "state" : state });
               Firestore.instance.collection('info').document(widget.val).updateData({"DateofAnswer": notification.format});              
-              _f.clear();
+              _f.clear();}
                                                                   }, 
               icon:new Icon(Icons.arrow_forward_ios,color: Colors.white,),
               label:new Text('أجب',style:TextStyle(color: Colors.white),),

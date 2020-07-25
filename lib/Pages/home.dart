@@ -173,16 +173,11 @@ Firestore.instance.collection('files').document(lol).updateData({"Address" : lol
     else{
 } 
 
-  
       _tasks.add(uploadTask);
-
-  
-    
 
 setState(() {
   loading = false;
 });
-
 
 
     }
@@ -241,7 +236,8 @@ maxLengthEnforced: true,
 actions: <Widget>[
  
 IconButton(icon: new Icon(Icons.file_upload, color: Colors.black,),
- alignment: Alignment.topRight,color: Colors.teal[900], onPressed:()async{ Navigator.of(context).pop();
+ alignment: Alignment.topRight,color: Colors.teal[900], onPressed:()
+ async{ Navigator.of(context).pop();
    DocumentReference ref = await Firestore.instance.collection('folder').add(
                     {"name": _controller.text, "lawyerid": widget.user.uid});
                 imp = ref.documentID;
