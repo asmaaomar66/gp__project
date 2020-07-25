@@ -50,13 +50,13 @@ dependencies:
   folder_picker: ^0.3.0
   permission: ^0.1.7
   flutter_full_pdf_viewer: ^1.0.6
+  loading_overlay: ^0.2.1
   audioplayers: ^0.14.2
   flutter_spinkit: "^2.1.0"
-  loading_overlay: ^0.2.1
   progress_dialog: ^1.1.0+1
   flutter_launcher_icons: ^0.7.4
   flutter_pdfview: ^1.0.0+10
-  
+  fluttertoast: ^7.0.1
 
 
 
