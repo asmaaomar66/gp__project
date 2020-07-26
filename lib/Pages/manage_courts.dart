@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gpproject/Pages/HelloApp.dart';
 import 'package:gpproject/Pages/Rules.dart';
+import 'package:gpproject/Pages/showReports.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'courtAdminScreen.dart';
@@ -89,6 +90,18 @@ drawer: new Drawer(
               ),
               onTap: () {
                 Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Rules()));
+              },
+            ),
+               ListTile(
+              leading: Icon(Icons.show_chart , color: third,),
+              title: Text(
+                'عرض_التقارير',
+                style: TextStyle(fontSize: 22),
+              ),
+              onTap: () {
+                  Navigator.push(context,new MaterialPageRoute(
+                          builder:(context)=>showReports()
+                      ));
               },
             ),
              ListTile(

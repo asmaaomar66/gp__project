@@ -1227,7 +1227,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
      }
 
 
-  }*/
+    
 
 class PDFScreen extends StatelessWidget { // new page presents the pdf 
   String pathPDF ;

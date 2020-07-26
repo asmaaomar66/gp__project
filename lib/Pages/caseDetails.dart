@@ -164,9 +164,7 @@ class _caseDetails extends State<caseDetails>{
                 ({ "caseNumber": inputData.text,}).then((data){});
                  }
                      Toast.show("تم تعديل القضيه بنجاح", context, duration: 3);
-                                      Navigator.push(context,new MaterialPageRoute(
-                          builder:(context)=>manageCases(currentCourt: widget.currentCourt,)
-                      ));
+                                      Navigator.pop(context);
                  }
              )
            ],
