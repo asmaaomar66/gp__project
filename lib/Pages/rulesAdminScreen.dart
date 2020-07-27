@@ -8,10 +8,11 @@ import 'package:toast/toast.dart';
 
 class rulescreen extends StatefulWidget{
   //----------------------Constractor---------
- rulescreen({this.currentrule, this.user, this.id});
+ rulescreen({this.currentrule, this.user, this.id , this.collectionName});
     var currentrule;
     FirebaseUser user ;
     String id ;
+    var collectionName;
   //---------------function-------------
   State<StatefulWidget> createState() {
     return new _rulescreenState();
@@ -25,15 +26,13 @@ class _rulescreenState extends State<rulescreen> {
   Color third =  Color(0xff0ccaee) ;
   UserClass userClass = new UserClass();
 
-
-
+List bnod = [] ;
+var Selected ;
   @override
   Widget build(BuildContext context) {
-    Firestore firebaseref = Firestore.instance;
-    CollectionReference rulesRef = firebaseref.collection("Rules");
-     return new WillPopScope(
-    onWillPop: () async => false,
-    child:new Scaffold(
+     final databaseReference = Firestore.instance;
+     var rulesRef = databaseReference.collection('Rules').document(widget.id).collection(widget.collectionName);
+     return new Scaffold(
        appBar: new AppBar(
                           title: Text(
                             '${widget.currentrule.data['Rolename']}',
@@ -79,7 +78,8 @@ class _rulescreenState extends State<rulescreen> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(" البند : ${widget.currentrule.data['Bandname']} "),
+                            
+                            Text(" البند : ${widget.currentrule.data['Bnod']} "),
                           ],
                         ),
                         SizedBox(
@@ -96,7 +96,7 @@ class _rulescreenState extends State<rulescreen> {
                         new FloatingActionButton(
                           onPressed: (){
                             rulesRef
-                            .document(widget.currentrule.documentID)
+                            .document(widget.currentrule.id)
                             .delete()
                             .then((data) {
                             print("تم");
@@ -125,7 +125,7 @@ class _rulescreenState extends State<rulescreen> {
                 ]
                 )
                 )
-       ),
+      
          );
     
 

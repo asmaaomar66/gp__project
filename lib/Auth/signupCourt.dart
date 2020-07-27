@@ -134,9 +134,7 @@ class _SignUpCourt extends State<SignUpCourt> {
 
   @override
   Widget build(BuildContext context) {
-    return new WillPopScope(
-    onWillPop: () async => false,
-    child: new Scaffold(
+    return  new Scaffold(
       body: ListView(
         children: <Widget>[
           new Container(
@@ -362,7 +360,7 @@ class _SignUpCourt extends State<SignUpCourt> {
           ),
         ),
       ],
-      ),
+     
     );
   }
 

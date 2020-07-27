@@ -28,7 +28,6 @@ import 'package:gpproject/Pages/question_list.dart';
 
 import 'package:gpproject/Pages/lawyerViewTime.dart';
 import 'package:gpproject/Pages/userViewTime.dart';
-
 import 'folderUpload.dart';
 import 'package:gpproject/Services/searchservice.dart';
 import 'package:gpproject/models/archivedCases.dart';
@@ -46,6 +45,8 @@ import 'ProfileUsers.dart';
 import 'drawerprofile.dart';
 import 'lawyer_list.dart';
 import 'package:gpproject/Pages/view_archived_cases.dart';
+
+import 'manageSubRules.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title, this.user, this.currentUser });
@@ -76,11 +77,13 @@ String name ;
  String categoryname = "";
   var CollectionName ;
 
+
 void initiateSearch(String val) {
     setState(() {
       categoryname = val;
     });
   }
+
 
   void openFileExplorer() async {
      
@@ -218,11 +221,7 @@ RaisedButton.icon(icon: new Icon(Icons.add_photo_alternate, color: Colors.white,
 
   }
 
-
-
  
-
-  
   Future<void> _chooseName(BuildContext context){
     
 return showDialog<void>(
@@ -325,30 +324,27 @@ void countDocumentLengthAnswer() async {
     List<DocumentSnapshot> _x = x.documents;
     b =_x.length;
   }
-  int notifiReserve=0;
-void notificationReserve() async {
-    QuerySnapshot x = await Firestore.instance.collection("notifiReserve").
-    where("id", isEqualTo: widget.user.uid).getDocuments();
-    List<DocumentSnapshot> _x = x.documents;
+   int notifiReserve=0;
+void lawyerNotification() async {
+    QuerySnapshot x = await Firestore.instance.collection("lawyerNotifi").
+    where("lawyerId", isEqualTo: widget.user.uid).
+    where('view',isEqualTo:false).getDocuments();
+    List<DocumentSnapshot> _c = x.documents;
     setState(() {
-      notifiReserve =_x.length;
+      notifiReserve =_c.length;
     });
     
   }
    int notifiReplay=0;
 void notificationReplay() async {
     QuerySnapshot x = await Firestore.instance.collection("notifiReplay").
-    where("id", isEqualTo: widget.user.uid).getDocuments();
-    List<DocumentSnapshot> _x = x.documents;
+    where("userId", isEqualTo: widget.user.uid).getDocuments();
+    List<DocumentSnapshot> _p = x.documents;
     setState(() {
-       notifiReplay =_x.length;
+       notifiReplay =_p.length;
     });
    
   }
-
-
-//var queryResultSet = [];
-  //var tempSearchStore = [];
 
   Widget notificationRS()
 {
@@ -379,34 +375,9 @@ void notificationReplay() async {
 }
 
 
-  /*initiateSearch(value) {
-    if (value.length == 0) {
-      setState(() {
-        queryResultSet = [];
-        tempSearchStore = [];
-      });
-    }*/
 
-    /*var capitalizedValue =
-        value.substring(0, 1).toUpperCase() + value.substring(1);
+  
 
-    if (queryResultSet.length == 0 && value.length == 1) {
-      SearchService().searchByName(value).then((QuerySnapshot docs) {
-        for (int i = 0; i < docs.documents.length; ++i) {
-          queryResultSet.add(docs.documents[i].data);
-        }
-      });
-    } else {
-      tempSearchStore = [];
-      queryResultSet.forEach((element) {
-        if (element['bussinesname'].startsWith(capitalizedValue)) {
-          setState(() {
-            tempSearchStore.add(element);
-          });
-        }
-      });
-    }
-  }*/
   
 
 
@@ -419,12 +390,10 @@ void notificationReplay() async {
   Widget build(BuildContext context) {
     countDocumentLength();
     countDocumentLengthAnswer();
-    notificationReserve() ;
+  lawyerNotification();
     notificationReplay(); 
 
-  return new WillPopScope(
-    onWillPop: () async => false,
-    child: new  Scaffold(
+  return new  Scaffold(
 
         drawer: drawerprofile(currentUser: widget.user),
         appBar: AppBar(
@@ -445,7 +414,7 @@ void notificationReplay() async {
             return LinearProgressIndicator();
           },
         ),
-    ),
+    
     );
   }
   FutureBuilder checkRole(DocumentSnapshot snapshot) {
@@ -508,7 +477,7 @@ void notificationReplay() async {
                            BottomNavigationBarItem(
                              backgroundColor: prime,
                              icon: notificationRp(),
-                             title: new Text('مواعيد الحجوزات' , style: new TextStyle(fontSize: 10.0 , color: second),)
+                             title: new Text(' اشعارات' , style: new TextStyle(fontSize: 10.0 , color: second),)
                            ),
                          ],
                           onTap: (index){
@@ -524,11 +493,14 @@ void notificationReplay() async {
                         {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});                
 
                     }else if (_page == 3){
+                       Firestore.instance.collection("notifiReplay").where("userId", isEqualTo: widget.user.uid).getDocuments().then((snapshot)
+                        {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});
                          Navigator.push(context,  MaterialPageRoute(builder: (context) => UserTimesPage(currentUser: widget.user)));
                     }
                    });
                   },
                   ),
+
                       new Container(
                           child: Padding(
                           padding: EdgeInsets.only(
@@ -613,6 +585,7 @@ void notificationReplay() async {
                       
              }} ) ]
                                     ); 
+
                                       }
                             
                                     });
@@ -651,7 +624,7 @@ void notificationReplay() async {
 
                            BottomNavigationBarItem(
                              backgroundColor: prime,
-                             icon: new Icon(Icons.notifications_none , color: second,),
+                             icon:notificationRS(),
                              title: new Text('الاشعارات' , style: new TextStyle(fontSize: 10.0 , color: second),)
                            ),
                          ],
@@ -668,7 +641,9 @@ void notificationReplay() async {
 
                     }else if (_page == 2){
 
-                                               Navigator.push(context,MaterialPageRoute(builder: (context) => LawyerTimesPage(currentUser: widget.user)));
+                                                     Navigator.push(context,MaterialPageRoute(builder: (context) => LawyerTimesPage (user: widget.user)));
+                                                          Firestore.instance.collection("lawyerNotifi").where("lawyerId", isEqualTo: widget.user.uid).getDocuments().then((snapshot)
+                           {for (DocumentSnapshot ds in snapshot.documents){ds.reference.delete();}});
                                           }
                                          });
                                         },
@@ -678,32 +653,7 @@ void notificationReplay() async {
                       
                         child: Column(
                           children: <Widget>[
-                          new Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.blue  
-                                ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.elliptical(30, 30)),
-                                color: Color.fromARGB(100, 225, 225, 225)
-                                    .withOpacity(0.3),
-                              ),
-                              
-                              margin: EdgeInsets.fromLTRB(20, 15, 20, 50),
-                              child: new TextField(
-                                style: TextStyle(),
-                                textDirection: TextDirection.rtl,
-                                autocorrect: true,
-                                
-                                decoration: new InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "ابحث في ملفاتك و مجلداتك",
-                                  icon: new IconButton(
-                                      icon: new Icon(Icons.search), onPressed: null),
-                                      ),
-                          )),
-                          
-                        
+
                             StreamBuilder<QuerySnapshot>(
                       stream:  
                       
@@ -1080,28 +1030,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
 
        
                       
-  /*Widget buildResultCard(data) {
-  return Card(
-    color: prime,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-    elevation: 6.0,
-    child: Container(
-      child: Center(
-        child: Text(data['bussinesname'],
-    
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 15.0,
-        ),
-      
-        ),
-      
-      )
-    )
-  );
-}*/
-
+  
 //---------------------------- COURT PAGE   -------------------------------------
 
       //---------------------------- COURT PAGE   -------------------------------------
@@ -1131,11 +1060,11 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                              icon:  new Icon(Icons.archive , color: second,),
                              title: new Text('الارشيف' , style: new TextStyle(fontSize: 10.0 , color: second),)
                            ),
-                           BottomNavigationBarItem(
+                          /* BottomNavigationBarItem(
                              backgroundColor: prime,
                              icon: new Icon(Icons.notifications_none , color: second,),
                              title: new Text('الاشعارات' , style: new TextStyle(fontSize: 10.0 , color: second),)
-                           ),
+                           ),*/
                          ],
                           onTap: (index){
                    setState(() {
@@ -1148,14 +1077,14 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
 
                     Navigator.push(context,MaterialPageRoute(builder: (context) => view_archived_cases(currentCourt: widget.user)));
 
-                    }else if (_page == 2){
+                    }/*else if (_page == 2){
                      //    Navigator.push(context,MaterialPageRoute(builder: (context) => questionPage()));
-                    }
+                    }*/
                    });
                   },
                   ),
                      //-----------------------------SEARCH ----------------------------
-                      new Container(
+                      /*new Container(
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.brown),
                             borderRadius: BorderRadius.all(Radius.elliptical(30, 30)),
@@ -1173,7 +1102,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                                   icon: new Icon(Icons.search), onPressed: null),
                               hintText: "ابحث عن اسم أو رقم تسلسل القاضية ",
                             ),
-                          )),
+                          )),*/
       //------------------------2 big buttons---------------------------------
       //----------------------FIRST BUTTON
                     Container(
@@ -1255,7 +1184,9 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
         }
 
 
+
      }
+
 
 
     

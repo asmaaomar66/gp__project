@@ -7,10 +7,11 @@ import 'package:gpproject/Pages/rulesAdminScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gpproject/models/roles.dart';
+//import 'package:gpproject/models/roles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'HelloApp.dart';
+import 'manageSubRules.dart';
 import 'manage_lawyers.dart';
 
 
@@ -26,7 +27,8 @@ class _managerulesState extends State<managerules> {
   Color second = Colors.white ;
   Color third =  Color(0xff0ccaee) ;
   final snapshotusers = Firestore.instance;
-  
+  var CollectionName ;
+
    static Future<void> signOut() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
@@ -34,9 +36,7 @@ class _managerulesState extends State<managerules> {
   }
   @override
   Widget build(BuildContext context) { 
-    return new WillPopScope(
-    onWillPop: () async => false,
-    child: new Scaffold(
+    return  new Scaffold(
       drawer: new Drawer(
              child: Column(
           children: <Widget>[
@@ -65,7 +65,7 @@ class _managerulesState extends State<managerules> {
                 style: TextStyle(fontSize: 22 , ),
               ),
               onTap: () {
-                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AdminHome()));
+                Navigator.push(context,MaterialPageRoute(builder: (context) => AdminHome()));
               },
             ),
             ListTile(
@@ -79,7 +79,7 @@ class _managerulesState extends State<managerules> {
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managelawyers()));
+                Navigator.push(context,MaterialPageRoute(builder: (context) => managelawyers()));
               },
             ),
             ListTile(
@@ -89,7 +89,7 @@ class _managerulesState extends State<managerules> {
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                 Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managecourts()));
+                 Navigator.push(context,MaterialPageRoute(builder: (context) => managecourts()));
               },
             ),
              ListTile(
@@ -100,7 +100,7 @@ class _managerulesState extends State<managerules> {
               ),
               onTap: () {
                 signOut();
-                Navigator.pushReplacement(
+                Navigator.push(
                     context, MaterialPageRoute(builder: (context) => HelloApp()));
               },
             ),
@@ -111,7 +111,7 @@ class _managerulesState extends State<managerules> {
           title: Text( 'إدارة_القوانين',style: TextStyle(fontSize: 22),),
            ),
       body:  StreamBuilder<QuerySnapshot>(
-       stream:  snapshotusers.collection('Rules').where("role", isEqualTo: "rule").snapshots(),
+       stream:  snapshotusers.collection('Rules').snapshots(),
        builder: (context, snapshot) {
         if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
@@ -154,7 +154,7 @@ class _managerulesState extends State<managerules> {
                                     ),
                                     child: new Center(
                                       child: Text(
-                                    doc.data['Rolename'],
+                                    doc.data['name'],
                                     style: TextStyle(
                                       fontSize: 22.0,
                                       fontWeight: FontWeight.w400,
@@ -164,7 +164,7 @@ class _managerulesState extends State<managerules> {
                                     ),
                                    )
                                    ),
-                            Expanded(
+                           /* Expanded(
                                 flex: 3,
                                 child: Container(
                                   padding: EdgeInsets.only(right: 10, left: 5),
@@ -180,16 +180,19 @@ class _managerulesState extends State<managerules> {
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
-                                )),
+                                )),*/
                           ]),
                         ),
                         onTap: () async{
+                          setState(() {
+                            CollectionName= doc['name'];
+                          });
                          
-                          Navigator.of(context).push((MaterialPageRoute( builder: (context)=> rulescreen(currentrule: doc , id: doc.data['id'] ))));
+                          Navigator.of(context).push((MaterialPageRoute( builder: (context)=> manageSubRole(currentrule: doc , id: doc.data['id']  , collectionName: CollectionName,))));
                         }
                       ),
                        onLongPress: () {
-                  Role selectedrule = new Role(
+                 /* Role selectedrule = new Role(
                       rId: doc.documentID,
                       rolename: doc["Rolename"],
                       rolenumber: doc["Rolenumber"],
@@ -198,7 +201,7 @@ class _managerulesState extends State<managerules> {
                       );
                   Navigator.of(context).push(MaterialPageRoute(builder: (_) {
                     return editroles(selectedrule);
-                  }));
+                  }));*/
                 },
                       );
                     }).toList(),
@@ -213,7 +216,7 @@ class _managerulesState extends State<managerules> {
             return LinearProgressIndicator();
            }
            ),
-     ), );
+      );
     
     
   }

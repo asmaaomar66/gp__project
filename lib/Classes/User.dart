@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:gpproject/models/court.dart';
 import 'package:gpproject/models/lawyer.dart';
-import 'package:gpproject/models/roles.dart';
 import 'package:toast/toast.dart';
 
 import '../models/user.dart';

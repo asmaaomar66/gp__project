@@ -34,9 +34,7 @@ class _managelawyersState extends State<managelawyers> {
   }
   @override
   Widget build(BuildContext context) { 
-    return new WillPopScope(
-    onWillPop: () async => false,
-    child:new Scaffold(
+    return new Scaffold(
  drawer: new Drawer(
                          child: Column(
           children: <Widget>[
@@ -227,7 +225,7 @@ class _managelawyersState extends State<managelawyers> {
             return LinearProgressIndicator();
            }
            ),
-      ),  );
+       );
    
   }
 
