@@ -32,7 +32,7 @@ class _Rules extends State<Rules> {
 
               ),
               onPressed: () {
-                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => AdminHome()));
+                Navigator.push(context,MaterialPageRoute(builder: (context) => AdminHome()));
               },
             )
           ],
@@ -57,7 +57,7 @@ class _Rules extends State<Rules> {
 
                           ),
                           onPressed: () {
-                            Navigator.pushReplacement(context,new MaterialPageRoute(
+                            Navigator.push(context,new MaterialPageRoute(
                                 builder:(context)=>AddRoles()
                             ));
                           },
@@ -89,7 +89,7 @@ class _Rules extends State<Rules> {
                             color: second,
                           ),
                           onPressed: () {
-                             Navigator.pushReplacement(context,new MaterialPageRoute(builder:(context)=>managerules()));
+                             Navigator.push(context,new MaterialPageRoute(builder:(context)=>managerules()));
                           },
                         ),
                         new SizedBox(

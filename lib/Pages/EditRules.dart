@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gpproject/Classes/User.dart';
 import 'package:gpproject/Pages/manage_rules.dart';
-import 'package:gpproject/models/roles.dart';
+//import 'package:gpproject/models/roles.dart';
 import 'package:toast/toast.dart';
 
 class editroles extends StatefulWidget{
@@ -18,7 +18,7 @@ class editroles extends StatefulWidget{
     //String id ;
   //---------------function-------------
   State<StatefulWidget> createState() {
-    return new _editrolesState(currentrule);
+   // return new _editrolesState(currentrule);
     
   }
 }
@@ -28,7 +28,7 @@ class _editrolesState extends State<editroles> {
   Color second = Colors.white ;
   Color third =  Color(0xff0ccaee) ;
   UserClass userClass = new UserClass();
-  Role _role = new Role();
+  //Role _role = new Role();
    final _formKey = GlobalKey<FormState>();
    ScrollController _scrollController = new ScrollController();
    final snapshotusers = Firestore.instance;
@@ -36,7 +36,7 @@ class _editrolesState extends State<editroles> {
    TextEditingController ruleNum = new TextEditingController();
    TextEditingController ruleContext = new TextEditingController();
    TextEditingController bnod = new TextEditingController();
-     _editrolesState(rule) {
+    /* _editrolesState(rule) {
     _role = rule;
     //gamename = curGame.name;
     //hours = curGame.hours.toString();
@@ -44,7 +44,7 @@ class _editrolesState extends State<editroles> {
     ruleNum.text = _role.rolenumber;
     ruleContext.text = _role.subjectname;
      bnod.text = _role.bandname;
-  }
+  }*/
   @override
   Widget build(BuildContext context) {
     Firestore firebaseref = Firestore.instance;
@@ -54,8 +54,8 @@ class _editrolesState extends State<editroles> {
     child:new Scaffold(
       appBar: new AppBar(
         backgroundColor: prime,
-        title: Text(
-         _role.rolename,
+        title: Text('',
+       //  _role.rolename,
           style: TextStyle(
             color: second,
           ),
@@ -71,7 +71,8 @@ class _editrolesState extends State<editroles> {
           children: <Widget>[
             new Center(
               child: new Text(
-                  "تعديل " + _role.rolename,
+                  "تعديل " //+ _role.rolename,
+                  ,
                   style: TextStyle(
                       color: third,
                       fontSize: 30,
@@ -220,8 +221,8 @@ class _editrolesState extends State<editroles> {
                    // textColor: Colors.white,
                     child: Text("تعديل"),
                     onPressed: () {
-                     print(_role.rId);
-                      rulesRef.document(_role.rId).updateData({
+                     //print(_role.rId);
+                     /* rulesRef.document(_role.rId).updateData({
                         "Rolename": ruleName.text,
                         "Rolenumber": ruleNum.text,
                         "Subjectname": ruleContext.text,
@@ -237,7 +238,7 @@ class _editrolesState extends State<editroles> {
                       }).catchError((err) {
                         print(err);
                         Toast.show("Error :" + err.toString(), context);
-                      });
+                      });*/
                     },
                   ),
                 ),

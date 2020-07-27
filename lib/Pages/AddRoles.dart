@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gpproject/Auth/login.dart';
 import 'package:gpproject/Pages/manage_rules.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toast/toast.dart';
 
 import 'Rules.dart';
 import 'manage_courts.dart';
@@ -17,46 +18,168 @@ class AddRoles extends StatefulWidget {
 
 class _AddRolesState extends State<AddRoles> {
 
- 
- String  _rulename, _subjectname , _bandname , _rulenumber ; 
+ final _formKey=GlobalKey<FormState>();
+
    TextEditingController  ruleName ;
   TextEditingController ruleNum ;
   TextEditingController   ruleContext ;
-  TextEditingController  bnod ;
-  List<String> rulename = List<String>(),
-   subjectname = List<String>() ,  bandname = List<String>(),  rulenumber = List<String>();
-  Map<String, String> _formdata = {};
+  var collectionName;
+  var documentId;
+  TextEditingController  bnod0 ;
+  List <String> bnod= List<String>();
+
   var _myPets = List<Widget>();
   int _index = 1;
+  List<TextEditingController> _bands=new List<TextEditingController> ();
+  int counter=0;
   final Firestore _firestore = Firestore.instance;
-  void add(){
-    bnod = new TextEditingController();
+  //----------------------------------------------------------------
+   List allSections=[];
+ var selected="اختار القسم";
+  Future _dialogCase() async {
+    switch (await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return
+           StreamBuilder<QuerySnapshot>  (
+     
+     stream: Firestore.instance.collection('Rules').snapshots(),
+      builder: (context, snapshot) {
+         if (snapshot.hasData) {
+            allSections=snapshot.data.documents;
+        
+      if(allSections.isNotEmpty){
+        return  SimpleDialog(
+             contentPadding:  EdgeInsets.only(top: 5, bottom: 20, right: 5, left: 5),
+            backgroundColor: Colors.white,
+            titlePadding: EdgeInsets.only(
+              top: 5,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+             title:  Container(
+              height: MediaQuery.of(context).size.height/2,
+              width: 300, child : SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                children:allSections.map((group){
+                   return GestureDetector(
+                    child: Text(group['name']),
+                    onTap: (){
+                      setState(() {
+                       selected= group['name'];
+                     collectionName= group['name'];
+                     documentId=group["id"];
+                      });
+                      Navigator.pop(context);
+                        print(selected);
+                    },
+                   )
+                   ;
+
+                }).toList(),
+              ),
+               ))  );
+              }
+              else{
+        return SimpleDialog(
+             contentPadding:
+                EdgeInsets.only(top: 5, bottom: 20, right: 5, left: 5),
+            backgroundColor: Colors.white,
+            titlePadding: EdgeInsets.only(
+              top: 5,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+             title: 
+            Container(
+               margin: EdgeInsets.only(
+                            left: 10, right: 3.0, top: 3.0, bottom: 10.0),
+              child:Center(
+                 child: Text(
+                 "من فضلك انتظر.... ",
+                 
+                  style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w600,
+                     color:Color(0xff0ccaee)),
+                ),
+               )
+            )
+                   
+                   );
+      }
+          }
+         else{
+           return  SimpleDialog(
+             contentPadding:
+                EdgeInsets.only(top: 5, bottom: 20, right: 5, left: 5),
+            backgroundColor: Colors.white,
+            titlePadding: EdgeInsets.only(
+              top: 5,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+             title: 
+             Center(
+                child: 
+                Text(
+                 "من فضلك انتظر قليلا ....",
+                  style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xffcb4154)),
+                ),
+                
+                
+                )
+                
+                );
+                
+            
+         }
+              
+              }
+              );
+              }))
+              {
+
+              }
+              }
+              
+  //-------------------------------------------------------------
+  void add()async{
+    setState(() {
+      counter++;
+    });
+    bnod0 = new TextEditingController();
+    TextEditingController _band1=new TextEditingController();
+  
     int keyValue = _index;
     _myPets = List.from(_myPets)
       ..add(
-        Column(
+        Form(child: Column(
           key: Key("${keyValue}"),
           children: <Widget>[
-            Padding(
-             // padding: EdgeInsets.symmetric(vertical: 50.0,horizontal: 20.0),
-              padding: const EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 10.0),
-              child: new Column(
-                children: <Widget>[
+           
                   new Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                             Expanded(
                     child: Container(
                       margin: EdgeInsets.all(10),
-                     // margin: EdgeInsets.fromLTRB(0.0, 00.0, 25.0, 0),
+                   
                       child: new
                        TextFormField(
                           keyboardType: TextInputType.text,
                           autofocus: false,
-                           onSaved: (input) => _bandname = input,
+                    
                           maxLines:5,                    
-                          controller: bnod,
-                          //textDirection: TextDirection.rtl,
+                          controller: _band1,
+                      
                           decoration: InputDecoration(  
                             hintText: "البند", 
                             hintStyle: TextStyle(
@@ -76,42 +199,39 @@ class _AddRolesState extends State<AddRoles> {
                   ),
                     ],
                   ),
-                ],
-              ),
-            ),
+                
           ],
-        ),
+        ),)
       );
     setState(() {
       _index++;
+      _bands.add(_band1);
     });
   }
-  void _add() {
+  void _add() async{
     ruleName = new TextEditingController();
     ruleNum = new TextEditingController();
     ruleContext = new TextEditingController();
-    bnod = new TextEditingController();
+    bnod0 = new TextEditingController();
+    //_bands=new List<TextEditingController> (10);
     int keyValue = _index;
     _myPets = List.from(_myPets)
       ..add(
-        Column(
+      Form(
+        key: _formKey,
+        child:   Column(
           key: Key("${keyValue}"),
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 50.0,horizontal: 20.0),
-              //padding: const EdgeInsets.fromLTRB(15.0, 15.0, 0.0, 10.0),
-              child: new Column(
-                children: <Widget>[
+           
+                  
                     new Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                     new Expanded(
-                        child: Container(
-                          margin: EdgeInsets.all(10),
-                          child:   TextFormField(
+                        child: TextFormField(
                           keyboardType: TextInputType.text,
                           autofocus: true,
-                           onSaved: (input) => _rulename = input,
+                   
                           controller: ruleName,
                           textDirection: TextDirection.rtl,
                           decoration: InputDecoration( 
@@ -129,8 +249,6 @@ class _AddRolesState extends State<AddRoles> {
                            if (input.isEmpty) {
                         return 'من فضلك ادخل اسم القانون';  }},
                         ),
-                        ),
-                      
                   ),
                       ],
                     ),
@@ -141,12 +259,12 @@ class _AddRolesState extends State<AddRoles> {
                              Expanded(
                     child: Container(
                       margin: EdgeInsets.all(10),
-                     // margin: EdgeInsets.fromLTRB(0.0, 00.0, 25.0, 0),
+                   
                       child: new
                        TextFormField(
                           keyboardType: TextInputType.number,
                           autofocus: true,
-                          onSaved: (input) => _rulenumber = input,
+                          //onSaved: (input) => _rulenumber = input,
                           controller: ruleNum,
                           textDirection: TextDirection.rtl,
                           decoration: InputDecoration( 
@@ -162,7 +280,8 @@ class _AddRolesState extends State<AddRoles> {
                           ),
                            validator: (input) {
                            if (input.isEmpty) {
-                        return 'من فضلك ادخل رقم المادة';  }},
+                        return 'من فضلك ادخل رقم المادة';  }
+                        return null;},
                         ),
                     ),
                   ),
@@ -180,7 +299,7 @@ class _AddRolesState extends State<AddRoles> {
                         TextFormField(
                           keyboardType: TextInputType.text,
                           autofocus: true,
-                           onSaved: (input) => _subjectname = input,
+                         //  onSaved: (input) => _subjectname = input,
                           controller: ruleContext,
                           textDirection: TextDirection.rtl,
                           decoration: InputDecoration( 
@@ -196,7 +315,9 @@ class _AddRolesState extends State<AddRoles> {
                           ),
                            validator: (input) {
                            if (input.isEmpty) {
-                        return 'من فضلك ادخل نص المادة';  }},
+                        return 'من فضلك ادخل نص المادة';  }
+                        return null;
+                        },
                         ),  
                     ),
                   ),
@@ -208,14 +329,14 @@ class _AddRolesState extends State<AddRoles> {
                             Expanded(
                     child: Container(
                       margin: EdgeInsets.all(10),
-                     // margin: EdgeInsets.fromLTRB(0.0, 00.0, 25.0, 0),
+                    
                       child: new
                        TextFormField(
                           keyboardType: TextInputType.text,
                           autofocus: false,
-                           onSaved: (input) => _bandname = input,
+                          // onSaved: (input) => _bandname = input,
                           maxLines:5,                    
-                          controller: bnod,
+                          controller: bnod0,
                           //textDirection: TextDirection.rtl,
                           decoration: InputDecoration(  
                             hintText: "البند", 
@@ -229,21 +350,24 @@ class _AddRolesState extends State<AddRoles> {
                                 borderRadius: BorderRadius.circular(10.0)),
                           ),
                            validator: (input) {
-                           if (input.isEmpty) {
-                        return 'من فضلك ادخل  البند';  }},
+                        if (input.isEmpty) {
+                        return 'من فضلك ادخل البند';
+                      }
+                      
+                      return null;
+                    },
                         ),
                     ),
                   ),
                     ],
-                  ),
-                ],
-              ),
-            ),
+                  )
+                ,
           ],
-        ),
+        ),)
       );
     setState(() {
       _index++;
+      _bands.add(bnod0);
     });
   }
 
@@ -258,16 +382,18 @@ class _AddRolesState extends State<AddRoles> {
  void submitData() async{
   final Firestore _firestore = Firestore.instance;
   try {
-       DocumentReference documentReference = Firestore.instance.collection('Rules').document();
-      documentReference.setData(
-          {  'id': documentReference.documentID,
+       DocumentReference documentReference = Firestore.instance.collection('Rules').document("$documentId"). collection("$collectionName").document();
+       documentReference.setData({
+          'id': documentReference.documentID,
             'Rolename': ruleName.text, 
             'Rolenumber': ruleNum.text,
             'Subjectname': ruleContext.text, 
-            'Bandname': bnod.text, 
+            'Bnod':bnod, 
             'role': 'rule',
-            
-            });
+       });
+       Toast.show("تم الادخال بنجاح", context);
+       Navigator.push(context,  MaterialPageRoute( builder: (context) => managerules()));
+    
     } catch (e) {
       print(e);
     }
@@ -283,6 +409,8 @@ Color prime = Color(0xff0e243b);
 
   @override
   Widget build(BuildContext context) {
+  
+
     return new WillPopScope(
     onWillPop: () async => false,
     child:new Scaffold(
@@ -318,7 +446,7 @@ Color prime = Color(0xff0e243b);
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managelawyers()));
+                Navigator.push(context,MaterialPageRoute(builder: (context) => managelawyers()));
               },
             ),
             ListTile(
@@ -328,7 +456,7 @@ Color prime = Color(0xff0e243b);
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managecourts()));
+                Navigator.push(context,MaterialPageRoute(builder: (context) => managecourts()));
               },
             ),
             ListTile(
@@ -338,34 +466,30 @@ Color prime = Color(0xff0e243b);
                 style: TextStyle(fontSize: 22 , ),
               ),
               onTap: () {
-                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => managerules()));
+                Navigator.push(context,MaterialPageRoute(builder: (context) => managerules()));
               },
             ),
-             /*ListTile(
-              leading: Icon(Icons.exit_to_app , color: third,),
-              title: Text(
-                'تسجيل الخروج',
-                style: TextStyle(fontSize: 22),
-              ),
-              onTap: () {
-                signOut();
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
-              },
-            ),*/
+            
           ],
         ),
         ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          rulename.add(ruleName.text);
-          rulenumber.add(ruleNum.text);
-          subjectname.add(ruleContext.text);
-          bandname.add(bnod.text);
-          //print(food);
-          //print(qtn);
-          submitData();
-           Navigator.push( context, MaterialPageRoute(builder: (context) => managerules()));
+       
+           if(_formKey.currentState.validate()){
+              for(int i=0;i<_bands.length;i++){
+                if(_bands[i].text.isNotEmpty){
+                   bnod.add(_bands[i].text);
+
+                }
+               
+              }
+              
+            }
+            submitData();
+            print("$bnod");
+       /* 
+           Navigator.push( context, MaterialPageRoute(builder: (context) => managerules()));*/
         },
         backgroundColor: third,
         child: Text('إضافة'),
@@ -380,24 +504,57 @@ Color prime = Color(0xff0e243b);
           IconButton(
             icon: new Icon(Icons.add),
             onPressed: () {
-        /*rulename.add(ruleName.text);
-          rulenumber.add(ruleNum.text);
-          subjectname.add(ruleContext.text);*/
-          bandname.add(bnod.text);
-              print(bandname);
+    
               add();
+            
             },
             iconSize: 30,
             color: second,
           ),
         ],
       ),
-      body: ListView(
+      body: Padding( 
+         padding: EdgeInsets.symmetric(vertical: 50.0,horizontal: 20.0),
+      child:ListView(
+        children:<Widget>[
+          Container(
+                        width: 300.0,
+                       
+                        margin: EdgeInsets.only(bottom:25.0,left:5,right: 5),
+                        decoration: BoxDecoration(
+                          border: Border(bottom: BorderSide(width:3,color:prime)),
+                          
+                          color: Colors.white,
+                        ),
+                        child: SizedBox(
+                          height: 40.0,
+                          child: FlatButton(
+                              onPressed: () {
+                               _dialogCase();
+
+                              },
+                              color: Colors.white,
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Text("$selected",style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                                    ),),
+                                  ),
+                                  Icon(Icons.arrow_forward_ios)
+                                ],
+                              )),
+                        )),
+              Column(
         children: _myPets,
       ),
-     ),
-      );
+        ]
+      ))
+    ), 
+    );
   }
 
   
 }
+

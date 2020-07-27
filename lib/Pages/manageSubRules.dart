@@ -1,42 +1,53 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gpproject/Pages/HelloApp.dart';
-import 'package:gpproject/Pages/userAdminScreen.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:gpproject/Auth/login.dart';
+import 'package:gpproject/Pages/AdminHome.dart';
+import 'package:gpproject/Pages/EditRules.dart';
+import 'package:gpproject/Pages/manage_courts.dart';
+import 'package:gpproject/Pages/rulesAdminScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+//import 'package:gpproject/models/roles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Rules.dart';
-import 'manage_courts.dart';
+import 'HelloApp.dart';
 import 'manage_lawyers.dart';
 
 
 
-class AdminHome extends StatefulWidget {
+class manageSubRole extends StatefulWidget {
+  manageSubRole({this.currentrule, this.user, this.id , this.collectionName});
+    var currentrule;
+    FirebaseUser user ;
+    String id ;
+    var collectionName;
   @override
-  _AdminHomeState createState() => _AdminHomeState();
+  _manageSubRoleState createState() => _manageSubRoleState();
 }
 
 
-class _AdminHomeState extends State<AdminHome> {
-  Color prime = Color(0xff0e243b);
+class _manageSubRoleState extends State<manageSubRole> {
+ Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
   Color third =  Color(0xff0ccaee) ;
-
   final snapshotusers = Firestore.instance;
-  
+  var CollectionName ;
+
    static Future<void> signOut() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
     FirebaseAuth.instance.signOut();
   }
+  bool loading = false ;
+
   @override
   Widget build(BuildContext context) { 
-    return new WillPopScope(
-    onWillPop: () async => false,
-    child:new Scaffold(
-         drawer: new Drawer(
-            child: Column(
+    final databaseReference = Firestore.instance;
+     var rulesRef = databaseReference.collection('Rules').document(widget.id).collection(widget.collectionName).getDocuments();
+    return  new Scaffold(
+      drawer: new Drawer(
+             child: Column(
           children: <Widget>[
             Container(
               width: double.infinity,
@@ -55,6 +66,16 @@ class _AdminHomeState extends State<AdminHome> {
                   ],
                 ),
               ),
+            ),
+             ListTile(
+              leading: Icon(Icons.supervised_user_circle,color: third,),
+              title: Text(
+                'إدارة_المستخدمين',
+                style: TextStyle(fontSize: 22 , ),
+              ),
+              onTap: () {
+                Navigator.push(context,MaterialPageRoute(builder: (context) => AdminHome()));
+              },
             ),
             ListTile(
               leading: Icon(
@@ -77,17 +98,7 @@ class _AdminHomeState extends State<AdminHome> {
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => managecourts()));
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.warning , color: third,),
-              title: Text(
-                'إدارة_القوانين',
-                style: TextStyle(fontSize: 22 , ),
-              ),
-              onTap: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => Rules()));
+                 Navigator.push(context,MaterialPageRoute(builder: (context) => managecourts()));
               },
             ),
              ListTile(
@@ -105,24 +116,36 @@ class _AdminHomeState extends State<AdminHome> {
           ],
         ),
         ),
-        appBar: AppBar(
-          title: Text( 'إدارة_المستخدمين',style: TextStyle(fontSize: 22), ),
-           ),
-           body:  StreamBuilder<QuerySnapshot>(
-       stream:  snapshotusers.collection('users').where("role", isEqualTo: "1").snapshots(),
-       builder: (context, snapshot) {
-           if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else if (snapshot.hasData) {
-            return new Container(
-                  padding:
-                    EdgeInsets.only(left: 5, right: 20, top: 10, bottom: 10.0),
-                  child: Column(
-                   children: <Widget>[
-                   Expanded(
-                   child: ListView(
-                     children:  snapshot.data.documents.map((doc) {
-                      return GestureDetector(
+      appBar: AppBar(
+                   title: Text(
+                            '${widget.currentrule.data['name']}',
+                            style: TextStyle(
+                              color: second,
+                              fontSize: 25,
+                            ),
+                          ),
+                          centerTitle: true,           ),
+      body: StreamBuilder<QuerySnapshot>(
+                      stream:  Firestore.instance.collection('Rules').document(widget.id).collection(widget.collectionName).snapshots(),
+                       builder: (context, snapshot) {
+                           if(snapshot.hasError){
+                             return Text("error");
+                           }
+                           if(snapshot.connectionState == ConnectionState.waiting){
+
+                             return Center(child: SpinKitFadingCube(color: Colors.blueAccent,), heightFactor: 10,);
+                           }
+                        //if (snapshot.hasData ) {
+                        else if (snapshot.hasData) {
+                         return new  Container(
+                      padding: EdgeInsets.only(left: 5, right: 20, top: 10, bottom: 10.0),
+                      child:Column(
+                      children: <Widget>[
+                         Expanded(
+                        child: ListView(
+                         children:  snapshot.data.documents.map((DocumentSnapshot doc) {
+                      return InkWell(
+                        child: GestureDetector(
                         child: Container(
                           margin: EdgeInsets.only(
                               top: 10, right: 10, left: 10, bottom: 10),
@@ -148,10 +171,17 @@ class _AdminHomeState extends State<AdminHome> {
                                       borderRadius: BorderRadius.only(
                                           topRight: Radius.circular(20.0),
                                           bottomRight: Radius.circular(20.0)),
-                                      color: third,
-                                      image:  DecorationImage(
-                                              image: NetworkImage( '${doc.data['image']}' ),
-                                              fit: BoxFit.fill),
+                                      color: prime,
+                                    ),
+                                    child: new Center(
+                                      child: Text(
+                                    doc.data['Rolename'],
+                                    style: TextStyle(
+                                      fontSize: 22.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: second,
+                                    ),
+                                  ),
                                     ),
                                    )
                                    ),
@@ -164,39 +194,50 @@ class _AdminHomeState extends State<AdminHome> {
                                     color: Colors.white,
                                   ),
                                   child: Text(
-                                    doc.data['fname']+" "+doc.data['lname'],
+                                   doc.data['Rolenumber'],
+                                   
                                     style: TextStyle(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 )),
-                                
                           ]),
                         ),
                         onTap: () async{
                          
-                          Navigator.of(context).push((MaterialPageRoute( builder: (context)=> userscreen(currentuser: doc , id: doc.data['id'] ))));
+                          Navigator.of(context).push((MaterialPageRoute( builder: (context)=> rulescreen(currentrule: doc , id: doc.data['id']  , collectionName: CollectionName,))));
                         }
+                      ),
+                       onLongPress: () {
+                 /* Role selectedrule = new Role(
+                      rId: doc.documentID,
+                      rolename: doc["Rolename"],
+                      rolenumber: doc["Rolenumber"],
+                      subjectname: doc["Subjectname"],
+                      bandname: doc["Bandname"],
+                      );
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                    return editroles(selectedrule);
+                  }));*/
+                },
                       );
                     }).toList(),
                     
                   ),
                 ),
-               Container(
-               height: 20,
-              width: 20,
-               ),
             ],
           ),
-          );   
-   
-           }
-           return LinearProgressIndicator();
-           }
-           ),
-    ),
-    );
+          );
+                            
+                            }
+                             return LinearProgressIndicator();
+                            }
+                            ),
+                
+    
+      );
+    
     
   }
 

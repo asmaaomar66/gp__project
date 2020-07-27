@@ -41,9 +41,7 @@ Color prime = Color(0xff0e243b);
   @override
   Widget build(BuildContext context) {
 
-    return new WillPopScope(
-    onWillPop: () async => false,
-    child: new Drawer(
+    return new Drawer(
       child: StreamBuilder<DocumentSnapshot>(
         stream: Firestore.instance
             .collection("users")
@@ -59,7 +57,7 @@ Color prime = Color(0xff0e243b);
           return CircularProgressIndicator();
         },
       ),
-     ),
+     
       );
   }
 
@@ -289,7 +287,7 @@ Color prime = Color(0xff0e243b);
                 style: TextStyle(fontSize: 22),
               ),
               onTap: () {
-                Navigator.of(context).push((MaterialPageRoute(builder: (context)=> LawyerTimesPage( currentUser: widget.currentUser ))));
+                Navigator.of(context).push((MaterialPageRoute(builder: (context)=> LawyerTimesPage(user: widget.currentUser ))));
               },
             ),
             ListTile(

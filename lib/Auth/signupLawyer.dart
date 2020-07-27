@@ -166,9 +166,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
 
   @override
   Widget build(BuildContext context) {
-    return new WillPopScope(
-    onWillPop: () async => false,
-    child: new Scaffold(
+    return  new Scaffold(
         body: ListView(
       children: <Widget>[
         new Container(
@@ -321,7 +319,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
                           controller: _ChildEmailController,
                           keyboardType: TextInputType.emailAddress,
                           autofocus: false,
-                          obscureText: true,
+                          //obscureText: true,
                           textDirection: TextDirection.rtl,
                           decoration: InputDecoration(
                             hintStyle: TextStyle(
@@ -650,7 +648,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
           ),
         ),
       ],
-      ),
+    
     );
   }
 

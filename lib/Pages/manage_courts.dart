@@ -33,9 +33,7 @@ class _managecourtsState extends State<managecourts> {
   }
   @override
   Widget build(BuildContext context) { 
-    return new WillPopScope(
-    onWillPop: () async => false,
-    child:new Scaffold(
+    return new Scaffold(
 drawer: new Drawer(
                          child: Column(
           children: <Widget>[
@@ -198,7 +196,7 @@ drawer: new Drawer(
              return LinearProgressIndicator();
            }
            ),
-     ), );
+     );
    
   }
 

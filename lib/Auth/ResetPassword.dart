@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gpproject/Pages/home.dart';
 
+import 'login.dart';
+
 class ResetPassword extends StatefulWidget {
   @override
   _ResetPasswordState createState() => _ResetPasswordState();
@@ -19,9 +21,7 @@ Color prime = Color(0xff0e243b);
   Color third =  Color(0xff0ccaee) ;
   @override
   Widget build(BuildContext context) {
-    return new WillPopScope(
-    onWillPop: () async => false,
-    child: new Scaffold(
+    return  new Scaffold(
       appBar: AppBar(
         title: Text(
           'إعادة تعين كلمة المرور',
@@ -85,7 +85,7 @@ Color prime = Color(0xff0e243b);
           ],
         ),
       ),
-     ), );
+    );
   }
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -110,8 +110,7 @@ Color prime = Color(0xff0e243b);
     }
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: _email);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => MainPage()));
+      Navigator.push( context, MaterialPageRoute(builder: (context) => Login()));
     } catch (e) {
       print(e);
     }
