@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 //import 'package:http/http.dart' as http;
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
+import 'package:gpproject/Pages/categoryDetails.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
 import 'package:badges/badges.dart';
@@ -72,8 +73,14 @@ String name ;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   List<StorageUploadTask> _tasks = <StorageUploadTask>[];
   final FirebaseAuth _auth = FirebaseAuth.instance;
+ String categoryname = "";
+  var CollectionName ;
 
-
+void initiateSearch(String val) {
+    setState(() {
+      categoryname = val;
+    });
+  }
 
   void openFileExplorer() async {
      
@@ -378,9 +385,9 @@ void notificationReplay() async {
         queryResultSet = [];
         tempSearchStore = [];
       });
-    }
+    }*/
 
-    var capitalizedValue =
+    /*var capitalizedValue =
         value.substring(0, 1).toUpperCase() + value.substring(1);
 
     if (queryResultSet.length == 0 && value.length == 1) {
@@ -522,11 +529,7 @@ void notificationReplay() async {
                    });
                   },
                   ),
-                   Container(
-                     
-                   ),
-                
-                 /*   new Container(
+                      new Container(
                           child: Padding(
                           padding: EdgeInsets.only(
                               top: 30.0, bottom: 0.0, right: 10.0, left: 10.0),
@@ -561,9 +564,40 @@ void notificationReplay() async {
                             ],
                           ),
                         ),
-                      ),*/
-                     // SizedBox(height: 10.0),
-                    /* GridView.count(
+
+                      ),
+                      SizedBox(height: 10.0),
+                      StreamBuilder<QuerySnapshot>(
+          stream: categoryname != "" && categoryname != null
+              ? Firestore.instance
+                  .collection('Rules')
+                  .where("searchIndex", arrayContains: categoryname)
+                  .snapshots()
+              : Firestore.instance.collection("Rules").snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+            
+            
+            else{
+                return new Column(
+                  children:
+                      snapshot.data.documents.map((DocumentSnapshot document) {
+                    return new ListTile(
+                      title: new Text(document['name']),
+                      onTap: (){ 
+                       
+                                 setState(() {
+                            CollectionName= document['name'];
+                          });
+                         
+                          Navigator.of(context).push((MaterialPageRoute( builder: (context)=> categoryDetails(currentrule: document , id: document.data['id']  , collectionName: CollectionName, user:widget.user))));
+                                },
+                          );
+                  }).toList(),
+            );
+                     /*GridView.count(
+
                     padding: EdgeInsets.only(left: 15.0, right: 15.0),
                     
                     crossAxisCount: 2,
@@ -577,8 +611,8 @@ void notificationReplay() async {
                                           
                       
                       
-                                      ]
-                                    );
+             }} ) ]
+                                    ); 
                                       }
                             
                                     });
@@ -1242,4 +1276,5 @@ class PDFScreen extends StatelessWidget { // new page presents the pdf
         
         );
   }
+  
 }
