@@ -704,7 +704,7 @@ class _SignUpLawyer extends State<SignUpLawyer> {
           );
         },
       );
-      await Navigator.pushNamed(context, '/signin');
+      //await Navigator.pushNamed(context, '/signin');
       Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => Login()),
