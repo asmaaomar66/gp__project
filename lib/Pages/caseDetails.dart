@@ -30,10 +30,12 @@ class _caseDetails extends State<caseDetails>{
  final FirebaseAuth _auth = FirebaseAuth.instance;
 
 //-------------------------------------BEGIN OF FUNCTIONS ---------------------------------
+ 
+    //--------------------------Where I show Edite Button--------------------------
   Widget _whereIShowEditButton(num flag){
     if (widget.where_i_am == 'cases'){
       return Container(
-        width: 90,
+        width: 96,
         height: 30,
         child: RaisedButton(
                           shape: RoundedRectangleBorder(
@@ -162,11 +164,7 @@ class _caseDetails extends State<caseDetails>{
                 ({ "caseNumber": inputData.text,}).then((data){});
                  }
                      Toast.show("تم تعديل القضيه بنجاح", context, duration: 3);
-                                     Navigator.pushAndRemoveUntil(context,new MaterialPageRoute(
-                                       builder:(context)=>manageCases(currentCourt: widget.currentCourt,)
-                                        ), 
-        //------------------------V E R Y I M P O R T A N T------------------------------------------
-                                        ModalRoute.withName('/homepage'));
+                                      Navigator.pop(context);
                  }
              )
            ],
@@ -245,8 +243,11 @@ class _caseDetails extends State<caseDetails>{
 //------------------------------------END OF FUNCTIONS -------------------------------
   @override
   Widget build(BuildContext context) {
+//---------------------------------------Body of Class-----------------------------------
      Size screenSize = MediaQuery.of(context).size;
-    return Scaffold(
+     return WillPopScope(
+       onWillPop: () async => false,
+       child:  Scaffold(
       appBar: AppBar(
               backgroundColor: prime ,
               title: Text("تفاصيل القضيه"),
@@ -439,6 +440,8 @@ class _caseDetails extends State<caseDetails>{
                   ),
                          ])  
      )
-    );
-  }
+    )
+ ,
+     );
+     }
 }

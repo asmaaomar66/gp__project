@@ -68,8 +68,10 @@ Color prime = Color(0xff0e243b);
   
   @override
   Widget build(BuildContext context) {
-    //---------------------body-----------------------------
-     return  Scaffold( 
+//-------------------------------Body of Class-----------------------------
+return WillPopScope(
+  onWillPop: () async => false,
+  child:   Scaffold( 
         drawer: drawerprofile(currentUser: widget.currentCourt,),
                 appBar: AppBar(title: new Text("اضافة قضيه جديده" ),),
                   //-----------------------take inputs---------------------- 
@@ -325,6 +327,7 @@ Color prime = Color(0xff0e243b);
                                if(_formKey.currentState.validate()){
                                  addNewCase();
                                }
+
                                else {
                                   Toast.show("ادخل جميع البيانات", context,  duration: 3);
                                }
@@ -341,8 +344,10 @@ Color prime = Color(0xff0e243b);
           
                  ),
                
-                 );
+                 )
 
-  }
+,
+);
+       }
 
 }

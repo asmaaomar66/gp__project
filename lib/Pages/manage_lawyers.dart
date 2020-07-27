@@ -8,6 +8,7 @@ import 'package:gpproject/Pages/manage_rules.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gpproject/Pages/showReports.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'lawyersAdminScreen.dart';
@@ -33,7 +34,9 @@ class _managelawyersState extends State<managelawyers> {
   }
   @override
   Widget build(BuildContext context) { 
-    return  Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child:new Scaffold(
  drawer: new Drawer(
                          child: Column(
           children: <Widget>[
@@ -87,6 +90,18 @@ class _managelawyersState extends State<managelawyers> {
               ),
               onTap: () {
                 Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Rules())); 
+              },
+            ),
+               ListTile(
+              leading: Icon(Icons.show_chart , color: third,),
+              title: Text(
+                'عرض_التقارير',
+                style: TextStyle(fontSize: 22),
+              ),
+              onTap: () {
+                  Navigator.push(context,new MaterialPageRoute(
+                          builder:(context)=>showReports()
+                      ));
               },
             ),
             ListTile(
@@ -212,7 +227,7 @@ class _managelawyersState extends State<managelawyers> {
             return LinearProgressIndicator();
            }
            ),
-    );
+      ),  );
    
   }
 

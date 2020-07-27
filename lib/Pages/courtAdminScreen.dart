@@ -31,7 +31,9 @@ class _courtscreenState extends State<courtscreen> {
   Widget build(BuildContext context) {
     Firestore firebaseref = Firestore.instance;
     CollectionReference usersRef = firebaseref.collection("users");
-     return Scaffold(
+     return new WillPopScope(
+    onWillPop: () async => false,
+    child:new Scaffold(
        body:  Column(
              children: <Widget>[
                                    AppBar(
@@ -197,7 +199,8 @@ class _courtscreenState extends State<courtscreen> {
                                  ),
                                  ],
                                ),
-     );
+        ),
+           );
     
 
   }

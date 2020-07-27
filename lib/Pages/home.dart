@@ -346,6 +346,10 @@ void notificationReplay() async {
    
   }
 
+
+//var queryResultSet = [];
+  //var tempSearchStore = [];
+
   Widget notificationRS()
 {
   if(notifiReserve==0){
@@ -373,8 +377,7 @@ void notificationReplay() async {
   }
  
 }
-var queryResultSet = [];
-  var tempSearchStore = [];
+
 
   /*initiateSearch(value) {
     if (value.length == 0) {
@@ -416,9 +419,13 @@ var queryResultSet = [];
   Widget build(BuildContext context) {
     countDocumentLength();
     countDocumentLengthAnswer();
-notificationReserve() ;
-notificationReplay(); 
-    return new  Scaffold(
+    notificationReserve() ;
+    notificationReplay(); 
+
+  return new WillPopScope(
+    onWillPop: () async => false,
+    child: new  Scaffold(
+
         drawer: drawerprofile(currentUser: widget.user),
         appBar: AppBar(
           title: new Icon(Icons.home , size: 20.0, color: second ),
@@ -438,6 +445,7 @@ notificationReplay();
             return LinearProgressIndicator();
           },
         ),
+    ),
     );
   }
   FutureBuilder checkRole(DocumentSnapshot snapshot) {
@@ -521,28 +529,7 @@ notificationReplay();
                    });
                   },
                   ),
-                     /* Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: TextField(
-                     onChanged: (val) {
-                         initiateSearch(val);
-                         },
-              decoration: InputDecoration(
-                  prefixIcon: IconButton(
-                    color: Colors.black,
-                    icon: Icon(Icons.arrow_back),
-                    iconSize: 20.0,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  contentPadding: EdgeInsets.only(left: 25.0),
-                  hintText: 'Search by name',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0))),
-            ),
-          ),*/
-                    new Container(
+                      new Container(
                           child: Padding(
                           padding: EdgeInsets.only(
                               top: 30.0, bottom: 0.0, right: 10.0, left: 10.0),
@@ -577,6 +564,7 @@ notificationReplay();
                             ],
                           ),
                         ),
+
                       ),
                       SizedBox(height: 10.0),
                       StreamBuilder<QuerySnapshot>(
@@ -609,6 +597,7 @@ notificationReplay();
                   }).toList(),
             );
                      /*GridView.count(
+
                     padding: EdgeInsets.only(left: 15.0, right: 15.0),
                     
                     crossAxisCount: 2,
@@ -1091,7 +1080,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
 
        
                       
-  Widget buildResultCard(data) {
+  /*Widget buildResultCard(data) {
   return Card(
     color: prime,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -1111,9 +1100,11 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
       )
     )
   );
-}
+}*/
 
 //---------------------------- COURT PAGE   -------------------------------------
+
+      //---------------------------- COURT PAGE   -------------------------------------
 
         FutureBuilder courtPage(DocumentSnapshot snapshot) {
           return FutureBuilder(
@@ -1191,7 +1182,9 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                 children: <Widget>[
                   new CircleAvatar(
                     backgroundColor: prime , 
-                    maxRadius: 87.0,
+
+                    maxRadius: 85.0,
+
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -1199,7 +1192,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                           icon: Icon(
                             Icons.add_circle,
                             color: second,
-                            size: 35,
+                            size: 37,
                           ),
                           onPressed: () {
                             Navigator.push(context,new MaterialPageRoute(
@@ -1228,7 +1221,9 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                 children: <Widget>[
                   new CircleAvatar(
                     backgroundColor:  prime,
-                    maxRadius: 87.0,
+
+                    maxRadius: 85.0,
+
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -1236,11 +1231,11 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                           icon: Icon(
                             Icons.settings,
                             color: second,
-                            size: 35,
+                            size: 37,
                           ),
                           onPressed: () {
                              Navigator.push(
-                               context,new MaterialPageRoute(builder:(context)=>manageCases(currentCourt:widget.user )));
+                context,new MaterialPageRoute(builder:(context)=>manageCases(currentCourt:widget.user )));
                           },
                         ),
                         new SizedBox(
@@ -1259,44 +1254,11 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
               });
         }
 
-    }
-    /*class DynamicWidget extends StatelessWidget{
-        
 
-  @override
+     }
 
 
-
-  var x = _controller.text ;
-  
-  Widget build(BuildContext context) {
-    return Container( 
-  height: 70,    
-         width: 70,
-                                       //   margin:
-                                         //     EdgeInsets.symmetric(horizontal: 3.0),
-                                          decoration: BoxDecoration(
-                                            color: Color.fromARGB(100, 225, 225, 225)
-                                                .withOpacity(0.3),
-                                            borderRadius: BorderRadius.all(
-                                               Radius.elliptical(30, 30)),
-                                         ),
-      child: 
-     ListView(children: <Widget>[
-       IconButton(icon: new Icon(Icons.folder,color: Colors.yellowAccent,size: 70 , ), //padding: EdgeInsets.symmetric(vertical: 20.0,horizontal: 0.0),
-        onPressed:(){ 
-       Navigator.of(context).push((MaterialPageRoute(builder: (context)=> UploadFolder( parameter: 5 , address : imp))));
-     }),
-   new FlatButton(child: new Text("$x"), color: Colors.white,  ), // i will put here a code of retrieve name so i could change it
-    ])
     
-    
-    );
-  }
-
-
-
-  }*/
 
 class PDFScreen extends StatelessWidget { // new page presents the pdf 
   String pathPDF ;

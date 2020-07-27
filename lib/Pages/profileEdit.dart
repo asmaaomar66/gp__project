@@ -27,6 +27,7 @@ class profileEditState extends State<profileEdit>  {
   Court _court = new Court();
   UserClass userClass = new UserClass();
   final _formKey = GlobalKey<FormState>();
+   bool _autoValidate = false;
    final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   FirebaseUser firebaseUser;
 
@@ -45,7 +46,9 @@ class profileEditState extends State<profileEdit>  {
   @override
   Widget build(BuildContext context) {
    
-    return Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child:new Scaffold(
       drawer: drawerprofile(currentUser: widget.currentUser),
       appBar:   new AppBar(
                       backgroundColor: prime,
@@ -71,7 +74,8 @@ class profileEditState extends State<profileEdit>  {
           return LinearProgressIndicator();
         },
       ),
-    );
+     ),
+      );
   }
  Widget checkRole(DocumentSnapshot snapshot) {
     if (snapshot.data == null) {
@@ -128,6 +132,7 @@ class profileEditState extends State<profileEdit>  {
                                                   Padding(
                                                     padding: const EdgeInsets.all(10.0),
                                                     child: TextFormField(
+                                                      keyboardType: TextInputType.text,
                                                       initialValue: '${snapshot.data['fname']}',
                                                       style: TextStyle(
                                                         fontSize: 18.0,
@@ -144,17 +149,17 @@ class profileEditState extends State<profileEdit>  {
                                                               border: OutlineInputBorder(
                                                               borderRadius: BorderRadius.circular(10.0)),
                                                           ),
-                                                      validator: (value) {
-                                                        if (value.isEmpty) {
+                                                      validator: (input) {
+                                                        if (input.isEmpty) {
                                                           _user.fname = '${snapshot.data['fname']}';
                                                         }
-                                                        return null;
                                                       },
                                                     ),
                                                   ),
                                                   Padding(
                                                     padding: const EdgeInsets.all(10.0),
                                                     child: TextFormField(
+                                                      keyboardType: TextInputType.text,
                                                       initialValue: '${snapshot.data['lname']}',
                                                       style: TextStyle(
                                                         fontSize: 18.0,
@@ -171,17 +176,17 @@ class profileEditState extends State<profileEdit>  {
                                                               border: OutlineInputBorder(
                                                               borderRadius: BorderRadius.circular(10.0)),
                                                       ),
-                                                      validator: (value) {
-                                                        if (value.isEmpty) {
+                                                      validator: (input) {
+                                                        if (input.isEmpty) {
                                                           _user.lname = _user.lname;
                                                         }
-                                                        return null;
                                                       },
                                                     ),
                                                   ),
                                                   Padding(
                                                     padding: const EdgeInsets.all(10.0),
                                                     child: TextFormField(
+                                                      keyboardType: TextInputType.text,
                                                       initialValue: '${snapshot.data['username']}',
                                                       style: TextStyle(
                                                         fontSize: 18.0,
@@ -199,17 +204,19 @@ class profileEditState extends State<profileEdit>  {
                                                               borderRadius: BorderRadius.circular(10.0)),
                                                               
                                                       ),
-                                                      validator: (value) {
+                                                     /* validator: (value) {
                                                         if (value.isEmpty) {
                                                           _user.username = _user.username;
                                                         }
                                                         return null;
-                                                      },
+                                                      },*/
+                                                      validator: validateName,
                                                     ),
                                                   ),
                                                   Padding(
                                                     padding: const EdgeInsets.all(10.0),
                                                     child: TextFormField(
+                                                      keyboardType: TextInputType.phone,
                                                       initialValue: '${snapshot.data['phone']}',
                                                       style: TextStyle(
                                                         fontSize: 18.0,
@@ -231,17 +238,19 @@ class profileEditState extends State<profileEdit>  {
                                                           size: 32.0,
                                                         ),
                                                       ),
-                                                      validator: (value) {
+                                                     /* validator: (value) {
                                                         if (value.isEmpty) {
                                                           _user.phone = '${snapshot.data['phone']}';
                                                         }
                                                         return null;
-                                                      },
+                                                      },*/
+                                                      validator: validateMobile,
                                                     ),
                                                   ),
-                                                  Padding(
+                                                 /* Padding(
                                                     padding: const EdgeInsets.all(10.0),
                                                     child: TextFormField(
+                                                      keyboardType: TextInputType.emailAddress,
                                                       initialValue: '${snapshot.data['email']}',
                                                       style: TextStyle(
                                                         fontSize: 18.0,
@@ -263,14 +272,15 @@ class profileEditState extends State<profileEdit>  {
                                                           size: 32.0,
                                                         ),
                                                       ),
-                                                      validator: (value) {
+                                                     /* validator: (value) {
                                                         if (value.isEmpty) {
                                                           _user.email = '${snapshot.data['email']}';
                                                         }
                                                         return null;
-                                                      },
+                                                      },*/
+                                                      validator: validateMobile,
                                                     ),
-                                                  ),
+                                                  ),*/
                                                
                                                  
                                                   Container(
@@ -279,17 +289,17 @@ class profileEditState extends State<profileEdit>  {
                                                       onPressed: () async{
                                                         firebaseUser = await _firebaseAuth.currentUser();
                                                         var userID = firebaseUser.uid;
-                                                        EmailAuthProvider.getCredential(email: 'email', password: 'password');
+                                                        //EmailAuthProvider.getCredential(email: 'email', password: 'password');
 
                                                         if (_formKey.currentState.validate()) {
                                                           _formKey.currentState.save();
-                                                          print(_user.email);
-                                                          firebaseUser.updateEmail(_user.email);
+                                                         // print(_user.email);
+                                                          //firebaseUser.updateEmail(_user.email);
                                                             usersRef.document(userID).updateData({
                                                             "fname": _user.fname,
                                                             "lname": _user.lname,
                                                             "username": _user.username,
-                                                            "email": _user.email,
+                                                           // "email": _user.email,
                                                             "phone": _user.phone,
                                                           }).then((data) {
                                                             print("تم");
@@ -306,6 +316,12 @@ class profileEditState extends State<profileEdit>  {
                                                             Toast.show("Error :" + err.toString(), context);
                                                           });
                                                         }
+                                                        else {
+                                                      //    If all data are not valid then start auto validation.
+                                                            setState(() {
+                                                              _autoValidate = true;
+                                                            });
+                                                          }
                                                          },
                                                       child: Text('حفظ'),
                                                       backgroundColor: third,
@@ -346,6 +362,7 @@ class profileEditState extends State<profileEdit>  {
                                                   Padding(
                                                     padding: const EdgeInsets.all(10.0),
                                                     child: TextFormField(
+                                                      keyboardType: TextInputType.text,
                                                       initialValue: '${snapshot.data['fname']}',
                                                       style: TextStyle(
                                                         fontSize: 18.0,
@@ -362,17 +379,17 @@ class profileEditState extends State<profileEdit>  {
                                                               border: OutlineInputBorder(
                                                               borderRadius: BorderRadius.circular(10.0)),
                                                           ),
-                                                      validator: (value) {
-                                                        if (value.isEmpty) {
+                                                      validator: (input) {
+                                                        if (input.isEmpty) {
                                                           _lawyer.fname = '${snapshot.data['fname']}';
                                                         }
-                                                        return null;
                                                       },
                                                     ),
                                                   ),
                                                   Padding(
                                                     padding: const EdgeInsets.all(10.0),
                                                     child: TextFormField(
+                                                      keyboardType: TextInputType.text,
                                                       initialValue: '${snapshot.data['lname']}',
                                                       style: TextStyle(
                                                         fontSize: 18.0,
@@ -389,17 +406,17 @@ class profileEditState extends State<profileEdit>  {
                                                               border: OutlineInputBorder(
                                                               borderRadius: BorderRadius.circular(10.0)),
                                                       ),
-                                                      validator: (value) {
-                                                        if (value.isEmpty) {
+                                                      validator: (input) {
+                                                        if (input.isEmpty) {
                                                           _lawyer.lname = _lawyer.lname;
                                                         }
-                                                        return null;
                                                       },
                                                     ),
                                                   ),
                                                   Padding(
                                                     padding: const EdgeInsets.all(10.0),
                                                     child: TextFormField(
+                                                      keyboardType: TextInputType.text,
                                                       initialValue: '${snapshot.data['username']}',
                                                       style: TextStyle(
                                                         fontSize: 18.0,
@@ -416,17 +433,19 @@ class profileEditState extends State<profileEdit>  {
                                                               border: OutlineInputBorder(
                                                               borderRadius: BorderRadius.circular(10.0)),
                                                       ),
-                                                      validator: (value) {
+                                                      /*validator: (value) {
                                                         if (value.isEmpty) {
                                                           _lawyer.username = _lawyer.username;
                                                         }
                                                         return null;
-                                                      },
+                                                      },*/
+                                                      validator: validateName,
                                                     ),
                                                   ),
                                                   Padding(
                                                     padding: const EdgeInsets.all(10.0),
                                                     child: TextFormField(
+                                                      keyboardType: TextInputType.phone,
                                                       initialValue: '${snapshot.data['phone']}',
                                                       style: TextStyle(
                                                         fontSize: 18.0,
@@ -448,15 +467,16 @@ class profileEditState extends State<profileEdit>  {
                                                           size: 32.0,
                                                         ),
                                                       ),
-                                                      validator: (value) {
+                                                      /*validator: (value) {
                                                         if (value.isEmpty) {
                                                           _lawyer.phone = '${snapshot.data['phone']}';
                                                         }
                                                         return null;
-                                                      },
+                                                      },*/
+                                                      validator: validateMobile,
                                                     ),
                                                   ),
-                                                  Padding(
+                                                 /* Padding(
                                                     padding: const EdgeInsets.all(10.0),
                                                     child: TextFormField(
                                                       initialValue: '${snapshot.data['email']}',
@@ -487,10 +507,11 @@ class profileEditState extends State<profileEdit>  {
                                                         return null;
                                                       },
                                                     ),
-                                                  ),
+                                                  ),*/
                                                   Padding(
                                                     padding: const EdgeInsets.all(10.0),
                                                     child: TextFormField(
+                                                      keyboardType: TextInputType.text,
                                                       initialValue: '${snapshot.data['personaladdress']}',
                                                       style: TextStyle(
                                                         fontSize: 18.0,
@@ -516,13 +537,14 @@ class profileEditState extends State<profileEdit>  {
                                                         if (value.isEmpty) {
                                                           _lawyer.personaladdress = '${snapshot.data['personaladdress']}';
                                                         }
-                                                        return null;
                                                       },
+                                                      //validator: validateCity,
                                                     ),
                                                   ),
                                                   Padding(
                                                     padding: const EdgeInsets.all(10.0),
                                                     child: TextFormField(
+                                                      keyboardType: TextInputType.text,
                                                       initialValue: '${snapshot.data['officeaddress']}',
                                                       style: TextStyle(
                                                         fontSize: 18.0,
@@ -550,11 +572,13 @@ class profileEditState extends State<profileEdit>  {
                                                         }
                                                         return null;
                                                       },
+                                                      //validator: validateCity,
                                                     ),
                                                   ),
                                                   Padding(
                                                     padding: const EdgeInsets.all(10.0),
                                                     child: TextFormField(
+                                                      keyboardType: TextInputType.phone,
                                                       initialValue: '${snapshot.data['officenumber']}',
                                                       style: TextStyle(
                                                         fontSize: 18.0,
@@ -576,12 +600,13 @@ class profileEditState extends State<profileEdit>  {
                                                           size: 32.0,
                                                         ),
                                                       ),
-                                                      validator: (value) {
+                                                     /* validator: (value) {
                                                         if (value.isEmpty) {
                                                           _lawyer.officenumber = '${snapshot.data['officenumber']}';
                                                         }
                                                         return null;
-                                                      },
+                                                      },*/
+                                                      validator: validatephone,
                                                     ),
                                                   ),
                                                 
@@ -596,14 +621,14 @@ class profileEditState extends State<profileEdit>  {
                                                         if (_formKey.currentState.validate()) {
                                                            
                                                           _formKey.currentState.save();
-                                                          print(_lawyer.email);
-                                                          EmailAuthProvider.getCredential(email: 'email', password: 'password');
-                                                           firebaseUser.updateEmail(_user.email);
+                                                          //print(_lawyer.email);
+                                                         // EmailAuthProvider.getCredential(email: 'email', password: 'password');
+                                                           //firebaseUser.updateEmail(_user.email);
                                                             usersRef.document(userID).updateData({
                                                             "fname": _lawyer.fname,
                                                             "lname": _lawyer.lname,
                                                             "username": _lawyer.username,
-                                                            "email": _lawyer.email,
+                                                            //"email": _lawyer.email,
                                                             "phone": _lawyer.phone,
                                                             "personaladdress": _lawyer.personaladdress,
                                                             "officeaddress": _lawyer.officeaddress,
@@ -623,6 +648,12 @@ class profileEditState extends State<profileEdit>  {
                                                             Toast.show("Error :" + err.toString(), context);
                                                           });
                                                         }
+                                                        else {
+                                                      //    If all data are not valid then start auto validation.
+                                                            setState(() {
+                                                              _autoValidate = true;
+                                                            });
+                                                          }
                                                          },
                                                       child: Text('حفظ'),
                                                       backgroundColor: third,
@@ -663,13 +694,14 @@ class profileEditState extends State<profileEdit>  {
                                                    Padding(
                                                     padding: const EdgeInsets.all(10.0),
                                                     child: TextFormField(
+                                                      keyboardType: TextInputType.text,
                                                       initialValue: '${snapshot.data['name']}',
                                                       style: TextStyle(
                                                         fontSize: 18.0,
                                                       ),
                                                       onSaved: (input) => _court.name = input,
                                                       decoration: InputDecoration(
-                                                         hintText: "إدخل اسم العائلة", 
+                                                         hintText: "إدخل اسم المحكمة", 
                                                           hintStyle: TextStyle(
                                                             color: third,
                                                             fontSize: 18,
@@ -679,17 +711,17 @@ class profileEditState extends State<profileEdit>  {
                                                               border: OutlineInputBorder(
                                                               borderRadius: BorderRadius.circular(10.0)),
                                                       ),
-                                                      validator: (value) {
-                                                        if (value.isEmpty) {
+                                                      validator: (input) {
+                                                        if (input.isEmpty) {
                                                           _court.name = _court.name;
                                                         }
-                                                        return null;
                                                       },
                                                     ),
                                                   ),
                                                    Padding(
                                                     padding: const EdgeInsets.all(10.0),
                                                     child: TextFormField(
+                                                      keyboardType: TextInputType.text,
                                                       initialValue: '${snapshot.data['username']}',
                                                       style: TextStyle(
                                                         fontSize: 18.0,
@@ -706,15 +738,16 @@ class profileEditState extends State<profileEdit>  {
                                                               border: OutlineInputBorder(
                                                               borderRadius: BorderRadius.circular(10.0)),
                                                       ),
-                                                      validator: (value) {
+                                                      /*validator: (value) {
                                                         if (value.isEmpty) {
                                                           _court.username = _court.username;
                                                         }
                                                         return null;
-                                                      },
+                                                      },*/
+                                                      validator: validateName,
                                                     ),
                                                   ),
-                                                   Padding(
+                                                   /*Padding(
                                                     padding: const EdgeInsets.all(10.0),
                                                     child: TextFormField(
                                                       initialValue: '${snapshot.data['email']}',
@@ -745,7 +778,7 @@ class profileEditState extends State<profileEdit>  {
                                                         return null;
                                                       },
                                                     ),
-                                                  ),
+                                                  ),*/
                                                    
                                               
                                                   Container(
@@ -756,13 +789,13 @@ class profileEditState extends State<profileEdit>  {
                                                         var userID = firebaseUser.uid;
                                                         if (_formKey.currentState.validate()) {
                                                           _formKey.currentState.save();
-                                                          print(_court.email);
-                                                           EmailAuthProvider.getCredential(email: 'email', password: 'password');
-                                                           firebaseUser.updateEmail(_user.email);
+                                                          //print(_court.email);
+                                                         //  EmailAuthProvider.getCredential(email: 'email', password: 'password');
+                                                          // firebaseUser.updateEmail(_user.email);
                                                             usersRef.document(userID).updateData({
                                                              "name": _court.name,
                                                             "username": _court.username,
-                                                            "email": _court.email,
+                                                            //"email": _court.email,
                                                           }).then((data) {
                                                             print("تم");
                                                             // print(data);
@@ -778,6 +811,12 @@ class profileEditState extends State<profileEdit>  {
                                                             Toast.show("Error :" + err.toString(), context);
                                                           });
                                                         }
+                                                        else {
+                                                      //    If all data are not valid then start auto validation.
+                                                            setState(() {
+                                                              _autoValidate = true;
+                                                            });
+                                                          }
                                                          },
                                                       child: Text('حفظ'),
                                                       backgroundColor: third,
@@ -787,7 +826,43 @@ class profileEditState extends State<profileEdit>  {
                                               ),
                                             );
                           }
-                  
-                   
+ /////////////validation form //////                 
+  String validateName(String value) {
+    String patttern = r'(^[a-zA-Z ]*$)';
+    RegExp regExp = new RegExp(patttern);
+    if (value.length == 0) {
+      return "من فضلك ادخل اسم المستخدم";
+    } else if (!regExp.hasMatch(value)) {
+      return "!!يجب ان يكون اسم المستخدم حروف فقط ولا يتطابق مع غيره";
+    }
+    return null;
+  }
+  //////////////////       
 
+ String validateMobile(String value) {
+    String patttern = r'(^[0-9]*$)';
+    RegExp regExp = new RegExp(patttern);
+    if (value.length == 0) {
+      return "من فضلك ادخال رقم الهاتف الجوال";
+    } else if (value.length != 11) {
+      return "!!يجب الا يقل رقم الهاتف عن 11 رقم ";
+    } else if (!regExp.hasMatch(value)) {
+      return "!!من فضلك يجب ان يكون رقم الهاتف ارقام فقط ";
+    }
+    return null;
+  }
+  /////////////////
+   String validatephone(String value) {
+    String patttern = r'(^[0-9]*$)';
+    RegExp regExp = new RegExp(patttern);
+    if (value.length == 0) {
+      return "من فضلك يجب ادخال رقم الهاتف الخاص بالمكتب";
+    } else if (value.length != 8) {
+      return "!!يجب الا يقل رقم الهاتف عن 8 ارقام فقط ";
+    } else if (!regExp.hasMatch(value)) {
+      return "!!من فضلك يجب ان يكون رقم الهاتف ارقام فقط ";
+    }
+    return null;
+  }
+  
   }

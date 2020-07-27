@@ -19,7 +19,9 @@ class _Rules extends State<Rules> {
   @override
   Widget build(BuildContext context) {
     
-    return new Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child: new Scaffold(
        appBar: new AppBar(
         title: new Text("الأفوكاتو", style: new TextStyle(fontSize: 21,fontWeight: FontWeight.bold),),
         actions: <Widget>[
@@ -103,7 +105,8 @@ class _Rules extends State<Rules> {
           ],
         )
      
-      );
+    ),
+    );
   }
   
   

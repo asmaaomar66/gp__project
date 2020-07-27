@@ -16,13 +16,17 @@ class _Login extends State<Login> {
   String _email;
   String _password;
   String msgStatus = '';
+  ScrollController _scrollController = new ScrollController();
   final _formkey = GlobalKey<FormState>();
+  bool _autoValidate = false;
   Color prime = Color(0xff0e243b);
   Color second = Colors.white ;
   Color third =  Color(0xff0ccaee) ;
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child: new Scaffold(
       appBar: new AppBar(
         backgroundColor:prime,
         // Color.fromRGBO(1, 44, 45, 15),
@@ -38,6 +42,7 @@ class _Login extends State<Login> {
       body: new Form(
         key: _formkey,
         child : new ListView(
+          controller: _scrollController,
           children: <Widget>[
             new Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -60,7 +65,7 @@ class _Login extends State<Login> {
                   padding: EdgeInsets.only(
                       left: 20, top: 0.0, right: 20, bottom: 20.0),
                   child: TextFormField(
-                    
+                    validator: validateEmail,
                     keyboardType: TextInputType.emailAddress,
                     autofocus: true,
                     decoration: InputDecoration(
@@ -70,19 +75,21 @@ class _Login extends State<Login> {
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(32.0)),
                     ),
-                                 onSaved: (input) => _email = input,
-                   /* onChanged: (value){
-                      setState(() {
-                        _email = value ;
-                      });
-                    },*/
-                    validator: validateEmail,
+                    onSaved: (input) => _email = input,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
                       left: 20, top: 0.0, right: 20, bottom: 10.0),
                   child: TextFormField(
+                     validator: (input){
+                      if (input.isEmpty) {
+                        return 'من فضلك ادخل كلمة المرور';
+                      }
+                      if (input.length < 8) {
+                        return 'يجب الا تقل كلمة المرور عن ثماني ارقام او احرف';
+                      }
+                    },
                     obscureText: true,
                     autofocus: true,
                     decoration: InputDecoration(
@@ -91,23 +98,8 @@ class _Login extends State<Login> {
                       contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(32.0)),
-                    ),
-
+                    ), 
                     onSaved: (input) => _password = input,
-                  /*  onChanged: (value){
-                      setState(() {
-                        _password = value ;
-                      });
-                    },*/
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'من فضلك ادخل كلمة المرور';
-                      }
-                      if (value.length < 8) {
-                        return 'يجب الا تقل كلمة المرور عن ثماني ارقام او احرف';
-                      }
-                      return null;
-                    },
                   ),
                 ),
                 Padding(
@@ -141,6 +133,41 @@ class _Login extends State<Login> {
           ],
         ),
       ) ,
+      ),
+    );
+  }
+  String validateEmail(String value) {
+    String pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return "من فضلك ادخل البريد الالكتروني";
+    } else if (!regExp.hasMatch(value)) {
+      return "يجب ان يكون البريد الالكتروني متاح";
+    } else {
+      return null;
+    }
+  }
+    void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("فشل في الادخال"),
+          content: new Text("خطأ في البريد الالكتروني او كلمة المرور" , style: TextStyle(fontSize: 12 , color: Colors.red),),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("حسناً"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -154,30 +181,21 @@ Future<void> signIn()async{
             email: _email,
          password:_password ) ;
          if (_email == 'admin2020@gmail.com' && _password == '123456admin') {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> AdminHome()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> AdminHome()));
 
          }else{
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MainPage(user:user.user)));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> MainPage(user:user.user)));
          }
         }
         catch(e){
+          _showDialog();
           print(e.message);
         }
-        
       }
+       else{
+      setState(() {
+        _autoValidate = true;
+      });
     }
-
-
-  ///// validation form///////
-  ///valid email//
-  String validateEmail(String value) {
-    Pattern pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    if (value.isEmpty) return 'من فضلك ادخل البريد الالكتروني';
-    if (!regex.hasMatch(value))
-      return 'يجب ان يكون البريد الالكتروني متاح';
-
-/////////////////////////////////////////
-  }
+    }
 }

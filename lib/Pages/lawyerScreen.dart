@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gpproject/Pages/feedBackScreen.dart';
+
 import 'questionPage.dart';
 import 'Reserve.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -332,7 +334,43 @@ children: snapshot.data.documents.map((hoc) {
        }  else {
               return SizedBox();
   }});}
-           
+
+  Widget _feedBackBtn(){
+     return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 8.0),
+      child: Row(
+        children: <Widget>[
+           SizedBox(width: 30.0,),
+          Expanded(
+            child: InkWell(
+              onTap: (){ Navigator.of(context).push(
+                (MaterialPageRoute(builder: (context)=> feedBackScreen(currentLawyer: widget.currentLawyer, user: widget.user))));},
+              child: Container(
+                height: 40,
+                width: 60,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black),
+                  color: prime
+                ),
+                child: Center(
+                  child:  Text(
+                    'التقيمات ',
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                )
+              ),
+            ),
+          ),
+          SizedBox(width: 30.0,),
+           ],
+      ),
+    );
+  
+  } 
   //--------------------------------------BODY----------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -359,9 +397,11 @@ children: snapshot.data.documents.map((hoc) {
                          _buildOfficeAddress(context),
                           _buildLawyerNumber(context),
                         _buildSeparator(screenSize,context),
-                        SizedBox(height: 20,),
+                        SizedBox(height: 15,),
                         _buildButtons(),
-                        SizedBox(height: 20,),
+                        //SizedBox(height: 20,),
+                        // _buildSeparator(screenSize,context),
+                         _feedBackBtn(),
                         _buildTitle(),
                         _buildQuestionCard(),
                         
@@ -378,3 +418,4 @@ children: snapshot.data.documents.map((hoc) {
   }
 
 }
+

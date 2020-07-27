@@ -16,14 +16,17 @@ final FirebaseUser currentCourt ;
 
   class _view_archived_cases extends State<view_archived_cases>{
       final a = Firestore.instance;
-      Color prime = Color(0xff0e243b);
-      Color second = Colors.white ;
-     Color third =  Color(0xff0ccaee) ;
 
-
+Color prime = Color(0xff0e243b);
+  Color second = Colors.white ;
+  Color third =  Color(0xff0ccaee) ;
    @override
      Widget build(BuildContext context) {
-    return new Scaffold(
+  //--------------------------------Body of Class ------------------------------
+  return WillPopScope(
+      onWillPop: () async => true,
+      child: new Scaffold(
+
       drawer: drawerprofile(currentUser: widget.currentCourt,),
       appBar: AppBar( 
          backgroundColor: prime,
@@ -122,8 +125,12 @@ final FirebaseUser currentCourt ;
           }
         } ,
         ),    
-    );
+
+    )
   
+
+  );
+     
 
   }
  /* Widget build(BuildContext context) {
