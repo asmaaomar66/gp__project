@@ -35,7 +35,7 @@ final FirebaseUser value ;
             padding: const EdgeInsets.only(left:10.0,right: 15.0,top: 10.0),
             child: Container(
               child: new Text('نبذه عن القانون',
-                style: TextStyle(fontSize: 23.5 , color: Colors.teal,fontStyle: FontStyle.italic,
+                style: TextStyle(fontSize: 23.5 , color: prime,fontStyle: FontStyle.italic,
                     fontWeight:FontWeight.w600 ),
                 textDirection: TextDirection.rtl,
               ),
@@ -47,7 +47,7 @@ final FirebaseUser value ;
                 'وما ينشأ عنه من مصاهرة وولادة وولاية وحضانة وحقوق وواجبات متبادلة وما قد يعتريها من'
                 '  انحلال تترتب عليه حقوق في النفقة والحضانة والإرث والوصية.',
               style: TextStyle(fontSize: 17 ,
-                  color: Colors.teal,
+                  color: prime,
                   fontWeight:FontWeight.w300 ),
               textDirection: TextDirection.rtl,
             ),

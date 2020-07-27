@@ -38,7 +38,7 @@ bool loading = false ;
 String name ;
   String pathPDF ;
   String _path;
-  List<String> _extension; // = ['jpg', 'pdf', 'png', 'jpeg'];
+  List<String> _extension; 
   FileType _pickType = FileType.any ;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   List<StorageUploadTask> _tasks = <StorageUploadTask>[];
@@ -172,9 +172,7 @@ setState(() {
 
   }
  
-  /*String _bytesTransferred(StorageTaskSnapshot snapshots) {
-    return '${snapshots.bytesTransferred}/${snapshots.totalByteCount}';
-  }*/
+
  
   
  

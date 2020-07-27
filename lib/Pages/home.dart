@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 //import 'package:http/http.dart' as http;
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
+import 'package:gpproject/Pages/categoryDetails.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
 import 'package:badges/badges.dart';
@@ -73,6 +74,15 @@ String name ;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   List<StorageUploadTask> _tasks = <StorageUploadTask>[];
   final FirebaseAuth _auth = FirebaseAuth.instance;
+ String categoryname = "";
+  var CollectionName ;
+
+
+void initiateSearch(String val) {
+    setState(() {
+      categoryname = val;
+    });
+  }
 
 
   void openFileExplorer() async {
@@ -173,16 +183,11 @@ Firestore.instance.collection('files').document(lol).updateData({"Address" : lol
     else{
 } 
 
-  
       _tasks.add(uploadTask);
-
-  
-    
 
 setState(() {
   loading = false;
 });
-
 
 
     }
@@ -237,7 +242,8 @@ maxLengthEnforced: true,
 actions: <Widget>[
  
 IconButton(icon: new Icon(Icons.file_upload, color: Colors.black,),
- alignment: Alignment.topRight,color: Colors.teal[900], onPressed:()async{ Navigator.of(context).pop();
+ alignment: Alignment.topRight,color: Colors.teal[900], onPressed:()
+ async{ Navigator.of(context).pop();
    DocumentReference ref = await Firestore.instance.collection('folder').add(
                     {"name": _controller.text, "lawyerid": widget.user.uid});
                 imp = ref.documentID;
@@ -369,7 +375,9 @@ void notificationReplay() async {
 }
 
 
+
   
+
   
 
 
@@ -492,9 +500,92 @@ void notificationReplay() async {
                    });
                   },
                   ),
-                              
-                                      ]
-                                    );
+
+                      new Container(
+                          child: Padding(
+                          padding: EdgeInsets.only(
+                              top: 30.0, bottom: 0.0, right: 10.0, left: 10.0),
+                          child: Row(
+                            children: <Widget>[
+                              Flexible(
+                                child: GestureDetector( 
+                                  child: Container(
+                                     decoration: BoxDecoration(
+                          border: Border.all(color: Colors.teal[900]),
+                          borderRadius: BorderRadius.all(Radius.elliptical(30, 30)),
+                          color: Colors.white70,
+                        ),
+                        margin: EdgeInsets.fromLTRB(20, 0, 20, 50),
+                        padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                        child: new TextField(
+                          onChanged: (val) {
+                                initiateSearch(val); },
+                          style: TextStyle(),
+                          textDirection: TextDirection.rtl,
+                          autocorrect: true,
+                          decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            icon: new IconButton(
+                                icon: new Icon(Icons.search), onPressed: null),
+                            hintText: "ابحث عن رأي القانون في مشكلتك",
+                          ),
+                        )
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                      ),
+                      SizedBox(height: 10.0),
+                      StreamBuilder<QuerySnapshot>(
+          stream: categoryname != "" && categoryname != null
+              ? Firestore.instance
+                  .collection('Rules')
+                  .where("searchIndex", arrayContains: categoryname)
+                  .snapshots()
+              : Firestore.instance.collection("Rules").snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+            
+            
+            else{
+                return new Column(
+                  children:
+                      snapshot.data.documents.map((DocumentSnapshot document) {
+                    return new ListTile(
+                      title: new Text(document['name']),
+                      onTap: (){ 
+                       
+                                 setState(() {
+                            CollectionName= document['name'];
+                          });
+                         
+                          Navigator.of(context).push((MaterialPageRoute( builder: (context)=> categoryDetails(currentrule: document , id: document.data['id']  , collectionName: CollectionName, user:widget.user))));
+                                },
+                          );
+                  }).toList(),
+            );
+                     /*GridView.count(
+
+                    padding: EdgeInsets.only(left: 15.0, right: 15.0),
+                    
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 4.0,
+                    mainAxisSpacing: 4.0,
+                    primary: false,
+                    shrinkWrap: true,
+                    children: tempSearchStore.map((element) {
+                      return buildResultCard(element);
+                                          }).toList())*/
+                                          
+                      
+                      
+             }} ) ]
+                                    ); 
+
                                       }
                             
                                     });
@@ -562,7 +653,7 @@ void notificationReplay() async {
                       
                         child: Column(
                           children: <Widget>[
-                                                 
+
                             StreamBuilder<QuerySnapshot>(
                       stream:  
                       
@@ -572,11 +663,12 @@ void notificationReplay() async {
                            if(snapshot.hasError){
                              return Text("error");
                            }
-                           if(snapshot.connectionState == ConnectionState.waiting){
+                         /*  if(snapshot.connectionState == ConnectionState.active){
 
                                                      return SpinKitRing(color: Colors.blueGrey, size: 50,);
 
-                           }
+                           }*/
+                            if(snapshot.data == null) return CircularProgressIndicator();
                        
                         else{  
                           if(loading == false ){
@@ -941,6 +1033,8 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
   
 //---------------------------- COURT PAGE   -------------------------------------
 
+      //---------------------------- COURT PAGE   -------------------------------------
+
         FutureBuilder courtPage(DocumentSnapshot snapshot) {
           return FutureBuilder(
               future: _data,
@@ -1017,7 +1111,9 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                 children: <Widget>[
                   new CircleAvatar(
                     backgroundColor: prime , 
-                    maxRadius: 87.0,
+
+                    maxRadius: 85.0,
+
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -1025,7 +1121,7 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                           icon: Icon(
                             Icons.add_circle,
                             color: second,
-                            size: 35,
+                            size: 37,
                           ),
                           onPressed: () {
                             Navigator.push(context,new MaterialPageRoute(
@@ -1054,7 +1150,9 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                 children: <Widget>[
                   new CircleAvatar(
                     backgroundColor:  prime,
-                    maxRadius: 87.0,
+
+                    maxRadius: 85.0,
+
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -1062,11 +1160,11 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
                           icon: Icon(
                             Icons.settings,
                             color: second,
-                            size: 35,
+                            size: 37,
                           ),
                           onPressed: () {
                              Navigator.push(
-                               context,new MaterialPageRoute(builder:(context)=>manageCases(currentCourt:widget.user )));
+                context,new MaterialPageRoute(builder:(context)=>manageCases(currentCourt:widget.user )));
                           },
                         ),
                         new SizedBox(
@@ -1085,7 +1183,12 @@ Firestore.instance.collection("folder").where("Address", isEqualTo: doc.data['Ad
               });
         }
 
-    }
+
+
+     }
+
+
+
     
 
 class PDFScreen extends StatelessWidget { // new page presents the pdf 
@@ -1104,4 +1207,5 @@ class PDFScreen extends StatelessWidget { // new page presents the pdf
         
         );
   }
+  
 }
