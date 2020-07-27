@@ -400,7 +400,7 @@ class _SignUpCourt extends State<SignUpCourt> {
           );
         });
         
-        await Navigator.pushNamed(context, '/signin');
+        //await Navigator.pushNamed(context, '/signin');
         Navigator.push(context,MaterialPageRoute(builder: (context) => Login()), );
       } catch (e) {
         _changeLoadingVisible();

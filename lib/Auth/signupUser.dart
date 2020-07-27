@@ -609,7 +609,7 @@ class _SignUpUser extends State<SignUpUser> {
           );
         });
       
-        await Navigator.pushNamed(context, '/signin');
+        //await Navigator.pushNamed(context, '/signin');
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => Login()),
