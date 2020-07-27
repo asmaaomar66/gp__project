@@ -30,12 +30,12 @@ class _caseDetails extends State<caseDetails>{
  final FirebaseAuth _auth = FirebaseAuth.instance;
 
 //-------------------------------------BEGIN OF FUNCTIONS ---------------------------------
+ 
     //--------------------------Where I show Edite Button--------------------------
   Widget _whereIShowEditButton(num flag){
     if (widget.where_i_am == 'cases'){
       return Container(
         width: 96,
-
         height: 30,
         child: RaisedButton(
                           shape: RoundedRectangleBorder(
@@ -66,9 +66,7 @@ class _caseDetails extends State<caseDetails>{
       return SizedBox();
     }
     }
-
- //------------------------Build Separator----------------------
-
+ 
   Widget _buildSeparator(Size screenSize, BuildContext context){
     return Container(
       width: screenSize.width / 1.2,
@@ -77,9 +75,7 @@ class _caseDetails extends State<caseDetails>{
       margin: EdgeInsets.only(top: 10.0),
     );
   }
-
- //--------------------------Where I Show Archive Button--------------
-
+ 
   Widget _whereIShowArchiveButton(){
     if (widget.where_i_am == 'cases') {
      return Container(
@@ -120,8 +116,6 @@ class _caseDetails extends State<caseDetails>{
   }      
   }
 
-  //-------------------------On Cick Edite Button-----------------------
-
  Widget _onClickEditButton(num flag){
    showDialog<void>(
      context: context,
@@ -135,54 +129,42 @@ class _caseDetails extends State<caseDetails>{
              alignment: Alignment.topRight,color: prime,
                onPressed:(){
                  if(flag == 1){
-                 
+                  Navigator.of(context).pop();
                 Firestore.instance.collection('cases').document(widget.currentCase.data['caseId']).updateData
                 ({ "caseType": inputData.text,}).then((data){});
-                 
-                 Navigator.of(context).pop();
                  }
                   else if(flag == 2){
-                
+                  Navigator.of(context).pop();
                 Firestore.instance.collection('cases').document(widget.currentCase.data['caseId']).updateData
                 ({ "caseState": inputData.text,}).then((data){});
-                  Navigator.of(context).pop();
-                 
                  }
                    else if(flag == 3){
-                 
+                  Navigator.of(context).pop();
                 Firestore.instance.collection('cases').document(widget.currentCase.data['caseId']).updateData
                 ({ "offenderName": inputData.text,}).then((data){});
-                 Navigator.of(context).pop();
                  }
                    else if(flag == 4){
-                  
+                  Navigator.of(context).pop();
                 Firestore.instance.collection('cases').document(widget.currentCase.data['caseId']).updateData
                 ({ "victimName": inputData.text,}).then((data){});
-                Navigator.of(context).pop();
                  }
                    else if(flag == 5){
-                 
+                  Navigator.of(context).pop();
                 Firestore.instance.collection('cases').document(widget.currentCase.data['caseId']).updateData
                 ({ "crimeName": inputData.text,}).then((data){});
-                 Navigator.of(context).pop();
                  }
                    else if(flag == 6){
-                  
+                  Navigator.of(context).pop();
                 Firestore.instance.collection('cases').document(widget.currentCase.data['caseId']).updateData
                 ({ "caseDate": inputData.text,}).then((data){});
-                 Navigator.of(context).pop();
                  }
                    else if(flag == 7){
-                 
+                  Navigator.of(context).pop();
                 Firestore.instance.collection('cases').document(widget.currentCase.data['caseId']).updateData
                 ({ "caseNumber": inputData.text,}).then((data){});
-                 Navigator.of(context).pop();
                  }
                      Toast.show("تم تعديل القضيه بنجاح", context, duration: 3);
-                                       Navigator.push(
-                context,new MaterialPageRoute(builder:(context)=>manageCases(currentCourt:widget.currentCourt )));
-                
-
+                                      Navigator.pop(context);
                  }
              )
            ],
@@ -190,9 +172,7 @@ class _caseDetails extends State<caseDetails>{
       }
    );
  }
-
-  //----------------------------Set Edit Name -------------------------
-
+  
   Widget _setEditName(num flag){
      if (flag == 1){
       return Text('نوع القضيه',
@@ -226,9 +206,7 @@ class _caseDetails extends State<caseDetails>{
  
  
   }
-
-  //--------------------------On click Archive---------------------------
-
+  
   Future onClickArchive() async {
      final FirebaseUser user = await _auth.currentUser();
     Firestore _firestore = new Firestore();
@@ -262,13 +240,23 @@ class _caseDetails extends State<caseDetails>{
    
   
   }
-
-
-//-----------------------Build Body Container---------------------
-Widget _buildContainer(){
-  Size screenSize = MediaQuery.of(context).size;
-  return  Container(
-
+//------------------------------------END OF FUNCTIONS -------------------------------
+  @override
+  Widget build(BuildContext context) {
+//---------------------------------------Body of Class-----------------------------------
+     Size screenSize = MediaQuery.of(context).size;
+     return WillPopScope(
+       onWillPop: () async => false,
+       child:  Scaffold(
+      appBar: AppBar(
+              backgroundColor: prime ,
+              title: Text("تفاصيل القضيه"),
+              leading: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop()),
+            ),
+            //--------------------show case details-----------------------------
+     body: Container(
                padding: EdgeInsets.only( top: 20, bottom: 20.0),
                 child: Column(children: <Widget>[
                   Expanded(
@@ -451,32 +439,9 @@ Widget _buildContainer(){
                     ),
                   ),
                          ])  
-
-     );
-  
-}
- 
-//------------------------------------END OF FUNCTIONS -------------------------------
-  @override
-  Widget build(BuildContext context) {
-//---------------------------------------Body of Class-----------------------------------
-     
-     return WillPopScope(
-       onWillPop: () async => false,
-       child:  Scaffold(
-      appBar: AppBar(
-              backgroundColor: prime ,
-              title: Text("تفاصيل القضيه"),
-              leading: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () => Navigator.of(context).pop()),
-            ),
-            //--------------------show case details-----------------------------
-     body: _buildContainer()
-      
-       )
+     )
+    )
  ,
      );
      }
-
 }

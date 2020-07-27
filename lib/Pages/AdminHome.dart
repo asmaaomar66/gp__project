@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gpproject/Pages/HelloApp.dart';
+import 'package:gpproject/Pages/showReports.dart';
 import 'package:gpproject/Pages/userAdminScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,7 +34,7 @@ class _AdminHomeState extends State<AdminHome> {
   @override
   Widget build(BuildContext context) { 
     return new WillPopScope(
-    onWillPop: () async => false,
+    onWillPop: () async => true,
     child:new Scaffold(
          drawer: new Drawer(
             child: Column(
@@ -90,6 +91,20 @@ class _AdminHomeState extends State<AdminHome> {
                 Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Rules()));
               },
             ),
+    //-------------------Show Reports--------------------------------------
+              ListTile(
+              leading: Icon(Icons.show_chart , color: third,),
+              title: Text(
+                'عرض_التقارير',
+                style: TextStyle(fontSize: 22),
+              ),
+              onTap: () {
+                  Navigator.push(context,new MaterialPageRoute(
+                          builder:(context)=>showReports()
+                      ));
+              },
+            ),
+    //--------------------------------------------------------------------
              ListTile(
               leading: Icon(Icons.exit_to_app , color: third,),
               title: Text(
