@@ -59,7 +59,7 @@ class _AddRolesState extends State<AddRoles> {
               borderRadius: BorderRadius.circular(12),
             ),
              title:  Container(
-              height: MediaQuery.of(context).size.height/2,
+              height: MediaQuery.of(context).size.height/3,
               width: 300, child : SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
