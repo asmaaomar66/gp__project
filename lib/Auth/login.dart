@@ -24,7 +24,9 @@ class _Login extends State<Login> {
   Color third =  Color(0xff0ccaee) ;
   @override
   Widget build(BuildContext context) {
-    return  new Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child:  new Scaffold(
       appBar: new AppBar(
         backgroundColor:prime,
         // Color.fromRGBO(1, 44, 45, 15),
@@ -132,7 +134,7 @@ class _Login extends State<Login> {
         ),
       ) ,
       
-    );
+   ) );
   }
   String validateEmail(String value) {
     String pattern =
