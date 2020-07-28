@@ -318,7 +318,7 @@ Color prime = Color(0xff0e243b);
               onTap: () {
                 signOut();
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => HelloApp()));
+                    context, MaterialPageRoute(builder: (context) => Login()));
               },
             ),
           ],

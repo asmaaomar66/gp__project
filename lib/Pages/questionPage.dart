@@ -76,7 +76,7 @@ class questionPageState extends State<questionPage> {
                             new RaisedButton.icon(onPressed:() 
                             async {
                              String l = " " ;
-                               if(_controller.text.allMatches(l) != null){
+                              /* if(_controller.text.allMatches(l) != null){
                                 Fluttertoast.showToast(
         msg: "من فضلك اضف سؤالك",
         toastLength: Toast.LENGTH_SHORT,
@@ -87,8 +87,8 @@ class questionPageState extends State<questionPage> {
         fontSize: 16.0
         
     );
-                               }
-                               else{
+                               }*/
+                         //      else{
                                 final FirebaseUser user = await _auth.currentUser();
               DocumentReference ref = await Firestore.instance.collection('info').add(
                 {"title": _controller.text, "lawyerid":widget.id});
@@ -99,7 +99,9 @@ class questionPageState extends State<questionPage> {
               Firestore.instance.collection("reading").add({"title": _controller.text , "id": widget.id});
               Firestore.instance.collection("info").document(imp).updateData({ "userid": user.uid});
               Firestore.instance.collection("info").document(imp).updateData({"Date": notification.format});
-               _controller.clear();}},
+               _controller.clear();
+              // }
+               },
                                             icon: new Icon(Icons.question_answer,
                                             color: Colors.white,),
                                             label:new Text('أسأل',style:TextStyle(color: Colors.white ,fontSize: 18.0),),

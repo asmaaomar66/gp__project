@@ -80,7 +80,7 @@ class _HomeState extends State<AnswerQuestions> {
 
                             RaisedButton.icon(onPressed: () 
                             async {  String l = " " ;
-                               if(_f.text.allMatches(l) != null){
+                              /* if(_f.text.allMatches(l) != null){
                                 Fluttertoast.showToast(
         msg: "من فضلك اضف اجابتك",
         toastLength: Toast.LENGTH_SHORT,
@@ -90,13 +90,14 @@ class _HomeState extends State<AnswerQuestions> {
         textColor: Colors.white,
         fontSize: 16.0
     );
-                               }
-                               else{
+                               }*/
+                           //    else{
               Firestore.instance.collection('info').document(widget.val).updateData({ "answering" : _f.text });
               Firestore.instance.collection('answers').add({"title": _f.text , "id": widget.userid});
               Firestore.instance.collection('info').document(widget.val).updateData({ "state" : state });
               Firestore.instance.collection('info').document(widget.val).updateData({"DateofAnswer": notification.format});              
-              _f.clear();}
+              _f.clear();
+             // }
                                                                   }, 
               icon:new Icon(Icons.arrow_forward_ios,color: Colors.white,),
               label:new Text('أجب',style:TextStyle(color: Colors.white),),

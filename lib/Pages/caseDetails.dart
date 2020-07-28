@@ -99,7 +99,7 @@ class _caseDetails extends State<caseDetails>{
                               Icon(
                                 Icons.archive
                               ),
-                              Text("أضافة القضية الي الأرضيف",
+                              Text("أضافة القضية الي الأرشيف",
                               style: TextStyle(
                                 fontSize: 15.0,
                               )),
@@ -246,7 +246,7 @@ class _caseDetails extends State<caseDetails>{
 //---------------------------------------Body of Class-----------------------------------
      Size screenSize = MediaQuery.of(context).size;
      return WillPopScope(
-       onWillPop: () async => false,
+       onWillPop: () async => true,
        child:  Scaffold(
       appBar: AppBar(
               backgroundColor: prime ,
@@ -260,11 +260,11 @@ class _caseDetails extends State<caseDetails>{
                padding: EdgeInsets.only( top: 20, bottom: 20.0),
                 child: Column(children: <Widget>[
                   Expanded(
-                    child: ListView(
+                    child: Column(
                       children: <Widget>[
                 //--------------------case type----------------------
                  Expanded(
-                   child: Column(
+                   child: ListView(
                           children: <Widget>[
                              Container(
                           padding: EdgeInsets.only(
@@ -284,7 +284,7 @@ class _caseDetails extends State<caseDetails>{
                  ),
                 //--------------------case State----------------------
                  Expanded(
-                   child:  Column(
+                   child:  ListView(
                           children: <Widget>[
                              Container(
                           padding: EdgeInsets.only(
@@ -309,7 +309,7 @@ class _caseDetails extends State<caseDetails>{
         ),
                 //--------------------offender name----------------------
                  Expanded(
-                   child:Column(
+                   child:ListView(
                           children: <Widget>[
                              Container(
                           padding: EdgeInsets.only(
@@ -334,7 +334,7 @@ class _caseDetails extends State<caseDetails>{
       )
                 //--------------------victim name------------------------
                  ,Expanded(
-                   child:  Column(
+                   child:  ListView(
                           children: <Widget>[
                              Container(
                           padding: EdgeInsets.only(
@@ -359,7 +359,7 @@ class _caseDetails extends State<caseDetails>{
                     )
                 //--------------------crime name----------------------
                  ,Expanded(
-                   child:  Column(
+                   child:  ListView(
                           children: <Widget>[
                              Container(
                           padding: EdgeInsets.only(
@@ -384,7 +384,7 @@ class _caseDetails extends State<caseDetails>{
           )
                 //--------------------case date------------------------
                  ,Expanded(
-                   child: Column(
+                   child: ListView(
                           children: <Widget>[
                              Container(
                           padding: EdgeInsets.only(
@@ -409,7 +409,7 @@ class _caseDetails extends State<caseDetails>{
                     )
                 //--------------------case number----------------------
                  ,Expanded(
-                   child:  Column(
+                   child:  ListView(
                           children: <Widget>[
                              Container(
                           padding: EdgeInsets.only(
