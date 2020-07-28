@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'HelloApp.dart';
+import 'editrule.dart';
 import 'manage_lawyers.dart';
 
 
@@ -210,16 +211,8 @@ class _manageSubRoleState extends State<manageSubRole> {
                         }
                       ),
                        onLongPress: () {
-                 /* Role selectedrule = new Role(
-                      rId: doc.documentID,
-                      rolename: doc["Rolename"],
-                      rolenumber: doc["Rolenumber"],
-                      subjectname: doc["Subjectname"],
-                      bandname: doc["Bandname"],
-                      );
-                  Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                    return editroles(selectedrule);
-                  }));*/
+                                          Navigator.of(context).push((MaterialPageRoute( builder: (context)=> editrule(currentrule: doc , id: widget.id  , collectionName: CollectionName,))));
+
                 },
                       );
                     }).toList(),

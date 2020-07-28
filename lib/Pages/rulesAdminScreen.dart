@@ -96,7 +96,7 @@ var Selected ;
                         new FloatingActionButton(
                           onPressed: (){
                             rulesRef
-                            .document(widget.currentrule.id)
+                            .document(widget.currentrule.data['id'])
                             .delete()
                             .then((data) {
                             print("تم");
